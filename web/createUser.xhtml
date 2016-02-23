@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crear Cuenta</title>
+    </h:head>
+    <h:body>   
+        <panel>
+            <h:form>
+                <h1>Recursos Humanos</h1>
+                <hr/>
+                <h2>Crear Usuario</h2>   
+                <h:panelGrid columns="2">
+                    <label>Nombre:</label>
+                    <h:inputText value="#{createUserBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                    <label>Apellido:</label>
+                    <h:inputText value="#{createUserBean.lastname}" required="true" requiredMessage="¡El appellido es requerido!"/>
+                    <label>Edad:</label>
+                    <h:inputText value="#{createUserBean.age}" required="true" requiredMessage="¡La edad es requerida!"/>
+                    <label>Dirección:</label>
+                    <h:inputText value="#{createUserBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
+                    <label>Teléfono:</label>
+                    <h:inputText value="#{createUserBean.phone}" required="true" requiredMessage="¡El telefono es requerido!"/>
+                    <label>email:</label>
+                    <h:inputText value="#{createUserBean.email}" required="true" requiredMessage="¡El email es requerido!"/>
+                    <label>Nombre de Usuario</label>
+                    <h:inputText value="#{createUserBean.username}" required="true" requiredMessage="¡El nombre de usuario es requerido!"/>          
+                    <label>Contraseña:</label>
+                    <h:inputSecret value="#{createUserBean.password1}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                    <label>Repetir Contraseña:</label>
+                    <h:inputSecret value="#{createUserBean.password2}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                    <label>Rol:</label>
+                    <h:selectOneMenu value="#{createUserBean.role}">
+                        <f:selectItem itemValue="1" itemLabel="Usuario" />
+                        <f:selectItem itemValue="2" itemLabel="Administrador" />	   							
+                     </h:selectOneMenu>
+                    
+                <br/>
+                </h:panelGrid>
+                <h:commandButton action="#{createUserBean.createUser()}" value="Crear Usuario"/>
+                <br/>
+                <br/>
+                <label>Mensaje: </label>
+                <h:outputText value="#{createUserBean.message}"/>
+                <br/>
+                <br/>
+                <a href="index.xhtml">Inicio</a>
+                <br/>  
+            </h:form>
+        </panel>
+    </h:body>
+</html>

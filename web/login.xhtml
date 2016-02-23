@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Sistema de Recursos Humanos</title>
+    </h:head>
+    <h:body>
+        <panel>
+            <h:form>
+                <h1>Iniciar Sesión</h1>
+                <hr/>   
+                <h:panelGrid columns="2">
+                <label>User:</label>
+                <h:inputText value="#{loginBean.user}" required="true" requiredMessage="¡El usuario es requerido!"/>           
+                <label>Contraseña:</label>
+                <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                <br/>
+                </h:panelGrid>
+                <h:commandButton action="#{loginBean.login()}" value="log"/>
+                <br/>
+                <br/>
+                <h:outputText value="#{loginBean.message}"/>
+            </h:form>
+        </panel>
+    </h:body>
+</html>
