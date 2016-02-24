@@ -7,6 +7,10 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -14,29 +18,49 @@ import javax.faces.context.FacesContext;
  * @author Alejandro
  */
 public class HandleLogin {
-    
-    public String doLogin(String user, String password){
-        
+
+    public String doLogin(String user, String password) {
+
         UserDAO userDAO = new UserDAO();
         User userObject = userDAO.searchByUsername(user);
-        
         if (userObject != null) {
-            if(!userObject.getPassword().equals(password)){
+            if (!userObject.getPassword().equals(password)) {
                 return "La contraseña digitada NO es la de el usuario " + userObject.getName();
-            }else{
-                //Saltar 
-                String rol = userObject.getFkroleID().getName();
-                String userSession = rol + "-" + userObject.getName() + "-" + userObject.getLastname();
-                //return new ModelAndView("redirect:/home");
+            } else {
                 try {
-                    FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "home.xhtml");
-                } catch (Exception e) {
-                    System.out.println("Error en redirect");
+                    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                    ec.getSessionMap().put("user", userObject.getName() + " " + userObject.getLastname());
+                    ec.getSessionMap().put("role", userObject.getFkroleID().getName());
+                    String url = "";
+                    if (ec.getSessionMap().get("role").equals("Administrator")) {
+                        url = ec.encodeActionURL(
+                                FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
+                    } else {
+                        url = ec.encodeActionURL(
+                                FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/adminPanel.xhtml"));
+                    }
+                    ec.redirect(url);
+                    return "Logueando...";
+                } catch (IOException ex) {
+                    return "Error en redireccionamiento";
                 }
-                return "Logueando...";
             }
         } else {
             return "El usuario no existe";
-        }        
+        }
+    }
+
+    public void doLogout() {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext extContext = context.getExternalContext();
+            extContext.getSessionMap().remove("user");
+            extContext.getSessionMap().remove("role");
+            String url = extContext.encodeActionURL(
+                    context.getApplication().getViewHandler().getActionURL(null, "index.xhtml"));
+            extContext.redirect(url);
+        } catch (IOException ex) {
+            Logger.getLogger(HandleLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

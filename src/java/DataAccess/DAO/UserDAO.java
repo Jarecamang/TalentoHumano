@@ -16,7 +16,7 @@ import javax.persistence.Query;
  * @author Alejandro
  */
 public class UserDAO {
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("RecursosHumanosPU");
     
     public User persist(User user) {
         
@@ -44,7 +44,7 @@ public class UserDAO {
         try {
             userObject = (User) q.getSingleResult();
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
             em.close();

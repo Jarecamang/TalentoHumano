@@ -6,21 +6,27 @@
 package Presentation.Bean;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+;
 import BusinessLogic.Controller.HandleLogin;
+import javax.faces.bean.RequestScoped;
+
 /**
  *
  * @author Alejandro
  */
+
+
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class LoginBean {
+
     String user;
     String password;
     String message;
+
     public LoginBean() {
     }
-    
+
     public String getUser() {
         return user;
     }
@@ -44,10 +50,14 @@ public class LoginBean {
     public void setMessage(String message) {
         this.message = message;
     }
-    
-    public void login(){   
+
+    public void login() {
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
     }
-    
+
+    public void logout() {
+        HandleLogin login = new HandleLogin();
+        login.doLogout();
+    }
 }

@@ -1,19 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head> 
         <title>Sistema de Recursos Humanos</title>
-    </h:head>
-    <h:body>
-        <panel>
-            <h:form>
-                <h1>Recursos Humanos</h1>
-                <hr/>   
-                <br/>
-                <h:commandLink action="login" value="Iniciar Sesión"/>
-                <br/>
+        <style type="text/css">
+            body{font-family: Tahoma,Arial,Verdana; font-size: 12px}
+            .label{width: 70px; font-weight: bold;display: inline-block;margin-left: 10px;text-align: left}
+            .textfield{width: 120px; padding-left: 2px}
+            .errorMessage{color:darkred;font-weight: bold}
+            .loginButton{float:right;margin-right: 5px}
+            .loginBox{width: 220px; vertical-align: middle;font-weight: bold}
+        </style>
+    </h:head> 
+    <h:body> 
+        <f:view>
+            <h:form id="index" >
+                <center>
+                    <h1>SISTEMA DE RECURSOS HUMANOS</h1>
+                </center>
+                <div align="center">
+                    <fieldset class="loginBox">
+                        <legend>Login</legend>
+                        <span class="label">Usuario:</span> <h:inputText styleClass="textfield" id="user" value="#{loginBean.user}"></h:inputText><br/>
+                        <span class="label">Password:</span> <h:inputSecret styleClass="textfield" id="password"  value="#{loginBean.password}"></h:inputSecret><br/>
+                        <h:commandButton styleClass="loginButton" actionListener="#{loginBean.login()}" value="Login">
+                            <f:ajax execute="@form" render="message"></f:ajax>
+                        </h:commandButton><br/>
+                        <h:outputText styleClass="errorMessage" value="#{loginBean.message}" id="message"></h:outputText>
+                    </fieldset>
+                </div>
             </h:form>
-        </panel>
+        </f:view>
     </h:body>
 </html>
+
