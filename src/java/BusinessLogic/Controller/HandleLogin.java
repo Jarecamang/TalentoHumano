@@ -37,7 +37,7 @@ public class HandleLogin {
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
                     } else {
                         url = ec.encodeActionURL(
-                                FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/adminPanel.xhtml"));
+                                FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
                     }
                     ec.redirect(url);
                     return "Logueando...";
@@ -56,9 +56,7 @@ public class HandleLogin {
             ExternalContext extContext = context.getExternalContext();
             extContext.getSessionMap().remove("user");
             extContext.getSessionMap().remove("role");
-            String url = extContext.encodeActionURL(
-                    context.getApplication().getViewHandler().getActionURL(null, "index.xhtml"));
-            extContext.redirect(url);
+            extContext.redirect(extContext.getRequestContextPath());
         } catch (IOException ex) {
             Logger.getLogger(HandleLogin.class.getName()).log(Level.SEVERE, null, ex);
         }

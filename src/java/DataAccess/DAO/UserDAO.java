@@ -16,7 +16,7 @@ import javax.persistence.Query;
  * @author Alejandro
  */
 public class UserDAO {
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("RecursosHumanosPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("RHPU");
     
     public User persist(User user) {
         
