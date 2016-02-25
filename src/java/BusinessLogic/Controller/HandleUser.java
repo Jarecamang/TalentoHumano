@@ -8,14 +8,13 @@ package BusinessLogic.Controller;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
 import DataAccess.Entity.Role;
-import javax.faces.context.FacesContext;
 /**
  *
  * @author Alejandro
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, int age, String address, String phone, String email, String username, String password1, String password2, String role) {
+    public String doCreate(String name, String lastname, int age, String address, String phone, String email, int level_training, String username, String password1, String password2, String role) {
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
         user.setName(name);
@@ -24,6 +23,7 @@ public class HandleUser {
         user.setAddress(address);
         user.setPhone(phone);
         user.setEmail(email);
+        user.setLevelTraining(level_training);
         user.setUsername(username);
         user.setFkroleID(roleObject);
         if(!password1.equals(password2)){

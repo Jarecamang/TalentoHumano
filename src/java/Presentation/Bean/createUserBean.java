@@ -22,6 +22,7 @@ public class createUserBean {
     String address;
     String phone;
     String email;
+    int level_training;
     String username;
     String password1;
     String password2;
@@ -117,6 +118,6 @@ public class createUserBean {
     }
     public void createUser(){   
         HandleUser createUser = new HandleUser();
-        message = createUser.doCreate(name, lastname, age, address, phone, email, username, password1, password2, role);
+        message = createUser.doCreate(name, lastname, age, address, phone, email, level_training, username, password1, password2, role);
     }
 }

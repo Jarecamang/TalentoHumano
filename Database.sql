@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
   `address` VARCHAR(255) NOT NULL,
   `phone` MEDIUMTEXT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `level_training` INT(11) NOT NULL,
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(16) NOT NULL,
   `fkroleID` INT(11) NOT NULL,
@@ -266,4 +267,4 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO `role` VALUES(1,'User'),(2,'Administrator');
-INSERT INTO `user` VALUES (1,'Admin','Tester',99,'Juaz123',3212345656,'admin@admin.admin','admin','Admin2016',2);
+INSERT INTO `user` VALUES (1,'Admin','Tester',99,'Juaz123',3212345656,'admin@admin.admin',5,'admin','Admin2016',2);

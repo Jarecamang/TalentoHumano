@@ -6,9 +6,7 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,18 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByAge", query = "SELECT u FROM User u WHERE u.age = :age"),
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.findByLevelTraining", query = "SELECT u FROM User u WHERE u.levelTraining = :levelTraining"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
@@ -73,19 +67,23 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "address")
     private String address;
-    //@Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 16777215)
     @Column(name = "phone")
     private String phone;
-    //@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "level_training")
+    private int levelTraining;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -96,19 +94,9 @@ public class User implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "password")
     private String password;
-    @ManyToMany(mappedBy = "userCollection")
-    private Collection<Areaofinterest> areaofinterestCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Contract contract;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Certificate certificate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Collection<Certifications> certificationsCollection;
     @JoinColumn(name = "fkroleID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private Role fkroleID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Collection<Notifications> notificationsCollection;
 
     public User() {
     }
@@ -117,7 +105,7 @@ public class User implements Serializable {
         this.pkID = pkID;
     }
 
-    public User(Integer pkID, String name, String lastname, int age, String address, String phone, String email, String username, String password) {
+    public User(Integer pkID, String name, String lastname, int age, String address, String phone, String email, int levelTraining, String username, String password) {
         this.pkID = pkID;
         this.name = name;
         this.lastname = lastname;
@@ -125,6 +113,7 @@ public class User implements Serializable {
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.levelTraining = levelTraining;
         this.username = username;
         this.password = password;
     }
@@ -185,6 +174,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public int getLevelTraining() {
+        return levelTraining;
+    }
+
+    public void setLevelTraining(int levelTraining) {
+        this.levelTraining = levelTraining;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -201,55 +198,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
-    public Collection<Areaofinterest> getAreaofinterestCollection() {
-        return areaofinterestCollection;
-    }
-
-    public void setAreaofinterestCollection(Collection<Areaofinterest> areaofinterestCollection) {
-        this.areaofinterestCollection = areaofinterestCollection;
-    }
-
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
-
-    public Certificate getCertificate() {
-        return certificate;
-    }
-
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
-    }
-
-    @XmlTransient
-    public Collection<Certifications> getCertificationsCollection() {
-        return certificationsCollection;
-    }
-
-    public void setCertificationsCollection(Collection<Certifications> certificationsCollection) {
-        this.certificationsCollection = certificationsCollection;
-    }
-
     public Role getFkroleID() {
         return fkroleID;
     }
 
     public void setFkroleID(Role fkroleID) {
         this.fkroleID = fkroleID;
-    }
-
-    @XmlTransient
-    public Collection<Notifications> getNotificationsCollection() {
-        return notificationsCollection;
-    }
-
-    public void setNotificationsCollection(Collection<Notifications> notificationsCollection) {
-        this.notificationsCollection = notificationsCollection;
     }
 
     @Override
