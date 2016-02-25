@@ -56,20 +56,21 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
   `lastname` VARCHAR(255) NOT NULL,
   `age` INT(11) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
-  `phone` LONG NOT NULL,
+  `phone` MEDIUMTEXT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(16) NOT NULL,
   `fkroleID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
   INDEX `fk_user_role1_idx` (`fkroleID` ASC),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   CONSTRAINT `fk_user_role1`
     FOREIGN KEY (`fkroleID`)
     REFERENCES `humanresources`.`role` (`pkID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8;
 
 
