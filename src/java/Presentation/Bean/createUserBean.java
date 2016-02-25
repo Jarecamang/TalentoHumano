@@ -20,7 +20,7 @@ public class createUserBean {
     String lastname;
     int age;
     String address;
-    long phone;
+    String phone;
     String email;
     String username;
     String password1;
@@ -76,11 +76,11 @@ public class createUserBean {
         this.address = address;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

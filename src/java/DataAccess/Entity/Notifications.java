@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Alejandro
+ * @author PCMiguel
  */
 @Entity
 @Table(name = "notifications")

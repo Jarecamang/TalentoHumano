@@ -15,11 +15,12 @@ import javax.faces.context.FacesContext;
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, int age, String address, long phone, String email, String username, String password1, String password2, String role) {
+    public String doCreate(String name, String lastname, int age, String address, String phone, String email, String username, String password1, String password2, String role) {
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
         user.setName(name);
         user.setLastname(lastname);
+        user.setAge(age);
         user.setAddress(address);
         user.setPhone(phone);
         user.setEmail(email);
@@ -31,7 +32,7 @@ public class HandleUser {
             user.setPassword(password1);
         }     
         UserDAO userDAO = new UserDAO();
-        User userObject = userDAO.persist(user);
+            User userObject = userDAO.persist(user);
         if (userObject != null) {
             return "El usuario ha sido creado con username " + userObject.getUsername()+ ".";
         } else {

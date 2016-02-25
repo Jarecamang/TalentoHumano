@@ -6,6 +6,7 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,15 +16,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alejandro
+ * @author PCMiguel
  */
 @Entity
 @Table(name = "role")
@@ -45,8 +47,8 @@ public class Role implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkroleID")
-    private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkroleID")
+    private Collection<User> userCollection;
 
     public Role() {
     }
@@ -76,12 +78,13 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override
