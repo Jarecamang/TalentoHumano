@@ -6,6 +6,7 @@
 package BusinessLogic.Controller;
 
 import DataAccess.DAO.ContractDAO;
+import DataAccess.DAO.PositionDAO;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.User;
 import DataAccess.Entity.Contract;
@@ -34,7 +35,9 @@ public class HandleContract {
                 return "El contrato no fue creado ya que no se define fecha de finalización a un contrato Definido.";
             }
         }
-        //ContractPosition contractPosition = new ContractPosition();
+        
+        PositionDAO positionDAO=new PositionDAO();
+        contract.getPositionCollection().add(positionDAO.searchByID(contractPosition));
 
         ContractDAO contractDAO = new ContractDAO();
         Contract contractObject = contractDAO.persist(contract);

@@ -28,11 +28,30 @@ public class PositionDAO {
         try {
             em.persist(position);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
+            em.close();
+            return null;
+        }
+        em.close();
+        return position;
+    }
+    
+    public Position searchByID(int ID) {
+
+        EntityManager em = emf1.createEntityManager();
+        Position positionObject = null;
+        Query q = em.createNamedQuery("Position.findByPkID");
+        q.setParameter("pkID", ID);
+
+        try {
+            positionObject = (Position) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("El usuario no existe");
         } finally {
             em.close();
-            return position;  
+            return positionObject;
         }
     }
     

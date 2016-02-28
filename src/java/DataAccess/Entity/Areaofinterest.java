@@ -7,6 +7,8 @@ package DataAccess.Entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,12 +54,9 @@ public class Areaofinterest implements Serializable {
         @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")})
     @ManyToMany
-    private Collection<User> userCollection;
-    @JoinTable(name = "certificationsareaofinterest", joinColumns = {
-        @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
-        @JoinColumn(name = "fkcertificationsID", referencedColumnName = "pkID")})
+    private Set<User> userCollection = new HashSet<>(0);
     @ManyToMany
-    private Collection<Certifications> certificationsCollection;
+    private Set<Certifications> certificationsCollection = new HashSet<>(0);
 
     public Areaofinterest() {
     }
@@ -88,20 +87,20 @@ public class Areaofinterest implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
+    public Set<User> getUserCollection() {
         return userCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
+    public void setUserCollection(Set<User> userCollection) {
         this.userCollection = userCollection;
     }
 
     @XmlTransient
-    public Collection<Certifications> getCertificationsCollection() {
+    public Set<Certifications> getCertificationsCollection() {
         return certificationsCollection;
     }
 
-    public void setCertificationsCollection(Collection<Certifications> certificationsCollection) {
+    public void setCertificationsCollection(Set<Certifications> certificationsCollection) {
         this.certificationsCollection = certificationsCollection;
     }
 
@@ -129,5 +128,5 @@ public class Areaofinterest implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Areaofinterest[ pkID=" + pkID + " ]";
     }
-    
+
 }

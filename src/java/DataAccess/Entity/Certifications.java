@@ -8,6 +8,8 @@ package DataAccess.Entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -64,8 +67,11 @@ public class Certifications implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "place")
     private String place;
-    @ManyToMany(mappedBy = "certificationsCollection")
-    private Collection<Areaofinterest> areaofinterestCollection;
+    @OneToMany
+    @JoinTable(name = "certificationsareaofinterest", joinColumns = {
+        @JoinColumn(name = "fkcertificationsID", referencedColumnName = "pkID")}, inverseJoinColumns = {
+        @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")})
+    private Set<Areaofinterest> areaofinterestCollection = new HashSet<>(0);
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private User fkuserID;
@@ -119,11 +125,11 @@ public class Certifications implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Areaofinterest> getAreaofinterestCollection() {
+    public Set<Areaofinterest> getAreaofinterestCollection() {
         return areaofinterestCollection;
     }
 
-    public void setAreaofinterestCollection(Collection<Areaofinterest> areaofinterestCollection) {
+    public void setAreaofinterestCollection(Set<Areaofinterest> areaofinterestCollection) {
         this.areaofinterestCollection = areaofinterestCollection;
     }
 
@@ -168,5 +174,5 @@ public class Certifications implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Certifications[ pkID=" + pkID + " ]";
     }
-    
+
 }

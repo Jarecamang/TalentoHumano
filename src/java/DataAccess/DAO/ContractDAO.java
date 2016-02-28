@@ -9,28 +9,28 @@ import DataAccess.Entity.Contract;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  *
  * @author Alejandro
  */
 public class ContractDAO {
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
-    
+
     public Contract persist(Contract contract) {
-        
+
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
-        
         try {
             em.persist(contract);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
-        } finally {
             em.close();
-            return contract;  
+            return null;
         }
+        em.close();
+        return contract;
     }
 }

@@ -6,9 +6,11 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +18,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -61,11 +63,11 @@ public class Contract implements Serializable {
     @Column(name = "enddate")
     @Temporal(TemporalType.DATE)
     private Date enddate;
+    @OneToMany
     @JoinTable(name = "contractposition", joinColumns = {
         @JoinColumn(name = "fkcontractID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkpositionID", referencedColumnName = "pkID")})
-    @ManyToMany
-    private Collection<Position> positionCollection;
+    private Set<Position> positionCollection= new HashSet<>(0);
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @OneToOne(optional = false)
     private User fkuserID;
@@ -116,11 +118,11 @@ public class Contract implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Position> getPositionCollection() {
+    public Set<Position> getPositionCollection() {
         return positionCollection;
     }
 
-    public void setPositionCollection(Collection<Position> positionCollection) {
+    public void setPositionCollection(Set<Position> positionCollection) {
         this.positionCollection = positionCollection;
     }
 
@@ -156,5 +158,5 @@ public class Contract implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Contract[ pkID=" + pkID + " ]";
     }
-    
+
 }

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<head>
+		<title>ESTADISTICAS</title>
+                <script src="../js/Chart.js"></script>
+	</head>
+	<body> 
+
+        <script type="text/javascript" language="JavaScript">
+        function toGraphTrainingLevels(level1,level2,level3,level4,level5,level6){
+        var radarChartData = {
+		labels: ["Tecnico","Tecnologo","Especialista","Magister","Doctorado","Phd"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [level1,level2,level3,level4,level5,level6]
+			}
+		]
+	};
+        var pieData = [
+				{
+					value: level1,
+					color:"#0b82e7",
+					highlight: "#0c62ab",
+					label: "Tecnico"
+				},
+				{
+					value: level2,
+					color: "#e3e860",
+					highlight: "#a9ad47",
+					label: "Tecnologo"
+				},
+				{
+					value: level3,
+					color: "orange",
+					highlight: "#b74865",
+					label: "Especialista"
+				},
+				{
+					value: level4,
+					color: "#5ae85a",
+					highlight: "#42a642",
+					label: "Magister"
+				},
+				{
+					value: level5,
+					color: "#e965db",
+					highlight: "#a6429b",
+					label: "Doctorado"
+				},
+				{
+					value: level6,
+					color: "#eb5d82",
+					highlight: "#b74865",
+					label: "Phd"
+				}
+				
+			];
+        var barChartData = {
+		labels: ["Tecnico","Tecnologo","Especialista","Magister","Doctorado","Phd"],
+		datasets : [
+			{
+				fillColor : "#6b9dfa",
+				strokeColor : "#ffffff",
+				highlightFill: "#1864f2",
+				highlightStroke: "#ffffff",
+				data: [level1,level2,level3,level4,level5,level6]
+			}
+		]
+	}
+			var rd = document.getElementById("radar").getContext("2d");
+                        window.myRadar = new Chart(rd).Radar(radarChartData);
+			var pt = document.getElementById("pastel").getContext("2d");
+			window.myPie = new Chart(pt).Pie(pieData);
+			var br = document.getElementById("barras").getContext("2d");
+			window.myPie = new Chart(br).Bar(barChartData);
+}
+        </script>    
+	
+        <div class="tab-pane" id="tab3">
+            <p>NIVEL DE CAPACITACION DE EMPLEADOS</p>
+            <canvas id="barras" width="400" height="400"></canvas>
+            <canvas id="radar" height="400" width="500"></canvas>
+            <canvas id="pastel" width="380" height="380"></canvas>
+        </div>
+         
+        <script>
+            toGraphTrainingLevels(
+            #{userLevelTrainingBean.get_training_levels().technical},
+            #{userLevelTrainingBean.get_training_levels().technologist},
+            #{userLevelTrainingBean.get_training_levels().specialist},
+            #{userLevelTrainingBean.get_training_levels().magister},
+            #{userLevelTrainingBean.get_training_levels().doctor},
+            #{userLevelTrainingBean.get_training_levels().phd}
+            );
+            
+        </script>     
+        
+        <br/>
+            <a href="adminPanel.xhtml">Atras</a>
+        <br/>      
+             
+	</body>
+</html>
