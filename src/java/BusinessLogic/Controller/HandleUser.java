@@ -14,27 +14,29 @@ import DataAccess.Entity.Role;
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, int age, String address, String phone, String email, int level_training, String username, String password1, String password2, String role) {
+    public String doCreate(String name, String lastname, int age, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
+        
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
         user.setName(name);
         user.setLastname(lastname);
-        user.setAge(age);
         user.setAddress(address);
+        user.setLevelTraining(trainingLevel);
         user.setPhone(phone);
+        user.setAge(age);
         user.setEmail(email);
-        user.setLevelTraining(level_training);
         user.setUsername(username);
         user.setFkroleID(roleObject);
+        user.setIdentifyCard(identifyCard);
         if(!password1.equals(password2)){
             return "Las contraseñas no coinciden";
         }else{
             user.setPassword(password1);
         }     
         UserDAO userDAO = new UserDAO();
-            User userObject = userDAO.persist(user);
+        User userObject = userDAO.persist(user);
         if (userObject != null) {
-            return "El usuario ha sido creado con username " + userObject.getUsername()+ ".";
+            return "El usuario ha sido creado con username " + userObject.getUsername()+ "." + "/"+userObject.getPkID();
         } else {
             return "El usuario no pudo ser creado.";
         }        

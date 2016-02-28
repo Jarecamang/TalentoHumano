@@ -8,6 +8,8 @@ package Presentation.Bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandleUser;
+import BusinessLogic.Controller.HandleContract;
+import java.util.Date;
 /**
  *
  * @author Alejandro
@@ -20,14 +22,76 @@ public class createUserBean {
     String lastname;
     int age;
     String address;
-    String phone;
+    long phone;
     String email;
-    int level_training;
     String username;
     String password1;
     String password2;
     String message;
     String role;
+    long identifyCard;
+    String trainingLevel;
+    int contractSalary;
+    String contractType;
+    Date contractFinalDate;
+    String contractMessage;
+    int contractPosition;
+
+    public long getIdentifyCard() {
+        return identifyCard;
+    }
+
+    public void setIdentifyCard(long identifyCard) {
+        this.identifyCard = identifyCard;
+    }
+
+    public int getContractPosition() {
+        return contractPosition;
+    }
+
+    public void setContractPosition(int contractPosition) {
+        this.contractPosition = contractPosition;
+    }
+
+    public String getTrainingLevel() {
+        return trainingLevel;
+    }
+
+    public void setTrainingLevel(String trainingLevel) {
+        this.trainingLevel = trainingLevel;
+    }
+
+    public String getContractMessage() {
+        return contractMessage;
+    }
+
+    public void setContractMessage(String contractMessage) {
+        this.contractMessage = contractMessage;
+    }
+
+    public int getContractSalary() {
+        return contractSalary;
+    }
+
+    public void setContractSalary(int contractSalary) {
+        this.contractSalary = contractSalary;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public Date getContractFinalDate() {
+        return contractFinalDate;
+    }
+
+    public void setContractFinalDate(Date contractFinalDate) {
+        this.contractFinalDate = contractFinalDate;
+    }   
 
     public String getRole() {
         return role;
@@ -77,11 +141,11 @@ public class createUserBean {
         this.address = address;
     }
 
-    public String getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
@@ -118,6 +182,10 @@ public class createUserBean {
     }
     public void createUser(){   
         HandleUser createUser = new HandleUser();
-        message = createUser.doCreate(name, lastname, age, address, phone, email, level_training, username, password1, password2, role);
+        String messageTest = createUser.doCreate(name, lastname, age, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
+        message = messageTest.split("/")[0];
+        int userId = Integer.parseInt(messageTest.split("/")[1]);
+        HandleContract createContract = new HandleContract();
+        contractMessage = createContract.doCreate(contractSalary,contractType,contractFinalDate,userId, name,contractPosition);
     }
 }

@@ -5,7 +5,8 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.User;
+import DataAccess.Entity.Position;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,58 +16,41 @@ import javax.persistence.Query;
  *
  * @author Alejandro
  */
-public class UserDAO {
+public class PositionDAO {
+    
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
     
-    public User persist(User user) {
+    public Position persist(Position position) {
         
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         
         try {
-            em.persist(user);
+            em.persist(position);
             em.getTransaction().commit();
         } catch(Exception e) {
             em.getTransaction().rollback();
         } finally {
             em.close();
-            return user;  
+            return position;  
         }
     }
     
-    public User searchByUsername(String username) {
+    public List<Position> searchAll() {
         
         EntityManager em = emf1.createEntityManager();
-        User userObject = null;
-        Query q = em.createNamedQuery("User.findByUsername");
-        q.setParameter("username", username);
+        List<Position> positionObject = null;
+        Query q = em.createNamedQuery("Position.findAll");
         
         try {
-            userObject = (User) q.getSingleResult();
+            positionObject = q.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
             em.close();
-            return userObject;
+            return positionObject;
         }
     }
     
-    public User searchByDoccument(long doccument) {
-        
-        EntityManager em = emf1.createEntityManager();
-        User userObject = null;
-        Query q = em.createNamedQuery("User.findByIdentifyCard");
-        q.setParameter("identifyCard", Long.toString(doccument));
-        
-        try {
-            userObject = (User) q.getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("El usuario no existe");
-        } finally {
-            em.close();
-            return userObject;
-        }
-    }
 }

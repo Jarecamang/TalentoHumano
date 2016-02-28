@@ -6,7 +6,6 @@
 package Presentation.Bean;
 
 import javax.faces.bean.ManagedBean;
-;
 import BusinessLogic.Controller.HandleLogin;
 import javax.faces.bean.RequestScoped;
 
@@ -54,6 +53,10 @@ public class LoginBean {
     public void login() {
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
+        if(message.charAt(0)=='L'){
+            DataBean datos = new DataBean();
+            datos.populateData();
+        }
     }
 
     public void logout() {

@@ -6,7 +6,9 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +16,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByPkID", query = "SELECT u FROM User u WHERE u.pkID = :pkID"),
+    @NamedQuery(name = "User.findByIdentifyCard", query = "SELECT u FROM User u WHERE u.identifyCard = :identifyCard"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByAge", query = "SELECT u FROM User u WHERE u.age = :age"),
@@ -48,6 +55,11 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "pkID")
     private Integer pkID;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "identifyCard")
+    private String identifyCard;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -82,8 +94,9 @@ public class User implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "level_training")
-    private int levelTraining;
+    private String levelTraining;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -94,9 +107,19 @@ public class User implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "password")
     private String password;
+    @ManyToMany(mappedBy = "userCollection")
+    private Collection<Areaofinterest> areaofinterestCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
+    private Contract contract;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
+    private Certificate certificate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
+    private Collection<Certifications> certificationsCollection;
     @JoinColumn(name = "fkroleID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private Role fkroleID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
+    private Collection<Notifications> notificationsCollection;
 
     public User() {
     }
@@ -105,8 +128,9 @@ public class User implements Serializable {
         this.pkID = pkID;
     }
 
-    public User(Integer pkID, String name, String lastname, int age, String address, String phone, String email, int levelTraining, String username, String password) {
+    public User(Integer pkID, String identifyCard, String name, String lastname, int age, String address, String phone, String email, String levelTraining, String username, String password) {
         this.pkID = pkID;
+        this.identifyCard = identifyCard;
         this.name = name;
         this.lastname = lastname;
         this.age = age;
@@ -124,6 +148,14 @@ public class User implements Serializable {
 
     public void setPkID(Integer pkID) {
         this.pkID = pkID;
+    }
+
+    public String getIdentifyCard() {
+        return identifyCard;
+    }
+
+    public void setIdentifyCard(String identifyCard) {
+        this.identifyCard = identifyCard;
     }
 
     public String getName() {
@@ -174,11 +206,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public int getLevelTraining() {
+    public String getLevelTraining() {
         return levelTraining;
     }
 
-    public void setLevelTraining(int levelTraining) {
+    public void setLevelTraining(String levelTraining) {
         this.levelTraining = levelTraining;
     }
 
@@ -198,12 +230,55 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @XmlTransient
+    public Collection<Areaofinterest> getAreaofinterestCollection() {
+        return areaofinterestCollection;
+    }
+
+    public void setAreaofinterestCollection(Collection<Areaofinterest> areaofinterestCollection) {
+        this.areaofinterestCollection = areaofinterestCollection;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
+    public Certificate getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
+    }
+
+    @XmlTransient
+    public Collection<Certifications> getCertificationsCollection() {
+        return certificationsCollection;
+    }
+
+    public void setCertificationsCollection(Collection<Certifications> certificationsCollection) {
+        this.certificationsCollection = certificationsCollection;
+    }
+
     public Role getFkroleID() {
         return fkroleID;
     }
 
     public void setFkroleID(Role fkroleID) {
         this.fkroleID = fkroleID;
+    }
+
+    @XmlTransient
+    public Collection<Notifications> getNotificationsCollection() {
+        return notificationsCollection;
+    }
+
+    public void setNotificationsCollection(Collection<Notifications> notificationsCollection) {
+        this.notificationsCollection = notificationsCollection;
     }
 
     @Override

@@ -32,7 +32,8 @@ public class HandleLogin {
                     ec.getSessionMap().put("user", userObject.getName() + " " + userObject.getLastname());
                     ec.getSessionMap().put("role", userObject.getFkroleID().getName());
                     String url = "";
-                    if (ec.getSessionMap().get("role").equals("Administrator")) {
+                    //if (ec.getSessionMap().get("role").equals("Administrator")) {
+                    if (userObject.getFkroleID().getName().equals("Administrator")) {
                         url = ec.encodeActionURL(
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
                     } else {

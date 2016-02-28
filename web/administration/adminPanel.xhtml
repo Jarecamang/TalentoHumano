@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sistema de Recursos Humanos: Administration</title>
     </h:head>
@@ -10,7 +11,11 @@
         <h:form> 
             <br />
             <br />
-            <a href="createUser.xhtml">Registrar Empleado</a>
+            <a href="createUser.xhtml">Registrar Nuevo Empleado</a>
+            <br />
+            <a href="createPosition.xhtml">Registrar Nuevo Cargo</a>
+            <br />
+            <a href="renewContract.xhtml">Renovar contrato a usuario</a>
             <br />
             <h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}" />
         </h:form> 
