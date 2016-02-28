@@ -39,7 +39,8 @@ DROP TABLE IF EXISTS `humanresources`.`role` ;
 CREATE TABLE IF NOT EXISTS `humanresources`.`role` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`pkID`))
+  PRIMARY KEY (`pkID`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
@@ -52,26 +53,28 @@ DROP TABLE IF EXISTS `humanresources`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
+  `identifyCard` VARCHAR(255) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `lastname` VARCHAR(255) NOT NULL,
   `age` INT(11) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
   `phone` MEDIUMTEXT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `level_training` INT(11) NOT NULL,
+  `level_training` VARCHAR(255) NOT NULL,
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(16) NOT NULL,
   `fkroleID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
-  INDEX `fk_user_role1_idx` (`fkroleID` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  UNIQUE INDEX `identifyCard_UNIQUE` (`identifyCard` ASC),
+  INDEX `fk_user_role1_idx` (`fkroleID` ASC),
   CONSTRAINT `fk_user_role1`
     FOREIGN KEY (`fkroleID`)
     REFERENCES `humanresources`.`role` (`pkID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 29
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -163,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`contract` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -174,8 +178,10 @@ DROP TABLE IF EXISTS `humanresources`.`position` ;
 CREATE TABLE IF NOT EXISTS `humanresources`.`position` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`pkID`))
+  PRIMARY KEY (`pkID`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -267,4 +273,4 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO `role` VALUES(1,'User'),(2,'Administrator');
-INSERT INTO `user` VALUES (1,'Admin','Tester',99,'Juaz123',3212345656,'admin@admin.admin',5,'admin','Admin2016',2);
+INSERT INTO `user` VALUES (1,'1012345456','Admin','Tester',99,'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2);
