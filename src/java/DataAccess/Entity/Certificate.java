@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Certificate.findAll", query = "SELECT c FROM Certificate c"),
     @NamedQuery(name = "Certificate.findByPkID", query = "SELECT c FROM Certificate c WHERE c.pkID = :pkID"),
     @NamedQuery(name = "Certificate.findByType", query = "SELECT c FROM Certificate c WHERE c.type = :type"),
-    @NamedQuery(name = "Certificate.findByDescripci\u00f3n", query = "SELECT c FROM Certificate c WHERE c.descripci\u00f3n = :descripci\u00f3n")})
+    @NamedQuery(name = "Certificate.findByDescription", query = "SELECT c FROM Certificate c WHERE c.description = :description")})
 public class Certificate implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,8 +49,8 @@ public class Certificate implements Serializable {
     @Column(name = "type")
     private int type;
     @Size(max = 255)
-    @Column(name = "descripci\u00f3n")
-    private String descripción;
+    @Column(name = "description")
+    private String description;
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @OneToOne(optional = false)
     private User fkuserID;
@@ -64,9 +64,10 @@ public class Certificate implements Serializable {
         this.pkID = pkID;
     }
 
-    public Certificate(Integer pkID, int type) {
+    public Certificate(Integer pkID, int type, String description) {
         this.pkID = pkID;
         this.type = type;
+        this.description = description;
     }
 
     public Integer getPkID() {
@@ -85,12 +86,12 @@ public class Certificate implements Serializable {
         this.type = type;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getFkuserID() {
@@ -134,5 +135,5 @@ public class Certificate implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Certificate[ pkID=" + pkID + " ]";
     }
-    
+
 }

@@ -41,7 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Contract.findAll", query = "SELECT c FROM Contract c"),
     @NamedQuery(name = "Contract.findByPkID", query = "SELECT c FROM Contract c WHERE c.pkID = :pkID"),
     @NamedQuery(name = "Contract.findBySalary", query = "SELECT c FROM Contract c WHERE c.salary = :salary"),
+    @NamedQuery(name = "Contract.findBySalarySmallerThan", query = "SELECT c FROM Contract c WHERE c.salary < :salary"),
+    @NamedQuery(name = "Contract.findBySalaryBiggerThan", query = "SELECT c FROM Contract c WHERE c.salary > :salary"),
     @NamedQuery(name = "Contract.findByType", query = "SELECT c FROM Contract c WHERE c.type = :type"),
+    @NamedQuery(name = "Contract.findByfkuserID", query = "SELECT c FROM Contract c WHERE c.fkuserID = :fkuserID"),
     @NamedQuery(name = "Contract.findByEnddate", query = "SELECT c FROM Contract c WHERE c.enddate = :enddate")})
 public class Contract implements Serializable {
 

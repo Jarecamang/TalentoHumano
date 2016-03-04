@@ -74,6 +74,9 @@ public class HandleContract {
             }
         }
 
+        PositionDAO positionDAO=new PositionDAO();
+        contract.getPositionCollection().add(positionDAO.searchByID(contractPosition));
+        
         //ContractPosition contractPosition = new ContractPosition();
         ContractDAO contractDAO = new ContractDAO();
         Contract contractObject = contractDAO.persist(contract);

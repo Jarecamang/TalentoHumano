@@ -53,7 +53,10 @@ public class Position implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @ManyToMany
+    @OneToMany
+    @JoinTable(name = "contractposition", joinColumns = {
+        @JoinColumn(name = "fkpositionID", referencedColumnName = "pkID")}, inverseJoinColumns = {
+        @JoinColumn(name = "fkcontractID", referencedColumnName = "pkID")})
     private Collection<Contract> contractCollection;
 
     public Position() {

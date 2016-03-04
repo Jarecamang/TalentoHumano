@@ -7,14 +7,14 @@ package Presentation.Bean;
 
 import javax.faces.bean.ManagedBean;
 import BusinessLogic.Controller.HandleLogin;
+import BusinessLogic.Controller.HandlePosition;
+import BusinessLogic.Controller.HandleUser;
 import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author Alejandro
  */
-
-
 @ManagedBean
 @RequestScoped
 public class LoginBean {
@@ -53,14 +53,23 @@ public class LoginBean {
     public void login() {
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
-        if(message.charAt(0)=='L'){
-            DataBean datos = new DataBean();
-            datos.populateData();
+        if (message.charAt(0) == 'L') {
+            HandlePosition hanp = new HandlePosition();
+            hanp.getPositions();
+            HandleLogin hl = new HandleLogin();
+            HandleUser hu = new HandleUser();
+            hu.uploadPersonalData(user);
         }
     }
 
     public void logout() {
         HandleLogin login = new HandleLogin();
         login.doLogout();
+    }
+
+    public void back(String username) {
+        HandleLogin hl = new HandleLogin();
+        HandleUser hu = new HandleUser();
+        hu.back(username);
     }
 }

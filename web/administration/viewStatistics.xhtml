@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 	<head>
 		<title>ESTADISTICAS</title>
                 <script src="../js/Chart.js"></script>
@@ -10,22 +11,25 @@
 	<body> 
 
         <script type="text/javascript" language="JavaScript">
-        function toGraphTrainingLevels(level1,level2,level3,level4,level5,level6){
+        function toGraphTrainingLevels(level1,level2,level3,level4,level5,level6,level7){
+
         var radarChartData = {
-		labels: ["Tecnico","Tecnologo","Especialista","Magister","Doctorado","Phd"],
+            
+                labels: ["Tecnico","Tecnologia","Pregrado","Especializacion","Maestria","Doctorado","Phd"],
 		datasets: [
 			{
 				label: "My First dataset",
-				fillColor: "rgba(220,220,220,0.2)",
+				fillColor: "rgba(220,220,220,0.2)", 
 				strokeColor: "rgba(220,220,220,1)",
 				pointColor: "rgba(220,220,220,1)",
 				pointStrokeColor: "#fff",
-				pointHighlightFill: "#fff",
+				pointHighlightFill: "#fff", 
 				pointHighlightStroke: "rgba(220,220,220,1)",
-				data: [level1,level2,level3,level4,level5,level6]
+				data: [level1,level2,level3,level4,level5,level6,level7]
 			}
 		]
 	};
+        
         var pieData = [
 				{
 					value: level1,
@@ -35,79 +39,206 @@
 				},
 				{
 					value: level2,
+					color: "yellow",
+					highlight: "#a9ad47",
+					label: "Tecnologia"
+				},
+                                {
+					value: level3,
 					color: "#e3e860",
 					highlight: "#a9ad47",
-					label: "Tecnologo"
-				},
-				{
-					value: level3,
-					color: "orange",
-					highlight: "#b74865",
-					label: "Especialista"
+					label: "Pregrado"
 				},
 				{
 					value: level4,
-					color: "#5ae85a",
-					highlight: "#42a642",
-					label: "Magister"
+					color: "orange",
+					highlight: "#b74865",
+					label: "Especializacion"
 				},
 				{
 					value: level5,
+					color: "#5ae85a",
+					highlight: "#42a642",
+					label: "Maestria"
+				},
+				{
+					value: level6,
 					color: "#e965db",
 					highlight: "#a6429b",
 					label: "Doctorado"
 				},
 				{
-					value: level6,
-					color: "#eb5d82",
+					value: level7,
+					color: "red",
 					highlight: "#b74865",
 					label: "Phd"
 				}
 				
 			];
         var barChartData = {
-		labels: ["Tecnico","Tecnologo","Especialista","Magister","Doctorado","Phd"],
+		labels: ["Tecnico","Tecnologia","Pregrado","Especializacion","Maestria","Doctorado","Phd"],
 		datasets : [
 			{
 				fillColor : "#6b9dfa",
 				strokeColor : "#ffffff",
 				highlightFill: "#1864f2",
 				highlightStroke: "#ffffff",
-				data: [level1,level2,level3,level4,level5,level6]
+				data: [level1,level2,level3,level4,level5,level6,level7]
 			}
 		]
-	}
+	};
 			var rd = document.getElementById("radar").getContext("2d");
                         window.myRadar = new Chart(rd).Radar(radarChartData);
 			var pt = document.getElementById("pastel").getContext("2d");
 			window.myPie = new Chart(pt).Pie(pieData);
 			var br = document.getElementById("barras").getContext("2d");
 			window.myPie = new Chart(br).Bar(barChartData);
+                        
 }
         </script>    
 	
+        <script type="text/javascript" language="JavaScript">
+        function toGraphSalaries(salary1,salary2,salary3,salary4,salary5,salary6){
+        var radarChartData = {
+		labels: ["Menor que 1000000","[1000000,2000000]","(2000000,3000000]","(3000000,4000000]","(4000000,5000000]","Mayor que 5000000"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [salary1,salary2,salary3,salary4,salary5,salary6]
+			}
+		]
+	};
+        var pieData = [
+				{
+					value: salary1,
+					color:"#0b82e7",
+					highlight: "#0c62ab",
+					label: "Menor que 1000000"
+				},
+				{
+					value: salary2,
+					color: "#e3e860",
+					highlight: "#a9ad47",
+					label: "[1000000,2000000]"
+				},
+                                {
+					value: salary3,
+					color: "red",
+					highlight: "#a9ad47",
+					label: "(2000000,3000000]"
+				},
+				{
+					value: salary4,
+					color: "orange",
+					highlight: "#b74865",
+					label: "(3000000,4000000]"
+				},
+				{
+					value: salary5,
+					color: "#5ae85a",
+					highlight: "#42a642",
+					label: "(4000000,5000000]"
+				},
+				{
+					value: salary6,
+					color: "#e965db",
+					highlight: "#a6429b",
+					label: "Mayor que 5000000"
+				}
+				
+			];
+        var barChartData = {
+		labels: ["Menor que 1000000","[1000000,2000000]","(2000000,3000000]","(3000000,4000000]","(4000000,5000000]","Mayor que 5000000"],
+		datasets : [
+			{
+				fillColor : "#6b9dfa",
+				strokeColor : "#ffffff",
+				highlightFill: "#1864f2",
+				highlightStroke: "#ffffff",
+				data: [salary1,salary2,salary3,salary4,salary5,salary6]
+			}
+		]
+	};
+			var rd = document.getElementById("radarSalarios").getContext("2d");
+                        window.myRadar = new Chart(rd).Radar(radarChartData);
+			var pt = document.getElementById("pastelSalarios").getContext("2d");
+			window.myPie = new Chart(pt).Pie(pieData);
+			var br = document.getElementById("barrasSalarios").getContext("2d");
+			window.myPie = new Chart(br).Bar(barChartData);
+}
+        </script>    
+        <hr color="black"></hr>    
+        <h3>NIVEL DE CAPACITACION DE EMPLEADOS</h3>    
+        <hr color="black"></hr>
         <div class="tab-pane" id="tab3">
-            <p>NIVEL DE CAPACITACION DE EMPLEADOS</p>
             <canvas id="barras" width="400" height="400"></canvas>
             <canvas id="radar" height="400" width="500"></canvas>
             <canvas id="pastel" width="380" height="380"></canvas>
         </div>
-         
+        
+        <hr color="black"></hr>
+        <h3>SALARIO DE EMPLEADOS</h3>
+        <hr color="black"></hr>
+        <div class="tab-pane" id="tab3">
+            <canvas id="barrasSalarios" width="400" height="400"></canvas>
+            <canvas id="radarSalarios" height="400" width="500"></canvas>
+            <canvas id="pastelSalarios" width="380" height="380"></canvas>
+        </div>
+             
         <script>
             toGraphTrainingLevels(
             #{userLevelTrainingBean.get_training_levels().technical},
             #{userLevelTrainingBean.get_training_levels().technologist},
+            #{userLevelTrainingBean.get_training_levels().undergraduate},                        
             #{userLevelTrainingBean.get_training_levels().specialist},
             #{userLevelTrainingBean.get_training_levels().magister},
             #{userLevelTrainingBean.get_training_levels().doctor},
             #{userLevelTrainingBean.get_training_levels().phd}
             );
             
+            toGraphSalaries(
+            #{userSalaryBean.getSalaries().salarySmallerThanOneM},
+            #{userSalaryBean.getSalaries().salaryBetweenOneMAndTwoM},
+            #{userSalaryBean.getSalaries().salaryBetweenTwoMAndThreeM},
+            #{userSalaryBean.getSalaries().salaryBetweenThreeMAndFourM},
+            #{userSalaryBean.getSalaries().salaryBetweenFourMAndFiveM},
+            #{userSalaryBean.getSalaries().salaryBiggerThanFiveM}        
+            );
+
         </script>     
+         
+        <hr color="black"></hr>
+        <h3>CARGOS DE EMPLEADOS</h3>
+        <hr color="black"></hr>
         
-        <br/>
-            <a href="adminPanel.xhtml">Atras</a>
+        <p> Lista de Cargos de la Empresa : ${sessionScope.Positionlist} </p>
+         
+        <center>
+        <table border="1px" cellpadding="20px">
+        <tr>
+		<th COLSPAN="1" bgcolor="yellow">Nombre del Cargo</th>
+                <th COLSPAN="2" bgcolor="yellow">Cantidad</th>
+	</tr>             
+        <c:forEach var="position" items="${sessionScope.amountList}" >
+            <center>
+            <tr>
+            <td><center><h:outputText value="${position[0]}"/></center></td>
+            <td><center><h:outputText value="${position[1]}"/></center></td>
+            </tr> 
+            </center>
+        </c:forEach>
+        </table>
+        </center>
+            
+        <br/><br/>
+            <a href="adminPanel.xhtml">Inicio</a>
         <br/>      
              
-	</body>
+	</body>  
 </html>

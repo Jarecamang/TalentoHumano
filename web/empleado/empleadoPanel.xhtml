@@ -8,8 +8,11 @@
     <span>Hola #{sessionScope.user} eres un #{sessionScope.role}!!!</span>
     <h:body>
         <h:form>
-        <br />
-        <h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}" />
+            <br />
+            <br />
+            <a href="../User/viewProfile.xhtml">Ver Perfil</a>
+            <br />
+            <h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}" />
         </h:form>
     </h:body>
 </html>

@@ -1,16 +1,20 @@
 package BusinessLogic.Controller;
 
 import DataAccess.DAO.UserDAO;
+import DataAccess.DAO.ContractDAO;
+import DataAccess.Entity.Contract;
 import DataAccess.Entity.User;
 import DataAccess.Entity.Role;
 import Presentation.Bean.UserLevelTrainingBean;
+import Presentation.Bean.UserSalaryBean;
+import java.io.IOException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Alejandro
  */
-
-
 public class HandleUser {
 
     public String doCreate(String name, String lastname, int age, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
@@ -47,11 +51,54 @@ public class HandleUser {
         UserLevelTrainingBean ult = new UserLevelTrainingBean(
                 userDAO.getAmountOf("Tecnico"),
                 userDAO.getAmountOf("Tecnologo"),
+                userDAO.getAmountOf("Pregrado"),
                 userDAO.getAmountOf("Especialista"),
                 userDAO.getAmountOf("Magister"),
                 userDAO.getAmountOf("Doctor"),
                 userDAO.getAmountOf("Phd")
         );
         return ult;
+    }
+
+    public UserSalaryBean getSalaries() {
+        ContractDAO cDAO = new ContractDAO();
+        UserSalaryBean us = new UserSalaryBean(
+                cDAO.getAmountOfSalariesSmallerThan(1000000),
+                cDAO.getAmountOfSalariesBetween(1000000, 2000000),
+                cDAO.getAmountOfSalariesBetween(2000000, 3000000),
+                cDAO.getAmountOfSalariesBetween(3000000, 4000000),
+                cDAO.getAmountOfSalariesBetween(4000000, 5000000),
+                cDAO.getAmountOfSalariesBiggerThan(5000000)
+        );
+        return us;
+    }
+
+    public void uploadPersonalData(String username) {
+        UserDAO userDAO = new UserDAO();
+        User userObject = userDAO.searchByUsername(username);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getSessionMap().put("userData", userObject);
+        ContractDAO contrDAO = new ContractDAO();
+        Contract contractObject = contrDAO.getUserContract(new User(userObject.getPkID()));
+        ec.getSessionMap().put("userContract", contractObject);
+    }
+
+    public void back(String username) {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        String url = "";
+        UserDAO userDAO = new UserDAO();
+        User userObject = userDAO.searchByUsername(username);
+        if (userObject.getFkroleID().getName().equals("Administrator")) {
+            url = ec.encodeActionURL(
+                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
+        } else {
+            url = ec.encodeActionURL(
+                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
+        }
+        try {
+            ec.redirect(url);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
