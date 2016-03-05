@@ -6,7 +6,9 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +25,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByIdentifyCard", query = "SELECT u FROM User u WHERE u.identifyCard = :identifyCard"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
-    @NamedQuery(name = "User.findByAge", query = "SELECT u FROM User u WHERE u.age = :age"),
+    @NamedQuery(name = "User.findByDateBorn", query = "SELECT u FROM User u WHERE u.dateBorn = :dateBorn"),
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByLevelTraining", query = "SELECT u FROM User u WHERE u.levelTraining = :levelTraining"),
@@ -72,8 +76,9 @@ public class User implements Serializable {
     private String lastname;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "age")
-    private int age;
+    @Column(name = "dateBorn")
+    @Temporal(TemporalType.DATE)
+    private Date dateBorn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -107,19 +112,19 @@ public class User implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "password")
     private String password;
-    @ManyToMany(mappedBy = "userCollection")
-    private Collection<Areaofinterest> areaofinterestCollection;
+    @ManyToMany(mappedBy = "userSet")
+    private Set<Areaofinterest> areaofinterestSet = new HashSet<>(0);
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
     private Contract contract;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Certificate certificate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Collection<Certifications> certificationsCollection;
+    private Set<Certificate> certificateSet = new HashSet<>(0);
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
+    private Set<Certifications> certificationsSet = new HashSet<>(0);
     @JoinColumn(name = "fkroleID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private Role fkroleID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
-    private Collection<Notifications> notificationsCollection;
+    private Set<Notifications> notificationsSet = new HashSet<>(0);
 
     public User() {
     }
@@ -128,12 +133,12 @@ public class User implements Serializable {
         this.pkID = pkID;
     }
 
-    public User(Integer pkID, String identifyCard, String name, String lastname, int age, String address, String phone, String email, String levelTraining, String username, String password) {
+    public User(Integer pkID, String identifyCard, String name, String lastname, Date dateBorn, String address, String phone, String email, String levelTraining, String username, String password) {
         this.pkID = pkID;
         this.identifyCard = identifyCard;
         this.name = name;
         this.lastname = lastname;
-        this.age = age;
+        this.dateBorn = dateBorn;
         this.address = address;
         this.phone = phone;
         this.email = email;
@@ -174,12 +179,12 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDateBorn() {
+        return dateBorn;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateBorn(Date dateBorn) {
+        this.dateBorn = dateBorn;
     }
 
     public String getAddress() {
@@ -231,12 +236,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Areaofinterest> getAreaofinterestCollection() {
-        return areaofinterestCollection;
+    public Set<Areaofinterest> getAreaofinterestSet() {
+        return areaofinterestSet;
     }
 
-    public void setAreaofinterestCollection(Collection<Areaofinterest> areaofinterestCollection) {
-        this.areaofinterestCollection = areaofinterestCollection;
+    public void setAreaofinterestSet(Set<Areaofinterest> areaofinterestSet) {
+        this.areaofinterestSet = areaofinterestSet;
     }
 
     public Contract getContract() {
@@ -247,21 +252,22 @@ public class User implements Serializable {
         this.contract = contract;
     }
 
-    public Certificate getCertificate() {
-        return certificate;
+    @XmlTransient
+    public Set<Certificate> getCertificateSet() {
+        return certificateSet;
     }
 
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
+    public void setCertificateSet(Set<Certificate> certificateSet) {
+        this.certificateSet = certificateSet;
     }
 
     @XmlTransient
-    public Collection<Certifications> getCertificationsCollection() {
-        return certificationsCollection;
+    public Set<Certifications> getCertificationsSet() {
+        return certificationsSet;
     }
 
-    public void setCertificationsCollection(Collection<Certifications> certificationsCollection) {
-        this.certificationsCollection = certificationsCollection;
+    public void setCertificationsSet(Set<Certifications> certificationsSet) {
+        this.certificationsSet = certificationsSet;
     }
 
     public Role getFkroleID() {
@@ -273,12 +279,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Notifications> getNotificationsCollection() {
-        return notificationsCollection;
+    public Set<Notifications> getNotificationsSet() {
+        return notificationsSet;
     }
 
-    public void setNotificationsCollection(Collection<Notifications> notificationsCollection) {
-        this.notificationsCollection = notificationsCollection;
+    public void setNotificationsSet(Set<Notifications> notificationsSet) {
+        this.notificationsSet = notificationsSet;
     }
 
     @Override

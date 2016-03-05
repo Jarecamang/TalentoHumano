@@ -25,29 +25,31 @@ public class HandleLogin {
         User userObject = userDAO.searchByUsername(user);
         if (userObject != null) {
             if (!userObject.getPassword().equals(password)) {
-                return "La contraseña digitada NO es la de el usuario " + userObject.getName();
+                return "Error: Contraseña digitada NO es la de el usuario " + userObject.getName();
             } else {
                 try {
                     ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
                     ec.getSessionMap().put("user", userObject.getName() + " " + userObject.getLastname());
                     ec.getSessionMap().put("role", userObject.getFkroleID().getName());
+                    ec.getSessionMap().put("userId", userObject.getPkID());
                     String url = "";
-                    //if (ec.getSessionMap().get("role").equals("Administrator")) {
-                    if (userObject.getFkroleID().getName().equals("Administrator")) {
+                    if (ec.getSessionMap().get("role").equals("Administrator")) {
                         url = ec.encodeActionURL(
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
+                        ec.redirect(url);
+                        return "A";
                     } else {
                         url = ec.encodeActionURL(
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
+                        ec.redirect(url);
+                        return "Logueando...";
                     }
-                    ec.redirect(url);
-                    return "Logueando...";
                 } catch (IOException ex) {
                     return "Error en redireccionamiento";
                 }
             }
         } else {
-            return "El usuario no existe";
+            return "Error: El usuario no existe";
         }
     }
 
@@ -57,6 +59,7 @@ public class HandleLogin {
             ExternalContext extContext = context.getExternalContext();
             extContext.getSessionMap().remove("user");
             extContext.getSessionMap().remove("role");
+            extContext.getSessionMap().clear();
             extContext.redirect(extContext.getRequestContextPath());
         } catch (IOException ex) {
             Logger.getLogger(HandleLogin.class.getName()).log(Level.SEVERE, null, ex);

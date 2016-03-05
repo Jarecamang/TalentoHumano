@@ -6,7 +6,8 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Certificate.findAll", query = "SELECT c FROM Certificate c"),
     @NamedQuery(name = "Certificate.findByPkID", query = "SELECT c FROM Certificate c WHERE c.pkID = :pkID"),
     @NamedQuery(name = "Certificate.findByType", query = "SELECT c FROM Certificate c WHERE c.type = :type"),
-    @NamedQuery(name = "Certificate.findByDescription", query = "SELECT c FROM Certificate c WHERE c.description = :description")})
+    @NamedQuery(name = "Certificate.findByAproved", query = "SELECT c FROM Certificate c WHERE c.aproved = :aproved"),
+    @NamedQuery(name = "Certificate.findByDescripcion", query = "SELECT c FROM Certificate c WHERE c.descripcion = :descripcion")})
 public class Certificate implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,16 +48,23 @@ public class Certificate implements Serializable {
     private Integer pkID;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "type")
-    private int type;
+    private String type;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "aproved")
+    private boolean aproved;
     @Size(max = 255)
-    @Column(name = "description")
-    private String description;
+    @Column(name = "descripcion")
+    private String descripcion;
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private User fkuserID;
     @OneToMany(mappedBy = "fkcertificateID")
-    private Collection<Notifications> notificationsCollection;
+    private Set<Notifications> notificationsSet = new HashSet<>(0);
+
+    ;
 
     public Certificate() {
     }
@@ -64,10 +73,10 @@ public class Certificate implements Serializable {
         this.pkID = pkID;
     }
 
-    public Certificate(Integer pkID, int type, String description) {
+    public Certificate(Integer pkID, String type, boolean aproved) {
         this.pkID = pkID;
         this.type = type;
-        this.description = description;
+        this.aproved = aproved;
     }
 
     public Integer getPkID() {
@@ -78,20 +87,28 @@ public class Certificate implements Serializable {
         this.pkID = pkID;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public boolean getAproved() {
+        return aproved;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAproved(boolean aproved) {
+        this.aproved = aproved;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public User getFkuserID() {
@@ -103,12 +120,12 @@ public class Certificate implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Notifications> getNotificationsCollection() {
-        return notificationsCollection;
+    public Set<Notifications> getNotificationsSet() {
+        return notificationsSet;
     }
 
-    public void setNotificationsCollection(Collection<Notifications> notificationsCollection) {
-        this.notificationsCollection = notificationsCollection;
+    public void setNotificationsSet(Set<Notifications> notificationsSet) {
+        this.notificationsSet = notificationsSet;
     }
 
     @Override

@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,9 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,11 +40,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Contract.findAll", query = "SELECT c FROM Contract c"),
     @NamedQuery(name = "Contract.findByPkID", query = "SELECT c FROM Contract c WHERE c.pkID = :pkID"),
     @NamedQuery(name = "Contract.findBySalary", query = "SELECT c FROM Contract c WHERE c.salary = :salary"),
-    @NamedQuery(name = "Contract.findBySalarySmallerThan", query = "SELECT c FROM Contract c WHERE c.salary < :salary"),
-    @NamedQuery(name = "Contract.findBySalaryBiggerThan", query = "SELECT c FROM Contract c WHERE c.salary > :salary"),
     @NamedQuery(name = "Contract.findByType", query = "SELECT c FROM Contract c WHERE c.type = :type"),
+    @NamedQuery(name = "Contract.findByStartDate", query = "SELECT c FROM Contract c WHERE c.startDate = :startDate"),
+    @NamedQuery(name = "Contract.findByEnddate", query = "SELECT c FROM Contract c WHERE c.enddate = :enddate"),
+    @NamedQuery(name = "Contract.findByHealthEnterprise", query = "SELECT c FROM Contract c WHERE c.healthEnterprise = :healthEnterprise"),
+    @NamedQuery(name = "Contract.findByStartHealthDate", query = "SELECT c FROM Contract c WHERE c.startHealthDate = :startHealthDate"),
+    @NamedQuery(name = "Contract.findByPensionEnterprise", query = "SELECT c FROM Contract c WHERE c.pensionEnterprise = :pensionEnterprise"),
+    @NamedQuery(name = "Contract.findByStartPensionDate", query = "SELECT c FROM Contract c WHERE c.startPensionDate = :startPensionDate"),
     @NamedQuery(name = "Contract.findByfkuserID", query = "SELECT c FROM Contract c WHERE c.fkuserID = :fkuserID"),
-    @NamedQuery(name = "Contract.findByEnddate", query = "SELECT c FROM Contract c WHERE c.enddate = :enddate")})
+    @NamedQuery(name = "Contract.findBySalarySmallerThan", query = "SELECT c FROM Contract c WHERE c.salary < :salary"),
+    @NamedQuery(name = "Contract.findBySalaryBiggerThan", query = "SELECT c FROM Contract c WHERE c.salary > :salary")})
 public class Contract implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,14 +67,39 @@ public class Contract implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "type")
     private String type;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "startDate")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
     @Column(name = "enddate")
     @Temporal(TemporalType.DATE)
     private Date enddate;
-    @OneToMany
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "healthEnterprise")
+    private String healthEnterprise;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "startHealthDate")
+    @Temporal(TemporalType.DATE)
+    private Date startHealthDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "pensionEnterprise")
+    private String pensionEnterprise;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "startPensionDate")
+    @Temporal(TemporalType.DATE)
+    private Date startPensionDate;
     @JoinTable(name = "contractposition", joinColumns = {
         @JoinColumn(name = "fkcontractID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkpositionID", referencedColumnName = "pkID")})
-    private Set<Position> positionCollection= new HashSet<>(0);
+    @ManyToMany
+    private Set<Position> positionSet = new HashSet<>(0);
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @OneToOne(optional = false)
     private User fkuserID;
@@ -82,10 +111,15 @@ public class Contract implements Serializable {
         this.pkID = pkID;
     }
 
-    public Contract(Integer pkID, double salary, String type) {
+    public Contract(Integer pkID, double salary, String type, Date startDate, String healthEnterprise, Date startHealthDate, String pensionEnterprise, Date startPensionDate) {
         this.pkID = pkID;
         this.salary = salary;
         this.type = type;
+        this.startDate = startDate;
+        this.healthEnterprise = healthEnterprise;
+        this.startHealthDate = startHealthDate;
+        this.pensionEnterprise = pensionEnterprise;
+        this.startPensionDate = startPensionDate;
     }
 
     public Integer getPkID() {
@@ -112,6 +146,14 @@ public class Contract implements Serializable {
         this.type = type;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
     public Date getEnddate() {
         return enddate;
     }
@@ -120,13 +162,45 @@ public class Contract implements Serializable {
         this.enddate = enddate;
     }
 
-    @XmlTransient
-    public Set<Position> getPositionCollection() {
-        return positionCollection;
+    public String getHealthEnterprise() {
+        return healthEnterprise;
     }
 
-    public void setPositionCollection(Set<Position> positionCollection) {
-        this.positionCollection = positionCollection;
+    public void setHealthEnterprise(String healthEnterprise) {
+        this.healthEnterprise = healthEnterprise;
+    }
+
+    public Date getStartHealthDate() {
+        return startHealthDate;
+    }
+
+    public void setStartHealthDate(Date startHealthDate) {
+        this.startHealthDate = startHealthDate;
+    }
+
+    public String getPensionEnterprise() {
+        return pensionEnterprise;
+    }
+
+    public void setPensionEnterprise(String pensionEnterprise) {
+        this.pensionEnterprise = pensionEnterprise;
+    }
+
+    public Date getStartPensionDate() {
+        return startPensionDate;
+    }
+
+    public void setStartPensionDate(Date startPensionDate) {
+        this.startPensionDate = startPensionDate;
+    }
+
+    @XmlTransient
+    public Set<Position> getPositionSet() {
+        return positionSet;
+    }
+
+    public void setPositionSet(Set<Position> positionSet) {
+        this.positionSet = positionSet;
     }
 
     public User getFkuserID() {

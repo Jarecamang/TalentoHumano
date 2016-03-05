@@ -5,18 +5,19 @@
  */
 package Presentation.Bean;
 
+import BusinessLogic.Controller.HandleCertificate;
+import DataAccess.Entity.Certificate;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import BusinessLogic.Controller.HandlePosition;
+
 /**
  *
  * @author Alejandro
  */
 @ManagedBean
 @ViewScoped
-public class CreatePositionBean {
-    
-    String positionName;
+public class AproveCertificateBean {
+
     String message;
 
     public String getMessage() {
@@ -27,19 +28,13 @@ public class CreatePositionBean {
         this.message = message;
     }
 
-    public String getPositionName() {
-        return positionName;
+    public void loadCertificates() {
+        HandleCertificate certificateNotifications = new HandleCertificate();
+        certificateNotifications.getUnaprovedCertificates();
     }
 
-    public void setPositionName(String positionName) {
-        this.positionName = positionName;
+    public void aproveCertificate(Certificate certificate) {
+        HandleCertificate aproveCertificate = new HandleCertificate();
+        message = aproveCertificate.aproveCertificate(certificate);
     }
-    
-    public void createPosition(){
-        
-        HandlePosition createPosition = new HandlePosition();
-        message = createPosition.doCreate(positionName);
-        
-    }
-    
 }

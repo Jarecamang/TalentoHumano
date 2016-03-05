@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Certificados por aprobar:</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"></link>
+
+
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+
+
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+        <script type="text/javascript" language="JavaScript">
+        </script>
+        <script>
+            $(document).ready(function () {
+                
+            });
+        </script>
+    </h:head>
+    <body>
+
+        <panel>
+            <h1>Recursos Humanos</h1>
+            <hr/>
+            <h:form>
+                <div id="div1" name="div1" class="div1">
+                </div>
+                <table border="1px" cellpadding="20px">
+                    <tr>
+                        <th COLSPAN="1" bgcolor="orange">Cedula Usuario</th>
+                        <th COLSPAN="2" bgcolor="orange">Descripción</th>
+                        <th COLSPAN="3" bgcolor="orange">Tipo</th>
+                        <th COLSPAN="4" bgcolor="orange">Aprobar?</th>
+                    </tr>             
+                    <c:forEach var="notification" items="${sessionScope.notificationList}" >
+                        <center>
+                            <tr>
+                                <td><center><h:outputText value="${notification.getFkuserID().getIdentifyCard()}"/></center></td>
+                                <td><center><h:outputText value="${notification.getDescripcion()}"/></center></td><td></td>
+                                <td><center><h:outputText value="${notification.getType()}"/></center></td><td></td><td></td>
+                                <td><center><h:commandLink value="Aprobar" actionListener="#{aproveCertificateBean.aproveCertificate(notification)}" /></center></td>
+                            </tr> 
+                        </center>
+                    </c:forEach>
+                </table>
+                <br/>
+                <label d="testMessage">Mensaje: </label>
+                <h:outputText value="#{aproveCertificateBean.message}"/>
+                <br/>
+            </h:form>
+            <br/>
+            <a href="adminPanel.xhtml">Atras</a>
+            <br/>  
+        </panel>
+    </body>
+</html>

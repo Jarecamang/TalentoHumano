@@ -6,7 +6,6 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -54,9 +53,12 @@ public class Areaofinterest implements Serializable {
         @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")})
     @ManyToMany
-    private Set<User> userCollection = new HashSet<>(0);
+    private Set<User> userSet = new HashSet<>(0);
+    @JoinTable(name = "certificationsareaofinterest", joinColumns = {
+        @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
+        @JoinColumn(name = "fkcertificationsID", referencedColumnName = "pkID")})
     @ManyToMany
-    private Set<Certifications> certificationsCollection = new HashSet<>(0);
+    private Set<Certifications> certificationsSet = new HashSet<>(0);
 
     public Areaofinterest() {
     }
@@ -87,21 +89,21 @@ public class Areaofinterest implements Serializable {
     }
 
     @XmlTransient
-    public Set<User> getUserCollection() {
-        return userCollection;
+    public Set<User> getUserSet() {
+        return userSet;
     }
 
-    public void setUserCollection(Set<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
     }
 
     @XmlTransient
-    public Set<Certifications> getCertificationsCollection() {
-        return certificationsCollection;
+    public Set<Certifications> getCertificationsSet() {
+        return certificationsSet;
     }
 
-    public void setCertificationsCollection(Set<Certifications> certificationsCollection) {
-        this.certificationsCollection = certificationsCollection;
+    public void setCertificationsSet(Set<Certifications> certificationsSet) {
+        this.certificationsSet = certificationsSet;
     }
 
     @Override

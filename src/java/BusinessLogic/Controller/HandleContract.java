@@ -18,15 +18,22 @@ import java.util.Date;
  */
 public class HandleContract {
 
-    public String doCreate(double salary, String type, Date date, Integer fkuserID, String userName, int contractPosition) {
+    public String doCreate(double salary, String type, Date startDate, Date endDate, String healthEnterprise, Date startHealth, String pensionEnterprise, Date startPension, Integer fkuserID, String userName, int contractPosition) {
         Contract contract = new Contract();
         User userObject = new User(fkuserID);
+
         contract.setSalary(salary);
         contract.setType(type);
-        contract.setEnddate(date);
+        contract.setEnddate(endDate);
+        contract.setStartDate(startDate);
+        contract.setHealthEnterprise(healthEnterprise);
+        contract.setStartHealthDate(startHealth);
+        contract.setPensionEnterprise(pensionEnterprise);
+        contract.setStartPensionDate(startPension);
         contract.setFkuserID(userObject);
+
         try {
-            String d = date.toString();
+            String d = endDate.toString();
             if (type.equals("Indefinido")) {
                 return "El contrato no fue creado ya que se define fecha de finalización a un contrato Indefinido.";
             }
@@ -35,9 +42,10 @@ public class HandleContract {
                 return "El contrato no fue creado ya que no se define fecha de finalización a un contrato Definido.";
             }
         }
-        
-        PositionDAO positionDAO=new PositionDAO();
-        contract.getPositionCollection().add(positionDAO.searchByID(contractPosition));
+
+        PositionDAO positionDAO = new PositionDAO();
+
+        contract.getPositionSet().add(positionDAO.searchByID(contractPosition));
 
         ContractDAO contractDAO = new ContractDAO();
         Contract contractObject = contractDAO.persist(contract);
@@ -74,10 +82,10 @@ public class HandleContract {
             }
         }
 
-        PositionDAO positionDAO=new PositionDAO();
-        contract.getPositionCollection().add(positionDAO.searchByID(contractPosition));
+        PositionDAO positionDAO = new PositionDAO();
+
+        contract.getPositionSet().add(positionDAO.searchByID(contractPosition));
         
-        //ContractPosition contractPosition = new ContractPosition();
         ContractDAO contractDAO = new ContractDAO();
         Contract contractObject = contractDAO.persist(contract);
 
@@ -88,5 +96,4 @@ public class HandleContract {
             return "El contrato no pudo ser creado.";
         }
     }
-
 }

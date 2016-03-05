@@ -8,6 +8,7 @@ import DataAccess.Entity.Role;
 import Presentation.Bean.UserLevelTrainingBean;
 import Presentation.Bean.UserSalaryBean;
 import java.io.IOException;
+import java.util.Date;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -17,7 +18,7 @@ import javax.faces.context.FacesContext;
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, int age, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
+    public String doCreate(String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
 
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
@@ -26,7 +27,7 @@ public class HandleUser {
         user.setAddress(address);
         user.setLevelTraining(trainingLevel);
         user.setPhone(phone);
-        user.setAge(age);
+        user.setDateBorn(dateBorn);
         user.setEmail(email);
         user.setUsername(username);
         user.setFkroleID(roleObject);
@@ -37,9 +38,17 @@ public class HandleUser {
             user.setPassword(password1);
         }
         UserDAO userDAO = new UserDAO();
+
+        if (userDAO.searchByDoccument(Long.parseLong(user.getIdentifyCard())) != null) {
+            return "El documento de identidad ya existe";
+        }
+        if (userDAO.searchByUsername(user.getUsername()) != null) {
+            return "El username ya existe";
+        }
+
         User userObject = userDAO.persist(user);
         if (userObject != null) {
-            return "El usuario ha sido creado con username " + userObject.getUsername() + "." + "/" + userObject.getPkID();
+            return "Usuario creado con username " + userObject.getUsername() + "." + "/" + userObject.getPkID();
         } else {
             return "El usuario no pudo ser creado.";
         }

@@ -6,7 +6,6 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -67,16 +65,13 @@ public class Certifications implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "place")
     private String place;
-    @OneToMany
-    @JoinTable(name = "certificationsareaofinterest", joinColumns = {
-        @JoinColumn(name = "fkcertificationsID", referencedColumnName = "pkID")}, inverseJoinColumns = {
-        @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")})
-    private Set<Areaofinterest> areaofinterestCollection = new HashSet<>(0);
+    @ManyToMany(mappedBy = "certificationsSet")
+    private Set<Areaofinterest> areaofinterestSet = new HashSet<>(0);
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private User fkuserID;
     @OneToMany(mappedBy = "fkcertificationID")
-    private Collection<Notifications> notificationsCollection;
+    private Set<Notifications> notificationsSet = new HashSet<>(0);
 
     public Certifications() {
     }
@@ -125,12 +120,12 @@ public class Certifications implements Serializable {
     }
 
     @XmlTransient
-    public Set<Areaofinterest> getAreaofinterestCollection() {
-        return areaofinterestCollection;
+    public Set<Areaofinterest> getAreaofinterestSet() {
+        return areaofinterestSet;
     }
 
-    public void setAreaofinterestCollection(Set<Areaofinterest> areaofinterestCollection) {
-        this.areaofinterestCollection = areaofinterestCollection;
+    public void setAreaofinterestSet(Set<Areaofinterest> areaofinterestSet) {
+        this.areaofinterestSet = areaofinterestSet;
     }
 
     public User getFkuserID() {
@@ -142,12 +137,12 @@ public class Certifications implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Notifications> getNotificationsCollection() {
-        return notificationsCollection;
+    public Set<Notifications> getNotificationsSet() {
+        return notificationsSet;
     }
 
-    public void setNotificationsCollection(Collection<Notifications> notificationsCollection) {
-        this.notificationsCollection = notificationsCollection;
+    public void setNotificationsSet(Set<Notifications> notificationsSet) {
+        this.notificationsSet = notificationsSet;
     }
 
     @Override

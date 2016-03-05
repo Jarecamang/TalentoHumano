@@ -53,7 +53,11 @@ public class LoginBean {
     public void login() {
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
-        if (message.charAt(0) == 'L') {
+        if (message.charAt(0) == 'A') {//solo admin
+            HandlePosition positionObject = new HandlePosition();
+            positionObject.getPositions();
+        }
+        if (message.charAt(0) != 'E') {//ambos
             HandlePosition hanp = new HandlePosition();
             hanp.getPositions();
             HandleLogin hl = new HandleLogin();

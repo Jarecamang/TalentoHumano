@@ -11,7 +11,9 @@
         <h:form> 
             <br />
             <br />
-            <a href="../User/viewProfile.xhtml">Ver Perfil</a>
+            <a href="../user/viewProfile.xhtml">Ver Perfil</a>
+            <br />
+            <a href="../user/addInterestArea.xhtml">Agregar Area de Interes</a>
             <br />
             <a href="createUser.xhtml">Registrar Nuevo Empleado</a>
             <br />
@@ -20,6 +22,8 @@
             <a href="renewContract.xhtml">Renovar contrato a usuario</a>
             <br />
             <a href="viewStatistics.xhtml">Ver Estadisticas</a>
+            <br />
+            <h:commandLink value="Aprobar Certificados" actionListener="#{aproveCertificateBean.loadCertificates()}" />
             <br />
             <h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}" />
         </h:form> 

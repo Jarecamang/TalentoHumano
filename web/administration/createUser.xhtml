@@ -32,8 +32,11 @@ and open the template in the editor.
         <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script>
             $(document).ready(function () {
-                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-                // to display 'select date' title on icton of calender image (ie Calc.png)
+                $(".datepickerBorn").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".datepickerContractStart").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".datepickerContractEnd").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".datepickerHealth").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".datepickerPension").datepicker({dateFormat: 'yy-mm-dd'});
                 $('.ui-datepicker-trigger').attr('alt', 'Select Date').attr('title', 'Select Date');
             });
         </script>
@@ -52,8 +55,10 @@ and open the template in the editor.
                             <h:inputText value="#{createUserBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
                             <label>Apellido:</label>
                             <h:inputText value="#{createUserBean.lastname}" required="true" requiredMessage="¡El appellido es requerido!"/>
-                            <label>Edad:</label>
-                            <h:inputText value="#{createUserBean.age}" required="true" requiredMessage="¡La edad es requerida!"/>
+                            <label>Fecha de Nacimiento:</label>
+                            <h:inputText id="datepickerBorn" value="#{createUserBean.dateBorn}" styleClass="datepickerBorn">
+                                <f:convertDateTime pattern="yyyy-mm-dd"/>
+                            </h:inputText>
                             <label>Dirección:</label>
                             <h:inputText value="#{createUserBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
                             <label>Teléfono:</label>
@@ -101,10 +106,28 @@ and open the template in the editor.
                                 <f:selectItem itemValue="Definido" itemLabel="Definido" />
                                 <f:selectItem itemValue="Indefinido" itemLabel="Indefinido" />	
                             </h:selectOneMenu>
-                            <label>Fecha Final (yyy-mm-dd):</label>
-                            <h:inputText id="datepicker" value="#{createUserBean.contractFinalDate}" styleClass="datepicker">
+                            <label>Fecha inicio de contrato:</label>
+                            <h:inputText id="datepickerContractStart" value="#{createUserBean.contractStartDate}" styleClass="datepickerContractStart">
                                 <f:convertDateTime pattern="yyyy-mm-dd"/>
                             </h:inputText>
+                            <label>Fecha terminación de contrato:</label>
+                            <h:inputText id="datepickerContractEnd" value="#{createUserBean.contractFinalDate}" styleClass="datepickerContractEnd">
+                                <f:convertDateTime pattern="yyyy-mm-dd"/>
+                            </h:inputText>
+                            <label>Entidad de salud:</label>
+                            <h:inputText value="#{createUserBean.healthEnterprise}" required="true" requiredMessage="¡El salario es requerido!"/>
+                            <label>Fecha de inicio de cotización salud:</label>
+                            <h:inputText id="datepickerHealth" value="#{createUserBean.startHealth}" styleClass="datepickerHealth">
+                                <f:convertDateTime pattern="yyyy-mm-dd"/>
+                            </h:inputText>
+                            <label>Entidad de pensiones:</label>
+                            <h:inputText value="#{createUserBean.pensionEnterprise}" required="true" requiredMessage="¡El salario es requerido!"/>
+                            <label>Fecha de inicio de cotización pensión:</label>
+                            <h:inputText id="datepickerPension" value="#{createUserBean.startPension}" styleClass="datepickerPension">
+                                <f:convertDateTime pattern="yyyy-mm-dd"/>
+                            </h:inputText>
+                            <label>Dirección:</label>
+                            
                             <label>Cargo:</label>
                             <h:selectOneMenu value="#{createUserBean.contractPosition}">
                                 <f:selectItems value="#{sessionScope.positionList}" var="position" itemValue="#{position.pkID}" itemLabel="#{position.name}" />

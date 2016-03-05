@@ -9,7 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandleUser;
 import BusinessLogic.Controller.HandleContract;
-import java.util.Date;  
+import java.util.Date;
+
 /**
  *
  * @author Alejandro
@@ -17,10 +18,10 @@ import java.util.Date;
 @ManagedBean
 @ViewScoped
 public class CreateUserBean {
-    
+
     String name;
     String lastname;
-    int age;
+    Date dateBorn;
     String address;
     long phone;
     String email;
@@ -34,8 +35,53 @@ public class CreateUserBean {
     int contractSalary;
     String contractType;
     Date contractFinalDate;
+    Date contractStartDate;
+    String healthEnterprise;
+    Date startHealth;
+    String pensionEnterprise;
+    Date startPension;
     String contractMessage;
     int contractPosition;
+
+    public Date getContractStartDate() {
+        return contractStartDate;
+    }
+
+    public void setContractStartDate(Date contractStartDate) {
+        this.contractStartDate = contractStartDate;
+    }
+
+    public String getHealthEnterprise() {
+        return healthEnterprise;
+    }
+
+    public void setHealthEnterprise(String healthEnterprise) {
+        this.healthEnterprise = healthEnterprise;
+    }
+
+    public Date getStartHealth() {
+        return startHealth;
+    }
+
+    public void setStartHealth(Date startHealth) {
+        this.startHealth = startHealth;
+    }
+
+    public String getPensionEnterprise() {
+        return pensionEnterprise;
+    }
+
+    public void setPensionEnterprise(String pensionEnterprise) {
+        this.pensionEnterprise = pensionEnterprise;
+    }
+
+    public Date getStartPension() {
+        return startPension;
+    }
+
+    public void setStartPension(Date startPension) {
+        this.startPension = startPension;
+    }
 
     public long getIdentifyCard() {
         return identifyCard;
@@ -91,7 +137,7 @@ public class CreateUserBean {
 
     public void setContractFinalDate(Date contractFinalDate) {
         this.contractFinalDate = contractFinalDate;
-    }   
+    }
 
     public String getRole() {
         return role;
@@ -125,12 +171,12 @@ public class CreateUserBean {
         this.lastname = lastname;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDateBorn() {
+        return dateBorn;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateBorn(Date dateBorn) {
+        this.dateBorn = dateBorn;
     }
 
     public String getAddress() {
@@ -180,12 +226,18 @@ public class CreateUserBean {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-    public void createUser(){   
+
+    public void createUser() {
         HandleUser createUser = new HandleUser();
-        String messageTest = createUser.doCreate(name, lastname, age, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
-        message = messageTest.split("/")[0];
-        int userId = Integer.parseInt(messageTest.split("/")[1]);
-        HandleContract createContract = new HandleContract();
-        contractMessage = createContract.doCreate(contractSalary,contractType,contractFinalDate,userId, name,contractPosition);
+        String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
+        if (messageTest.charAt(0) != 'U') {
+            message = messageTest;
+            contractMessage = "El contrato no pudo ser creado. La creación de usuario falló.";
+        } else {
+            message = messageTest.split("/")[0];
+            int userId = Integer.parseInt(messageTest.split("/")[1]);
+            HandleContract createContract = new HandleContract();
+            contractMessage = createContract.doCreate(contractSalary, contractType, contractStartDate, contractFinalDate, healthEnterprise, startHealth, pensionEnterprise, startPension, userId, name, contractPosition);
+        }
     }
 }

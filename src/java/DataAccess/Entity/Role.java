@@ -6,7 +6,8 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,7 +49,7 @@ public class Role implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkroleID")
-    private Collection<User> userCollection;
+    private Set<User> userSet = new HashSet<>(0);
 
     public Role() {
     }
@@ -79,12 +80,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Set<User> getUserSet() {
+        return userSet;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
     }
 
     @Override
@@ -111,5 +112,5 @@ public class Role implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Role[ pkID=" + pkID + " ]";
     }
-    
+
 }

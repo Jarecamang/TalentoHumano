@@ -6,23 +6,17 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -53,11 +47,8 @@ public class Position implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany
-    @JoinTable(name = "contractposition", joinColumns = {
-        @JoinColumn(name = "fkpositionID", referencedColumnName = "pkID")}, inverseJoinColumns = {
-        @JoinColumn(name = "fkcontractID", referencedColumnName = "pkID")})
-    private Collection<Contract> contractCollection;
+    @ManyToMany(mappedBy = "positionSet")
+    private Set<Contract> contractSet= new HashSet<>(0);
 
     public Position() {
     }
@@ -88,12 +79,12 @@ public class Position implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Contract> getContractCollection() {
-        return contractCollection;
+    public Set<Contract> getContractSet() {
+        return contractSet;
     }
 
-    public void setContractCollection(Collection<Contract> contractCollection) {
-        this.contractCollection = contractCollection;
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 
     @Override
@@ -120,5 +111,5 @@ public class Position implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Position[ pkID=" + pkID + " ]";
     }
-
+    
 }
