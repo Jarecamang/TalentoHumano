@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
   `identifyCard` VARCHAR(255) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `lastname` VARCHAR(255) NOT NULL,
-  `age` INT(11) NOT NULL,
+  `dateBorn` DATE NOT NULL,
   `address` VARCHAR(255) NOT NULL,
   `phone` MEDIUMTEXT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 29
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -85,11 +85,11 @@ DROP TABLE IF EXISTS `humanresources`.`certificate` ;
 
 CREATE TABLE IF NOT EXISTS `humanresources`.`certificate` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
-  `type` INT(11) NOT NULL,
-  `description` VARCHAR(255) NULL DEFAULT NULL,
+  `type` VARCHAR(20) NOT NULL,
+  `aproved` BOOL NOT NULL,
+  `descripcion` VARCHAR(255) NULL DEFAULT NULL,
   `fkuserID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
-  UNIQUE INDEX `fkuserID_UNIQUE` (`fkuserID` ASC),
   INDEX `fk_certificate_user1_idx` (`fkuserID` ASC),
   CONSTRAINT `fk_certificate_user1`
     FOREIGN KEY (`fkuserID`)
@@ -155,7 +155,12 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`contract` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
   `salary` DOUBLE NOT NULL,
   `type` VARCHAR(45) NOT NULL,
+  `startDate` DATE NOT NULL,
   `enddate` DATE NULL DEFAULT NULL,
+  `healthEnterprise` VARCHAR(100) NOT NULL,
+  `startHealthDate` DATE NOT NULL,
+  `pensionEnterprise` VARCHAR(100) NOT NULL,
+  `startPensionDate` DATE NOT NULL,
   `fkuserID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
   UNIQUE INDEX `fkuserID_UNIQUE` (`fkuserID` ASC),
@@ -166,7 +171,6 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`contract` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -178,10 +182,8 @@ DROP TABLE IF EXISTS `humanresources`.`position` ;
 CREATE TABLE IF NOT EXISTS `humanresources`.`position` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`pkID`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  PRIMARY KEY (`pkID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -272,52 +274,5 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-insert into `position` values(1,"Analista");
-insert into `position` values(2,"Ingeniero");
-insert into `position` values(3,"Abogado");
-insert into `position` values(4,"medico");
-insert into `position` values(5,"secretario");
-
 INSERT INTO `role` VALUES(1,'User'),(2,'Administrator');
-
-INSERT INTO `user` VALUES (1,'1012345456','Admin','Tester',99,'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2);
-INSERT INTO `user` VALUES 
-(2,'2','Carlos','Restrepo',99,'Calle123',3212345656,'carlos@llll','Especialista','carlos','car',1);
-INSERT INTO `user` VALUES 
-(3,'3','pedro','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Especialista','pedro','ped',2);
-INSERT INTO `user` VALUES 
-(4,'4','andrea','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Especialista','andrea','and',2);
-INSERT INTO `user` VALUES 
-(5,'5','camila','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Phd','camila','cami',2);
-INSERT INTO `user` VALUES 
-(6,'6','lola','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Phd','lola','lol',2);
-INSERT INTO `user` VALUES 
-(7,'7','cata','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Doctor','cata','cat',2);
-INSERT INTO `user` VALUES 
-(8,'8','alonso','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Tecnico','alonso','alon',2);
-INSERT INTO `user` VALUES 
-(9,'9','pipe','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Especialista','pipe','pip',2);
-INSERT INTO `user` VALUES 
-(10,'10','carolina','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Tecnologo','carolina','caro',2);
-INSERT INTO `user` VALUES 
-(11,'11','rosa','Tester',99,'Juaz123',3212345656,'admin@admin.admin','Magister','rosa','ros',2);
-
-insert into contract
-values(1,1800000,"Definido",'2016-11-20',1);
-insert into contract
-values(2,2800000,"Indefinido",null,2);
-insert into contract
-values(3,3800000,"Definido",'2016-11-20',3);
-insert into contract
-values(4,4800000,"Definido",'2016-11-20',4);
-insert into contract
-values(5,1800000,"Indefinido",null,5);
-insert into contract
-values(6,1200000,"Definido",'2016-11-20',6);
-
-insert into contractPosition values(1,1);
-insert into contractPosition values(2,2);
-insert into contractPosition values(3,3);
-insert into contractPosition values(4,4);
-insert into contractPosition values(5,5);
-insert into contractPosition values(6,1);
+INSERT INTO `user` VALUES (1,'1012345456','Admin','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2);
