@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Certificados por aprobar:</title>
+        <title>Certificados Aprobados</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
 
         <!-- Custom Fonts -->
@@ -36,7 +36,7 @@ and open the template in the editor.
         </script>
         <script>
             $(document).ready(function () {
-                
+
             });
         </script>
     </h:head>
@@ -48,29 +48,40 @@ and open the template in the editor.
             <h:form>
                 <div id="div1" name="div1" class="div1">
                 </div>
-                <table border="1px" cellpadding="20px">
-                    <tr>
-                        <th COLSPAN="1" bgcolor="orange">Cedula Usuario</th>
-                        <th COLSPAN="2" bgcolor="orange">Descripción</th>
-                        <th COLSPAN="3" bgcolor="orange">Tipo</th>
-                        <th COLSPAN="4" bgcolor="orange">Aprobar?</th>
-                    </tr>             
-                    <c:forEach var="notification" items="${sessionScope.notificationUserList}" >
-                        <center>
-                            <tr>
-                                <td><center><h:outputText value="${notification.getFkuserID().getName()}"/></center></td>
-                                <td><center><h:outputText value="${notification.getDescripcion()}"/></center></td><td></td>
-                                <td><center><h:outputText value="${notification.getType()}"/></center></td><td></td><td></td>
-                                <td><center><h:commandLink value="Descargar" actionListener="#{certificateNotificationBean.downloadCertificate(notification)}" /></center></td>
-                            </tr> 
-                        </center>
-                    </c:forEach>
-                </table>
+                <center>
+                    <table border="1px" cellpadding="20px">
+                        <tr> 
+                            <th bgcolor="yellow">Numero</th>
+                            <th bgcolor="yellow">Usuario</th>
+                            <th bgcolor="yellow">Descripcion</th>
+                            <th bgcolor="yellow">Tipo</th>
+                        </tr>             
+                        <c:forEach var="notification" items="${sessionScope.notificationUserList}" >
+                            <center> 
+                                <tr>
+                                    <td><center><h:outputText  value="${sessionScope.notificationUserList.indexOf(notification)+1}"/></center></td>
+                                    <td><center><h:outputText  value="${notification.getFkuserID().getName()}"/></center></td>
+                                    <td><center><h:outputText  value="${notification.getDescripcion()}"/></center></td>
+                                    <td><center><h:outputText  value="${notification.getType()}"/></center></td>
+                                </tr> 
+                            </center>
+                        </c:forEach> 
+                    </table>
+                </center>
                 <br/>
                 <label d="testMessage">Mensaje: </label>
                 <h:outputText value="#{certificateNotificationBean.message}"/>
                 <br/>
             </h:form>
+            <form action="download.xhtml" method="post" >
+                <input type="hidden" name="idUser" value="${sessionScope.userId}"></input>
+                <select name="option">
+                    <c:forEach var="i" begin="1" end="${sessionScope.notificationUserList.size()}">
+                        <option value="${i}">${i}</option> 
+                    </c:forEach>
+                </select>
+                <button>Descargar</button>
+            </form> 
             <br/>
             <a href="adminPanel.xhtml">Atras</a>
             <br/>  

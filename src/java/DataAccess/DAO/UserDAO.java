@@ -80,4 +80,21 @@ public class UserDAO {
         return q.getResultList().size();
 
     }
+
+    public User searchByPkID(int idUser) {
+
+        EntityManager em = emf1.createEntityManager();
+        User userObject = null;
+        Query q = em.createNamedQuery("User.findByPkID");
+        q.setParameter("pkID", idUser);
+        try {
+            userObject = (User) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("El usuario no existe");
+        } finally {
+            em.close();
+            return userObject;
+        }
+    }
 }

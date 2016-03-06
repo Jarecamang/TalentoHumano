@@ -32,7 +32,6 @@ public class CertificateNotificationBean {
     
     public void downloadCertificate(Certificate certificate){
         HandleCertificate certificateDownload = new HandleCertificate();
-        message = certificateDownload.downloadCertificate(certificate);
     }
     
 }
