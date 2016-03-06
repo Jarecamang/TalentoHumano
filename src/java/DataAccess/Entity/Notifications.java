@@ -54,9 +54,6 @@ public class Notifications implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @JoinColumn(name = "fkcertificateID", referencedColumnName = "pkID")
-    @ManyToOne
-    private Certificate fkcertificateID;
     @JoinColumn(name = "fkcertificationID", referencedColumnName = "pkID")
     @ManyToOne
     private Certifications fkcertificationID;
@@ -99,14 +96,6 @@ public class Notifications implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Certificate getFkcertificateID() {
-        return fkcertificateID;
-    }
-
-    public void setFkcertificateID(Certificate fkcertificateID) {
-        this.fkcertificateID = fkcertificateID;
     }
 
     public Certifications getFkcertificationID() {

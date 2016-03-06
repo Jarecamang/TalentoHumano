@@ -235,5 +235,5 @@ public class Contract implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Contract[ pkID=" + pkID + " ]";
     }
-
+    
 }

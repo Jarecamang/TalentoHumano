@@ -18,12 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -61,10 +59,6 @@ public class Certificate implements Serializable {
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @ManyToOne(optional = false)
     private User fkuserID;
-    @OneToMany(mappedBy = "fkcertificateID")
-    private Set<Notifications> notificationsSet = new HashSet<>(0);
-
-    ;
 
     public Certificate() {
     }
@@ -119,15 +113,6 @@ public class Certificate implements Serializable {
         this.fkuserID = fkuserID;
     }
 
-    @XmlTransient
-    public Set<Notifications> getNotificationsSet() {
-        return notificationsSet;
-    }
-
-    public void setNotificationsSet(Set<Notifications> notificationsSet) {
-        this.notificationsSet = notificationsSet;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,5 +137,5 @@ public class Certificate implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Certificate[ pkID=" + pkID + " ]";
     }
-
+    
 }

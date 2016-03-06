@@ -130,5 +130,5 @@ public class Areaofinterest implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Areaofinterest[ pkID=" + pkID + " ]";
     }
-
+    
 }

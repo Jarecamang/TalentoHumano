@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`areaofinterest` (
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`pkID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -86,7 +87,7 @@ DROP TABLE IF EXISTS `humanresources`.`certificate` ;
 CREATE TABLE IF NOT EXISTS `humanresources`.`certificate` (
   `pkID` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(20) NOT NULL,
-  `aproved` BOOL NOT NULL,
+  `aproved` TINYINT(1) NOT NULL,
   `descripcion` VARCHAR(255) NULL DEFAULT NULL,
   `fkuserID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
@@ -97,6 +98,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`certificate` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -171,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`contract` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -184,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`position` (
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`pkID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -222,16 +226,9 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`notifications` (
   `date` DATE NOT NULL,
   `fkcertificationID` INT(11) NULL DEFAULT NULL,
   `fkuserID` INT(11) NOT NULL,
-  `fkcertificateID` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`pkID`),
   INDEX `fk_notifications_certifications1_idx` (`fkcertificationID` ASC),
   INDEX `fk_notifications_user1_idx` (`fkuserID` ASC),
-  INDEX `fk_notifications_certificate1_idx` (`fkcertificateID` ASC),
-  CONSTRAINT `fk_notifications_certificate1`
-    FOREIGN KEY (`fkcertificateID`)
-    REFERENCES `humanresources`.`certificate` (`pkID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_notifications_certifications1`
     FOREIGN KEY (`fkcertificationID`)
     REFERENCES `humanresources`.`certifications` (`pkID`)

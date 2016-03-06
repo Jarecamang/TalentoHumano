@@ -112,5 +112,5 @@ public class Role implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Role[ pkID=" + pkID + " ]";
     }
-
+    
 }

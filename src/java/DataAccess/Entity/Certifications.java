@@ -169,5 +169,5 @@ public class Certifications implements Serializable {
     public String toString() {
         return "DataAccess.Entity.Certifications[ pkID=" + pkID + " ]";
     }
-
+    
 }
