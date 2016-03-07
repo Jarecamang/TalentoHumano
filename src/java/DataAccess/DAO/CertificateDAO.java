@@ -17,14 +17,14 @@ import javax.persistence.Query;
  * @author Alejandro
  */
 public class CertificateDAO {
-    
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
-    
+
     public Certificate persist(Certificate certificate) {
-        
+
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
-        
+
         try {
             em.persist(certificate);
             em.getTransaction().commit();
@@ -36,29 +36,29 @@ public class CertificateDAO {
         em.close();
         return certificate;
     }
-    
-    public void editAproved(Certificate certificate){
+
+    public void editAproved(Certificate certificate) {
         Certificate certificateNew;
-        EntityManager em = emf1.createEntityManager();  
+        EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
-           certificateNew = em.merge(em.find(Certificate.class, certificate.getPkID())); 
+            certificateNew = em.merge(em.find(Certificate.class, certificate.getPkID()));
             certificateNew.setAproved(true);
             em.getTransaction().commit();
-        } catch (Exception e){
+        } catch (Exception e) {
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
     }
-    
+
     public List<Certificate> searchUnaproved() {
 
         EntityManager em = emf1.createEntityManager();
         List<Certificate> certificateObject = null;
         Query q = em.createNamedQuery("Certificate.findByAproved");
         q.setParameter("aproved", false);
-        
+
         try {
             certificateObject = q.getResultList();
         } catch (Exception e) {
@@ -69,14 +69,14 @@ public class CertificateDAO {
             return certificateObject;
         }
     }
-    
+
     public List<Certificate> searchUserAproved() {
 
         EntityManager em = emf1.createEntityManager();
         List<Certificate> certificateObject = null;
         Query q = em.createNamedQuery("Certificate.findByAproved");
         q.setParameter("aproved", true);
-        
+
         try {
             certificateObject = q.getResultList();
         } catch (Exception e) {
@@ -87,5 +87,5 @@ public class CertificateDAO {
             return certificateObject;
         }
     }
-    
+
 }

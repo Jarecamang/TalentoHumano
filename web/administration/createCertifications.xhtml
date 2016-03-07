@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Crear certificaciones</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+
+    </h:head>
+    <h:body>   
+        <panel>
+            <h1>Recursos Humanos</h1>
+            <hr/>
+            <h:form>
+                <p>Areas de Interes : ${interestAreaBean.getInterestAreas(sessionScope.userData.username)} </p>
+                <p>Seleccione el Area de interes para la cual desea crear la certificacion</p>
+                <h:selectOneMenu value="#{createCertificationBean.name}">
+                <f:selectItems value="${interestAreaBean.getInterestAreas(sessionScope.userData.username)}" var="area" itemValue="#{area}" itemLabel="#{area}" />
+                </h:selectOneMenu>
+                <br/><br/>
+                <label>Mensaje: </label>
+                <h:outputText value="#{createCertificationBean.message}"/>
+                <br/><br/><br/><br/>
+                <h:commandButton action="#{createCertificationBean.createCertification()}" class="btn bg-primary" value="Crear Certificacion"/>
+            </h:form>
+        </panel>
+        <br/><br/><br/>
+        <a href="adminPanel.xhtml">Inicio</a>
+    </h:body>
+</html>

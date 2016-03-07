@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 public class HandleUser {
 
     public String doCreate(String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
-
+        System.out.println(new Date());
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
         user.setName(name);

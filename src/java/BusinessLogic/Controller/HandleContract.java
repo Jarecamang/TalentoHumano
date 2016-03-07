@@ -57,7 +57,7 @@ public class HandleContract {
         }
     }
 
-    public String renewContract(double salary, String type, Date date, long userDoccument, int contractPosition) {
+    public String renewContract(double salary, String type, Date startDate, Date finalDate, String healthEnterprise, Date startHealth, String pensionEnterprise, Date startPension, long userDoccument, int contractPosition) {
         UserDAO userDAO = new UserDAO();
         User userObject = userDAO.searchByDoccument(userDoccument);
 
@@ -68,11 +68,15 @@ public class HandleContract {
         Contract contract = new Contract();
         contract.setSalary(salary);
         contract.setType(type);
-        contract.setEnddate(date);
+        contract.setEnddate(finalDate);
+        contract.setStartDate(startDate);
+        contract.setHealthEnterprise(healthEnterprise);
+        contract.setStartHealthDate(startHealth);
+        contract.setPensionEnterprise(pensionEnterprise);
+        contract.setStartPensionDate(startPension);
         contract.setFkuserID(userObject);
 
         try {
-            String d = date.toString();
             if (type.equals("Indefinido")) {
                 return "El contrato no fue creado ya que se define fecha de finalización a un contrato Indefinido.";
             }
@@ -85,7 +89,7 @@ public class HandleContract {
         PositionDAO positionDAO = new PositionDAO();
 
         contract.getPositionSet().add(positionDAO.searchByID(contractPosition));
-        
+
         ContractDAO contractDAO = new ContractDAO();
         Contract contractObject = contractDAO.persist(contract);
 

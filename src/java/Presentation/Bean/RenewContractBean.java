@@ -21,9 +21,54 @@ public class RenewContractBean {
     int contractSalary;
     String contractType;
     Date contractFinalDate;
+    Date contractStartDate;
+    String healthEnterprise;
+    Date startHealth;
+    String pensionEnterprise;
+    Date startPension;
     String contractMessage;
     int contractPosition;
     long doccumentUser;
+
+    public Date getContractStartDate() {
+        return contractStartDate;
+    }
+
+    public void setContractStartDate(Date contractStartDate) {
+        this.contractStartDate = contractStartDate;
+    }
+
+    public String getHealthEnterprise() {
+        return healthEnterprise;
+    }
+
+    public void setHealthEnterprise(String healthEnterprise) {
+        this.healthEnterprise = healthEnterprise;
+    }
+
+    public Date getStartHealth() {
+        return startHealth;
+    }
+
+    public void setStartHealth(Date startHealth) {
+        this.startHealth = startHealth;
+    }
+
+    public String getPensionEnterprise() {
+        return pensionEnterprise;
+    }
+
+    public void setPensionEnterprise(String pensionEnterprise) {
+        this.pensionEnterprise = pensionEnterprise;
+    }
+
+    public Date getStartPension() {
+        return startPension;
+    }
+
+    public void setStartPension(Date startPension) {
+        this.startPension = startPension;
+    }
 
     public int getContractSalary() {
         return contractSalary;
@@ -76,10 +121,8 @@ public class RenewContractBean {
     public void renewContract(){
         
         HandleContract createContract = new HandleContract();
-        
-        
-        
-        contractMessage = createContract.renewContract(contractSalary,contractType,contractFinalDate,doccumentUser,contractPosition);
+
+        contractMessage = createContract.renewContract(contractSalary,contractType,contractStartDate,contractFinalDate,healthEnterprise,startHealth,pensionEnterprise,startPension,doccumentUser,contractPosition);
         
     }
     

@@ -7,6 +7,7 @@ package Presentation.Bean;
 
 import javax.faces.bean.ManagedBean;
 import BusinessLogic.Controller.HandleLogin;
+import BusinessLogic.Controller.HandleNotifications;
 import BusinessLogic.Controller.HandlePosition;
 import BusinessLogic.Controller.HandleUser;
 import javax.faces.bean.RequestScoped;
@@ -51,6 +52,8 @@ public class LoginBean {
     }
 
     public void login() {
+        HandleNotifications hn = new HandleNotifications();
+        hn.getNotifications();
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
         if (message.charAt(0) == 'A') {//solo admin

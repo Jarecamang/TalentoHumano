@@ -6,17 +6,21 @@
 package Presentation.Bean;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandleUser;
 import BusinessLogic.Controller.HandleContract;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 /**
  *
  * @author Alejandro
  */
-@ManagedBean
-@ViewScoped
+@SessionScoped
+@Named("createUserBean")
+@ManagedBean(name = "createUserBean")
 public class CreateUserBean {
 
     String name;
@@ -228,6 +232,7 @@ public class CreateUserBean {
     }
 
     public void createUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
         HandleUser createUser = new HandleUser();
         String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
         if (messageTest.charAt(0) != 'U') {
@@ -239,5 +244,7 @@ public class CreateUserBean {
             HandleContract createContract = new HandleContract();
             contractMessage = createContract.doCreate(contractSalary, contractType, contractStartDate, contractFinalDate, healthEnterprise, startHealth, pensionEnterprise, startPension, userId, name, contractPosition);
         }
+        context.addMessage(null, new FacesMessage("Usuario", message) );
+        context.addMessage(null, new FacesMessage("Contrato", contractMessage));
     }
 }

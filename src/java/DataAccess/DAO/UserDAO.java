@@ -6,6 +6,7 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.User;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -96,5 +97,21 @@ public class UserDAO {
             em.close();
             return userObject;
         }
+    }
+
+    public List<User> getAllUsers() {
+        EntityManager em = emf1.createEntityManager();
+        List<User> userObject = null;
+        Query q = em.createNamedQuery("User.findAll");
+        try {
+            userObject = q.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("El usuario no existe");
+        } finally {
+            em.close();
+            return userObject;
+        }
+
     }
 }

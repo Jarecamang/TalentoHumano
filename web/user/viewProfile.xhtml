@@ -6,57 +6,62 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>  
         <link rel="stylesheet" href="../css/bootstrap.min.css"></link>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-         <script src="../js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <title>PERFIL DE USUARIO</title>
     </h:head> 
     <h:body>  
-        
-    <span>Hola #{sessionScope.user} eres un #{sessionScope.role}!!!</span>     
-    <br/><br/><br/>
-    <div class="col-sm-12">
-        <div class="tabbable">
-        <!-- Tabs -->
-            <ul class="nav nav-tabs product-details-nav">
-                <li class="active"><a href="#tab1" data-toggle="tab">Informacion Personal</a></li>
-                <li><a href="#tab2" data-toggle="tab">Informacion Laboral</a></li>
-            </ul>
-            <!-- Tab Content (Full Description) -->
-            <div class="tab-content product-detail-info">
-                <div class="tab-pane active" id="tab1">
-                    <br/><br/>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Usuario : #{sessionScope.userData.username} </p>  
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Nombre : #{sessionScope.userData.name} </p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Apellido : #{sessionScope.userData.lastname} </p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Nacimiento : #{sessionScope.userData.dateBorn} </p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Nivel de formacion : #{sessionScope.userData.levelTraining} </p>  
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Direccion : #{sessionScope.userData.address} </p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Telefono : #{sessionScope.userData.phone} </p>     
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Correo : #{sessionScope.userData.email} </p>     	
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Areas de Interes : ${interestAreaBean.getInterestAreas(sessionScope.userData.username)} </p>
-                </div>
-                <div class="tab-pane" id="tab2">
-                    <br/><br/>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;ID del Contrato : #{sessionScope.userContract.pkID} </p>  
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Salario : #{sessionScope.userContract.salary} </p>  
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Tipo de contrato : #{sessionScope.userContract.type} </p>  
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate} </p> 
+
+        <span>Hola #{sessionScope.user} eres un #{sessionScope.role}!!!</span>     
+        <br/><br/><br/>
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <!-- Tabs -->
+                <ul class="nav nav-tabs product-details-nav">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Informacion Personal</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Informacion Laboral</a></li>
+                </ul>
+                <!-- Tab Content (Full Description) -->
+                <div class="tab-content product-detail-info">
+                    <div class="tab-pane active" id="tab1">
+                        <br/><br/>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Usuario : #{sessionScope.userData.username} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Nombre : #{sessionScope.userData.name} </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Apellido : #{sessionScope.userData.lastname} </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Nacimiento : #{sessionScope.userData.dateBorn} </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Nivel de formacion : #{sessionScope.userData.levelTraining} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Direccion : #{sessionScope.userData.address} </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Telefono : #{sessionScope.userData.phone} </p>     
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Correo : #{sessionScope.userData.email} </p>     	
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Areas de Interes : ${interestAreaBean.getInterestAreas(sessionScope.userData.username)} </p>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <br/><br/>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;ID del Contrato : #{sessionScope.userContract.pkID} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Salario : #{sessionScope.userContract.salary} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Tipo de contrato : #{sessionScope.userContract.type} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate} </p> 
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Cargos:<br/>
+                            <c:forEach var="position" items="${sessionScope.userContract.positionSet}" >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${position.name} <br/>
+                            </c:forEach>
+                        </p> 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>    
-    
-    <h:form>
-    <center>    
-    <h:commandButton action="#{loginBean.back(sessionScope.userData.username)}" value="Inicio"/>
-    </center>    
-    </h:form>
-    
+        </div>    
+
+        <h:form>
+            <center>    
+                <h:commandButton action="#{loginBean.back(sessionScope.userData.username)}" value="Inicio"/>
+            </center>    
+        </h:form>
+
     </h:body>
-    
+
     <br/><br/>
-   
+
     <br/> 
-    
+
 </html>
 

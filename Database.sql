@@ -271,5 +271,31 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO `role` VALUES(1,'User'),(2,'Administrator');
-INSERT INTO `user` VALUES (1,'1012345456','Admin','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2);
+INSERT INTO `role` VALUES
+(1,'User'),
+(2,'Administrator');
+
+INSERT INTO `user` VALUES
+(1,'1012345456','Admin','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2),
+(2,'1012345457','User','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','Pregrado','user','user',1);
+
+INSERT INTO `contract` VALUES
+(1,1000000,'Definido',now(),'1992-05-25','Famisanar',now(),'SURA',now(),1),
+(2,500000,'Indefinido',now(),null,'Famisanar',now(),'SURA',now(),2);
+
+INSERT INTO `position` VALUES
+(1,'Programador'),
+(2,'Analista');
+
+INSERT INTO `contractposition` VALUES
+(1,1),
+(2,2);
+
+INSERT INTO `areaofinterest` VALUES
+(1,'PHP'),
+(2,'HTML5');
+
+INSERT INTO `userareaofinterest` VALUES
+(1,1),
+(2,1),
+(2,2);

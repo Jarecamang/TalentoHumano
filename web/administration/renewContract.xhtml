@@ -7,8 +7,9 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"  
-      xmlns:f="http://java.sun.com/jsf/core">
-    <head>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <title>Crear Usuario</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
 
@@ -23,47 +24,41 @@ and open the template in the editor.
         <!-- Custom CSS -->
         <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"></link>
-
-
-        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-
-
-        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-                // to display 'select date' title on icton of calender image (ie Calc.png)
-                $('.ui-datepicker-trigger').attr('alt', 'Select Date').attr('title', 'Select Date');
-            });
-        </script>
-    </head>
+    </h:head>
     <body>
         <panel>
             <h1>Recursos Humanos</h1>
             <hr/>
             <h:form>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <h2>Añada un Contrato al usuario</h2>  
+                    <div class="col-lg-6">                      
+                        <h2>Renueve un Contrato al usuario</h2>  
                         <h:panelGrid columns="2">
                             <label>Número de Identificación:</label>
-                            <h:inputText value="#{renewContractBean.doccumentUser}" required="true" requiredMessage="¡El número de identificación es requerido!"/>
+                            <p:inputText value="#{renewContractBean.doccumentUser}" required="true" requiredMessage="¡El número de identificación es requerido!"/>
                             <label>Salario:</label>
-                            <h:inputText value="#{renewContractBean.contractSalary}" required="true" requiredMessage="¡El salario es requerido!"/>
+                            <p:inputText value="#{renewContractBean.contractSalary}" required="true" requiredMessage="¡El salario es requerido!"/>
                             <label>Tipo:</label>
-                             <h:selectOneMenu value="#{renewContractBean.contractType}">
+                            <p:selectOneMenu value="#{renewContractBean.contractType}" required="true" requiredMessage="¡El tipo de contrato es requerido!">
                                 <f:selectItem itemValue="Definido" itemLabel="Definido" />
                                 <f:selectItem itemValue="Indefinido" itemLabel="Indefinido" />	
-                            </h:selectOneMenu>
-                            <label>Fecha Final:</label>
-                            <h:inputText id="datepicker" value="#{renewContractBean.contractFinalDate}" styleClass="datepicker">
-                                <f:convertDateTime pattern="yyyy-mm-dd"/>
-                            </h:inputText>
+                            </p:selectOneMenu>
+                            <label>Fecha inicio de contrato:</label>
+                            <p:calendar id="startDate" value="#{renewContractBean.contractStartDate}" required="true" requiredMessage="La fecha de inicio de contrato es obligatoria" navigator="true"/>
+                            <label>Fecha terminación de contrato:</label>
+                            <p:calendar id="finalDate" value="#{renewContractBean.contractFinalDate}" required="true" requiredMessage="La fecha de final de contrato es obligatoria" navigator="true"/>
+                            <label>Entidad de salud:</label>
+                            <p:inputText value="#{renewContractBean.healthEnterprise}" required="true" requiredMessage="¡La entidad de Salud es requerida!"/>
+                            <label>Fecha de inicio de cotización salud:</label>
+                            <p:calendar id="startHealth" value="#{renewContractBean.startHealth}" required="true" requiredMessage="La fecha de inicio de salud es obligatoria" navigator="true" />
+                            <label>Entidad de pensiones:</label>
+                            <p:inputText value="#{renewContractBean.pensionEnterprise}" required="true" requiredMessage="¡La entidad de Pensiones es requerida!"/>
+                            <label>Fecha de inicio de cotización pensión:</label>
+                            <p:calendar id="startPension" value="#{renewContractBean.startPension}" required="true" requiredMessage="La fecha de inicio de pensión es obligatoria" navigator="true"/>
                             <label>Cargo:</label>
-                            <h:selectOneMenu value="#{renewContractBean.contractPosition}">
+                            <p:selectOneMenu value="#{renewContractBean.contractPosition}" required="true" requiredMessage="¡El cargo es requerido!">
                                 <f:selectItems value="#{sessionScope.positionList}" var="position" itemValue="#{position.pkID}" itemLabel="#{position.name}" />
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </h:panelGrid>
 
                         <br/>
