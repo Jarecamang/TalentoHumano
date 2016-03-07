@@ -45,8 +45,10 @@ and open the template in the editor.
         <c:forEach var="notification" items="${sessionScope.notificationCertificationsList}" >
                         <center> 
                         <center><h:outputText  value="${notification.getFkuserID().getName()}"/></center>
-                        <center><h:outputText  value="${notification.getDescripcion()}"/></center>
+                        <center><h:outputText  value="${notification.getDescription()}"/></center>
                         </center>
-        </c:forEach> 
+        </c:forEach>
+      <br/>
+      <a href="empleadoPanel.xhtml">Inicio</a>
     </body>
 </html>

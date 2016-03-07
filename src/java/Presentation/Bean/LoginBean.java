@@ -52,8 +52,6 @@ public class LoginBean {
     }
 
     public void login() {
-        HandleNotifications hn = new HandleNotifications();
-        hn.getNotifications();
         HandleLogin login = new HandleLogin();
         message = login.doLogin(user, password);
         if (message.charAt(0) == 'A') {//solo admin
@@ -67,6 +65,8 @@ public class LoginBean {
             HandleUser hu = new HandleUser();
             hu.uploadPersonalData(user);
         }
+        HandleNotifications hn = new HandleNotifications();
+        hn.getNotifications();
     }
 
     public void logout() {
