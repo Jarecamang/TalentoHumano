@@ -40,15 +40,20 @@
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;ID del Contrato : #{sessionScope.userContract.pkID} </p>  
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;Salario : #{sessionScope.userContract.salary} </p>  
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;Tipo de contrato : #{sessionScope.userContract.type} </p>  
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de inicio del Contrato : #{sessionScope.userContract.startDate} </p> 
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate} </p> 
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;Cargos:<br/>
                             <c:forEach var="position" items="${sessionScope.userContract.positionSet}" >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${position.name} <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;- ${position.name} <br/>
                             </c:forEach>
-                        </p> 
+                        </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Salud : #{sessionScope.userContract.healthEnterprise}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Servicio de Salud : #{sessionScope.userContract.startHealthDate}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Pension : #{sessionScope.userContract.pensionEnterprise}</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Pension : #{sessionScope.userContract.startPensionDate}</p>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>    
 
         <h:form>
