@@ -7,46 +7,52 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Crear Nuevo Cargo</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
-
         <!-- Custom Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
         <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
         <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
-
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
-
         <!-- Custom CSS -->
         <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
-
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
     </h:head>
-    <h:body>   
+    <h:body style="background-image: url('../img/cargo.jpg');background-color: #cccccc; background-size:cover;">   
+        <h1>Recursos Humanos</h1>
+        <hr/>
         <panel>
-            <h1>Recursos Humanos</h1>
-            <hr/>
             <h:form>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h2>Crear Nuevo Cargo</h2>
-                        <h:panelGrid columns="2">
+                    <div class="container text-center">      
+                        <section class="container content-section text-center" style="background: #0066cc;border-radius: 50px; max-width: 600px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>Crear Nuevo Cargo</h2>
+                            <br/>
                             <label>Nombre:</label>
                             <h:inputText value="#{createPositionBean.positionName}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                        </h:panelGrid>
-                        <br/>
-                        <label>Mensaje: </label>
+                            <br/>
+                            <label>Mensaje: </label>
 
-                        <h:outputText value="#{createPositionBean.message}"/>
-                        <br/>
-                        <a href="adminPanel.xhtml">Inicio</a>
-                        <br/>
+                            <h:outputText value="#{createPositionBean.message}"/>
+                            <br/>
+                        </section>
                     </div>
                 </div>
-                <h:commandButton action="#{createPositionBean.createPosition()}" class="btn btn-primary btn-xl page-scroll" value="Crear Cargo"/>
             </h:form>
+            <div class="container text-center">
+                <a href="adminPanel.xhtml">
+                    <commandButton class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                </a>
+            </div>
         </panel>
     </h:body>
 </html>

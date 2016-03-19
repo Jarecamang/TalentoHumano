@@ -19,28 +19,40 @@ and open the template in the editor.
         <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
         <!-- Custom CSS -->
         <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
     </h:head>
-    <h:body>   
-        <panel>
-            <h:form>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h2>Agregar Area de Interes</h2>
-                        <h:panelGrid columns="2">
+    <h:body style="background-image: url('../img/areaOfinterest.jpg');background-color: #cccccc; background-size:cover;">   
+        <h1>Recursos Humanos</h1>
+        <hr/>
+        <section class="container content-section text-center" style="background: #0066cc;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
+            <panel>
+                <h:form>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h2>Agregar Area de Interes</h2>
+                            <br/>
                             <label>Nombre:</label>
                             <h:inputText value="#{interestAreaBean.nameInteresArea}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                        </h:panelGrid>
-                        <br/>
-                        <label>Mensaje: </label>
-                        <h:outputText value="#{interestAreaBean.message}"/>
+                            <br/>
+                            <label>Mensaje: </label>
+                            <h:outputText value="#{interestAreaBean.message}"/>
+                        </div>
                     </div>
-                </div>
-                <h:commandButton action="#{interestAreaBean.addInterestArea(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Agregar Area"/>
-            </h:form>
-            <br/><br/><br/>
+                    <h:commandButton action="#{interestAreaBean.addInterestArea(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Agregar Area"/>
+                </h:form>
+            </panel>
+        </section>
+        <div class="container content-section text-center">
             <h:form>
-                <h:commandLink action="#{loginBean.back(sessionScope.userData.username)}" value="Inicio"/>
+                <center>    
+                    <h:commandButton action="#{loginBean.back(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Inicio"/>
+                </center>    
             </h:form>
-        </panel>
+        </div>
     </h:body>
 </html>
