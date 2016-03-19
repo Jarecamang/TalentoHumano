@@ -15,23 +15,25 @@ import javax.persistence.Persistence;
  * @author Edwin
  */
 public class CertificationDAO {
-    
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
-    
-    public Certifications persist(Certifications certification) { 
-        
+
+    public Certifications persist(Certifications certification) {
+
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(certification);
             em.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.close();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+                em.close();
+            }
             return null;
         }
         em.close();
         return certification;
-    } 
-        
+    }
+
 }

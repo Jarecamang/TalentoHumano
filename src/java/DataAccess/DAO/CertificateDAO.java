@@ -29,8 +29,10 @@ public class CertificateDAO {
             em.persist(certificate);
             em.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.close();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+                em.close();
+            }
             return null;
         }
         em.close();
