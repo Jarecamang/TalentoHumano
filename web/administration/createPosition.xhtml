@@ -27,7 +27,7 @@ and open the template in the editor.
         <link href="../css/main.css" rel="stylesheet"/>
         <link href="../css/responsive.css" rel="stylesheet"/>
     </h:head>
-    <h:body style="background-image: url('../img/cargo.jpg');background-color: #cccccc; background-size:cover;">   
+    <body style="background-image: url('../img/cargo.jpg');background-color: #cccccc; background-size:cover;">   
         <h1>Recursos Humanos</h1>
         <hr/>
         <panel>
@@ -38,12 +38,13 @@ and open the template in the editor.
                             <h2>Crear Nuevo Cargo</h2>
                             <br/>
                             <label>Nombre:</label>
-                            <h:inputText value="#{createPositionBean.positionName}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                            <p:inputText value="#{createPositionBean.positionName}" required="true" requiredMessage="¡El nombre es requerido!"/>
                             <br/>
                             <label>Mensaje: </label>
 
                             <h:outputText value="#{createPositionBean.message}"/>
-                            <br/>
+                            <br/><br/>
+                            <h:commandButton action="#{createPositionBean.createPosition()}" class="btn btn-primary btn-xl page-scroll" value="Crear Cargo"/>
                         </section>
                     </div>
                 </div>
@@ -54,5 +55,5 @@ and open the template in the editor.
                 </a>
             </div>
         </panel>
-    </h:body>
+    </body>
 </html>
