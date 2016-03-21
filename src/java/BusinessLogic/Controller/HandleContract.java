@@ -92,7 +92,15 @@ public class HandleContract {
         contract.getPositionSet().add(positionDAO.searchByID(contractPosition));
 
         ContractDAO contractDAO = new ContractDAO();
-        Contract contractObject = contractDAO.persist(contract);
+        //busca contrato de este usuario
+        Contract contratoUsuario = contractDAO.getUserContract(userObject);
+        contract.setPkID(contratoUsuario.getPkID());
+        Contract contractObject = null;
+        if(contratoUsuario == null){
+            contractObject = contractDAO.persist(contract);
+        }else{
+            contractObject = contractDAO.edit(contract, contractPosition);
+        }
 
         if (contractObject
                 != null) {

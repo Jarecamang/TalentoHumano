@@ -37,6 +37,34 @@ public class ContractDAO {
         em.close();
         return contract;
     }
+    
+    public Contract edit(Contract contract, int contractPosition) {
+        Contract contractNew = null;
+        EntityManager em = emf1.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            contractNew = em.merge(em.find(Contract.class, contract.getPkID()));
+            contractNew.setSalary(contract.getSalary());
+            contractNew.setType(contract.getType());
+            contractNew.setEnddate(contract.getEnddate());
+            contractNew.setStartDate(contract.getStartDate());
+            contractNew.setHealthEnterprise(contract.getHealthEnterprise());
+            contractNew.setStartHealthDate(contract.getStartHealthDate());
+            contractNew.setPensionEnterprise(contract.getPensionEnterprise());
+            contractNew.setStartPensionDate(contract.getStartPensionDate());
+            contractNew.setFkuserID(contract.getFkuserID());
+            PositionDAO positionDAO = new PositionDAO();
+            contractNew.getPositionSet().add(positionDAO.searchByID(contractPosition));
+            //contractNew.setBalance(account.getBalance());
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            em.close();
+            return contractNew;
+        }
+    }
 
     public int getAmountOfSalariesEquals(double salary) {
 
