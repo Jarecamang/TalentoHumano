@@ -1,4 +1,3 @@
-
 package DataAccess.DAO;
 
 import DataAccess.Entity.Areaofinterest;
@@ -13,27 +12,29 @@ import javax.persistence.Query;
  * @author Edwin
  */
 public class InterestAreaDAO {
-    
-     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
-    
-     public Areaofinterest persist(Areaofinterest area) {
-        
+
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+
+    public Areaofinterest persist(Areaofinterest area) {
+
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(area);
             em.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.close();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+                em.close();
+            }
             return null;
         }
         em.close();
         return area;
     }
-    
+
     public List<Areaofinterest> getAllAreasOfInterest() {
-        
+
         EntityManager em = emf1.createEntityManager();
         List<Areaofinterest> areaObject = null;
         Query q = em.createNamedQuery("Areaofinterest.findAll");
@@ -45,8 +46,6 @@ public class InterestAreaDAO {
             em.close();
             return areaObject;
         }
-    } 
-     
-}
+    }
 
- 
+}

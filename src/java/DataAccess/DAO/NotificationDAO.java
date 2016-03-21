@@ -17,26 +17,28 @@ import javax.persistence.Query;
  * @author Edwin
  */
 public class NotificationDAO {
-    
-     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
-    
-     public Notifications persist(Notifications noti) {
-        
+
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+
+    public Notifications persist(Notifications noti) {
+
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(noti);
             em.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.close();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+                em.close();
+            }
             return null;
         }
         em.close();
         return noti;
     }
-    
-     public List<Notifications> searchAll() {
+
+    public List<Notifications> searchAll() {
 
         EntityManager em = emf1.createEntityManager();
         List<Notifications> notiObject = null;
@@ -50,6 +52,6 @@ public class NotificationDAO {
             em.close();
             return notiObject;
         }
-    } 
-     
+    }
+
 }

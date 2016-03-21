@@ -77,6 +77,7 @@ public class HandleContract {
         contract.setFkuserID(userObject);
 
         try {
+            String d = finalDate.toString();
             if (type.equals("Indefinido")) {
                 return "El contrato no fue creado ya que se define fecha de finalización a un contrato Indefinido.";
             }
