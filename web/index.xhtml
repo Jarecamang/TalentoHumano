@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head> 
+    <h:head>  
         <title>Sistema de Recursos Humanos: Acceso</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -21,26 +21,32 @@
             .loginBox{width: 220px; vertical-align: middle;font-weight: bold}
         </style>
     </h:head> 
-    <h:body style="background-image: url('img/RRHH2.jpg');background-color: #cccccc; background-size:cover;"> 
-        
-        
+    <h:body style="background-image: url('img/RRHH.jpg');background-color: #cccccc; background-size:cover;"> 
+         
+         
         <div class="container form-signin">
         <div class="card card-container">
-            <f:view>
-            <h:form id="index">
-                <center>
-                    <h1 style="color:#0066cc">SISTEMA DE RECURSOS HUMANOS</h1>
-                </center>
+            <f:view> 
+            <h:form id="index"> 
                 <div align="center">
-                    <fieldset class="loginBox">
-                        <legend>Login</legend>
-                        <span class="label">Usuario:</span> <p:inputText styleClass="textfield" id="user" value="#{loginBean.user}"></p:inputText><br/>
-                        <span class="label">Password:</span> <p:password styleClass="textfield" id="password"  value="#{loginBean.password}"></p:password><br/>
-                        <h:commandButton styleClass="loginButton" actionListener="#{loginBean.login()}" value="Login">
+                    <fieldset class="loginBox">  
+                        <br/><br/><br/><br/><br/><br/>
+                        <span class="label" style="font-size: 10pt; color: black; alignment-adjust: central">LOGIN</span> 
+                        <br/>
+                        <span class="label col-lg-12" style="font-size: 10pt; color: black">Usuario:</span> 
+                        <br/>
+                        <p:inputText style="alignment-adjust: central" id="user" value="#{loginBean.user}"></p:inputText>
+                        <br/>
+                        <span class="label col-lg-12" style="font-size: 10pt; color: black">Contraseña:</span> 
+                        <br/> 
+                        <p:password style="alignment-adjust: central" id="password"  value="#{loginBean.password}"></p:password>
+                        <br/><br/>
+                        <h:commandButton style="width:70px; height:35px" actionListener="#{loginBean.login()}" value="Ingresar">
                             <f:ajax execute="@form" render="message"></f:ajax>
-                        </h:commandButton><br/>
+                        </h:commandButton>
+                        <br/>
                         <h:outputText styleClass="errorMessage" value="#{loginBean.message}" id="message"></h:outputText>
-                    </fieldset>
+                    </fieldset> 
                 </div>
             </h:form>
         </f:view>

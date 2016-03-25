@@ -34,8 +34,9 @@ and open the template in the editor.
             <h:form>
                 <div class="row">
                     <div class="container text-center">      
-                        <section class="container content-section text-center" style="background: #0066cc;border-radius: 50px; max-width: 600px;margin-top: 50px;padding: 40px 40px;">
-                            <h2>Crear Nuevo Cargo</h2>
+                        <section class="container content-section text-center" style="background: #ccccff;border-radius: 50px; max-width: 600px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>CREAR NUEVO CARGO</h2>
+                            <hr/>
                             <br/>
                             <label>Nombre:</label>
                             <p:inputText value="#{createPositionBean.positionName}" required="true" requiredMessage="¡El nombre es requerido!"/>
@@ -51,7 +52,7 @@ and open the template in the editor.
             </h:form>
             <div class="container text-center">
                 <a href="adminPanel.xhtml">
-                    <commandButton class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                    <commandButton style="background-color: blue" class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
                 </a>
             </div>
         </panel>

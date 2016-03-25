@@ -31,21 +31,23 @@ and open the template in the editor.
     <h:body style="background-image: url('../img/certification.jpg');background-color: #cccccc; background-size:cover;">   
         <h1>Recursos Humanos</h1>
         <hr/>
-        <section class="container content-section text-center" style="background: #0066cc;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
+        <section class="container content-section text-center" style="background: #00cccc;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
             <panel>
                 <h:form>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <p>Notificaciones:</p>
+                            <h2>NOTIFICACIONES:</h2>
+                            <hr/>
                             <c:forEach var="notification" items="${sessionScope.notificationCertificationsList}" >
                                 <center> 
                                     <center><h:outputText  value="${notification.getFkuserID().getName()}"/></center>
                                     <center><h:outputText  value="${notification.getDescription()}"/></center>
+                                    <hr/>
                                 </center>
                             </c:forEach>
                         </div>
                     </div>
-                </h:form>
+                </h:form>   
             </panel>
         </section>
         <div class="container text-center">

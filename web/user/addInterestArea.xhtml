@@ -29,12 +29,13 @@ and open the template in the editor.
     <h:body style="background-image: url('../img/areaOfinterest.jpg');background-color: #cccccc; background-size:cover;">   
         <h1>Recursos Humanos</h1>
         <hr/>
-        <section class="container content-section text-center" style="background: #0066cc;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
+        <section class="container content-section text-center" style="background: #00cccc;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
             <panel>
                 <h:form>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h2>Agregar Area de Interes</h2>
+                            <h2>AGREGAR AREA DE INTERES</h2>
+                            <hr/>
                             <br/>
                             <label>Nombre:</label>
                             <h:inputText value="#{interestAreaBean.nameInteresArea}" required="true" requiredMessage="¡El nombre es requerido!"/>
@@ -50,7 +51,7 @@ and open the template in the editor.
         <div class="container content-section text-center">
             <h:form>
                 <center>    
-                    <h:commandButton action="#{loginBean.back(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Inicio"/>
+                    <h:commandButton style="background-color: blue" action="#{loginBean.back(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Inicio"/>
                 </center>    
             </h:form>
         </div>
