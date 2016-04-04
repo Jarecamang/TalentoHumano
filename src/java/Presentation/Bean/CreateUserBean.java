@@ -233,18 +233,41 @@ public class CreateUserBean {
 
     public void createUser() {
         FacesContext context = FacesContext.getCurrentInstance();
-        HandleUser createUser = new HandleUser();
-        String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
-        if (messageTest.charAt(0) != 'U') {
-            message = messageTest;
-            contractMessage = "El contrato no pudo ser creado. La creación de usuario falló.";
+        if (contractType.equals("Indefinido") && contractFinalDate != null) {
+            message = "El usuario no pudo ser creado pues el contrato es indefinido pero tiene fecha de finalizaciÃ³n";
+            contractMessage = "No se pudo crear el contrato porque es indefinido pero tiene fecha de finalizaciÃ³n";
         } else {
-            message = messageTest.split("/")[0];
-            int userId = Integer.parseInt(messageTest.split("/")[1]);
-            HandleContract createContract = new HandleContract();
-            contractMessage = createContract.doCreate(contractSalary, contractType, contractStartDate, contractFinalDate, healthEnterprise, startHealth, pensionEnterprise, startPension, userId, name, contractPosition);
+            HandleUser createUser = new HandleUser();
+            String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
+            if (messageTest.charAt(0) != 'U') {
+                message = messageTest;
+                contractMessage = "El contrato no pudo ser creado. La creaciÃ³n de usuario fallÃ³.";
+            } else {
+                message = messageTest.split("/")[0];
+                int userId = Integer.parseInt(messageTest.split("/")[1]);
+                HandleContract createContract = new HandleContract();
+                contractMessage = createContract.doCreate(contractSalary, contractType, contractStartDate, contractFinalDate, healthEnterprise, startHealth, pensionEnterprise, startPension, userId, name, contractPosition);
+                name = null;
+                lastname = null;
+                dateBorn = null;
+                address = null; 
+                phone = 0;
+                email = null;
+                username = null;
+                password1 = null;
+                password2 = null;
+                identifyCard = 0;
+                contractSalary = 0;
+                contractFinalDate = null;
+                contractStartDate = null;
+                healthEnterprise = null;
+                startHealth = null;
+                pensionEnterprise = null;
+                startPension = null;
+            }
+            context.addMessage(null, new FacesMessage("Usuario", message));
+            context.addMessage(null, new FacesMessage("Contrato", contractMessage));
         }
-        context.addMessage(null, new FacesMessage("Usuario", message) );
-        context.addMessage(null, new FacesMessage("Contrato", contractMessage));
     }
+    
 }
