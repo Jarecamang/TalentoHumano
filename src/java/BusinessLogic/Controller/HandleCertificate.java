@@ -143,7 +143,7 @@ public class HandleCertificate {
         int annio = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH)+1;
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        Paragraph endtext = new Paragraph("\n\n\nSe expide la presente certificacion a solicitud"
+        Paragraph endtext = new Paragraph("\n\nSe expide la presente certificacion a solicitud"
             + " del interesado a la fecha de : "+dia+"/"+mes+"/"+annio 
             +"\n\n\nCordialmente\n\n\nEdwin Alexander Bohorquez\nGERENTE GENERAL DE TALENTO-HUMANO LTDA");
         endtext.setAlignment(Element.ALIGN_LEFT);
@@ -169,10 +169,12 @@ public class HandleCertificate {
             typeCertificate = "Nomina";
             Paragraph Payroll_header = new Paragraph("DEPARTAMENTO DE CONTABILIDAD\n"
                 + "TALENTO-HUMANO LTDA\n\n"
-                + "LIQUIDACION DE NOMINA:\n\n",fuente);
+                + "LIQUIDACION DE NOMINA:\n"
+                + "Nombre del empleado : "+user.getName()+" "+user.getLastname()+"\n"
+                + "Cedula : "+user.getIdentifyCard()+"\n\n",fuente);
             Payroll_header.setAlignment(Element.ALIGN_CENTER);
             document.add(Payroll_header);
-            double commissions=10000;
+            double commissions=10000; 
             double extra_hours=50000;
             double transportation_aid=63600;
             double totalAccrued = contractObject.getSalary()+commissions+extra_hours+transportation_aid;

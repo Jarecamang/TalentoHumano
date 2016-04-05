@@ -32,9 +32,9 @@ public class HandleCertification {
         int annio = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH);
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        cert.setDate(new Date(annio, mes, dia));
-        cert.setName(name);
-        cert.setPlace("Area de "+name);
+        cert.setDate(new Date(annio-1900, mes, dia));
+        cert.setName(name); 
+        cert.setPlace("Departamento de Administracion");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         cert.setFkuserID(new User((Integer) ec.getSessionMap().get("userId")));
         CertificationDAO ceDAO = new CertificationDAO();
@@ -47,23 +47,23 @@ public class HandleCertification {
         }
         
     }
-    
+     
     public void generateNotifications(int idCertificacion, String nameCertification){
         InterestAreaDAO areaDAO = new InterestAreaDAO();
         UserDAO usDAO = new UserDAO();
         NotificationDAO notiDAO = new NotificationDAO();
         Calendar fecha = new GregorianCalendar();
-        int annio = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH);
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int year = fecha.get(Calendar.YEAR);
+        int month = fecha.get(Calendar.MONTH);
+        int day = fecha.get(Calendar.DAY_OF_MONTH);
         List<User> userlist = usDAO.getAllUsers();
         List<Areaofinterest> areaslist = areaDAO.getAllAreasOfInterest();
         Notifications noti = new Notifications();
         for (User us : userlist){
             for (Areaofinterest area : areaslist) {
                 if (area.getName().equals(nameCertification) && area.getUserSet().contains(us)) {
-                    noti.setDate(new Date(annio, mes, dia));
-                    noti.setDescription("Se ha creado una Certificacion para el area de : "+nameCertification);
+                    noti.setDate(new Date(year-1900, month, day)); 
+                    noti.setDescription("El Departamento de Administracion ha creado una Certificacion para el area de : "+nameCertification);
                     noti.setFkcertificationID(new Certifications(idCertificacion));
                     noti.setFkuserID(new User(us.getPkID()));
                     Notifications notif = notiDAO.persist(noti);
@@ -71,6 +71,5 @@ public class HandleCertification {
             }
         }
     }
-    
     
 }

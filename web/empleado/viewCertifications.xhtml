@@ -33,8 +33,8 @@ and open the template in the editor.
         <hr/>
         <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
             <panel>
-                <h:form>
-                    <div class="row">
+                <h:form> 
+                    <div class="row"> 
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h2>NOTIFICACIONES:</h2>
                             <hr/>
@@ -42,6 +42,7 @@ and open the template in the editor.
                                 <center> 
                                     <center><h:outputText  value="${notification.getFkuserID().getName()}"/></center>
                                     <center><h:outputText  value="${notification.getDescription()}"/></center>
+                                    <center><h:outputText  value="Fecha : ${notification.getDate().toLocaleString().substring(0, 11)}"/></center>
                                     <hr/>
                                 </center>
                             </c:forEach>
