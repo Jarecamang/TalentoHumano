@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Certificados Aprobados</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head>
+    <h:body style="background-image: url('../img/aproveCertificate.jpg');background-color: #cccccc; background-size:cover;">   
+        <h1>Recursos Humanos</h1>
+        <hr/>
+        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
+            <panel>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <center>
+                            <h2>TUS CERTIFICADOS APROBADOS</h2>
+                            <hr/>
+                            <table border="1px" cellpadding="20px">
+                                <tr>  
+                                    <th bgcolor="yellow">Numero</th>
+                                    <th bgcolor="yellow">Usuario</th>
+                                    <th bgcolor="yellow">Descripcion</th>
+                                    <th bgcolor="yellow">Tipo</th>
+                                </tr>             
+                                <c:forEach var="notification" items="${sessionScope.notificationUserList}" >
+                                    <center> 
+                                        <tr>
+                                            <td><center><h:outputText  value="${sessionScope.notificationUserList.indexOf(notification)+1}"/></center></td>
+                                            <td><center><h:outputText  value="${notification.getFkuserID().getName()}"/></center></td>
+                                            <td><center><h:outputText  value="${notification.getDescripcion()}"/></center></td>
+                                            <td><center><h:outputText  value="${notification.getType()}"/></center></td>
+                                        </tr> 
+                                    </center>
+                                </c:forEach> 
+                            </table>
+                        </center>
+                        <br/>
+                        <form action="download.xhtml" method="post" >
+                            <input type="hidden" name="idUser" value="${sessionScope.userId}"></input>
+                            <select name="option">
+                                <c:forEach var="i" begin="1" end="${sessionScope.notificationUserList.size()}">
+                                    <option value="${i}">${i}</option> 
+                                </c:forEach>
+                            </select>
+                            <br/>
+                            <button class="btn btn-primary btn-xl page-scroll">Descargar</button>
+                        </form> 
+                    </div>
+                </div>
+            </panel>
+        </section>
+        <div class="container text-center">
+            <a href="empleadoPanel.xhtml">
+                <commandButton style="background-color: blue" class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+            </a>
+        </div>
+    </h:body>
+</html>
