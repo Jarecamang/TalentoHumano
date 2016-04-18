@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Certificados por aprobar:</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head>
+    <body style="background-image: url('../img/aproveCertificate.jpg');background-color: #cccccc; background-size:cover;">
+        <h1>Recursos Humanos</h1>
+        <hr/> 
+        <panel>
+            <h:form>
+                <div class="row">
+                    <div class="container text-center">      
+                        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px; max-width: 700px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>APROBAR CERTIFICADO</h2>
+                            <hr/>
+                            <br/>
+                            <table style="margin-left: auto;margin-right: auto;" border="1px" cellpadding="20px">
+                                <tr>
+                                    <th COLSPAN="1" bgcolor="orange">Cedula Usuario</th>
+                                    <th COLSPAN="2" bgcolor="orange">Descripción</th>
+                                    <th COLSPAN="3" bgcolor="orange">Tipo</th>
+                                    <th COLSPAN="4" bgcolor="orange">Aprobar?</th>
+                                </tr>             
+                                <c:forEach var="notification" items="${sessionScope.notificationList}" >
+                                    <center>
+                                        <tr>
+                                            <td><center><h:outputText value="${notification.getFkuserID().getIdentifyCard()}"/></center></td>
+                                            <td><center><h:outputText value="${notification.getDescripcion()}"/></center></td><td></td>
+                                            <td><center><h:outputText value="${notification.getType()}"/></center></td><td></td><td></td>
+                                            <td><center><h:commandLink value="Aprobar" actionListener="#{aproveCertificateBean.aproveCertificate(notification)}" /></center></td>
+                                        </tr> 
+                                    </center>
+                                </c:forEach>
+                            </table>
+                            <br/>
+                            <label d="testMessage">Mensaje: </label>
+                            <h:outputText value="#{aproveCertificateBean.message}"/>
+                            <br/>
+                        </section>
+                    </div>
+                </div>
+            </h:form>
+            <div class="container text-center">
+                <a href="adminPanel.xhtml">
+                    <commandButton class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                </a>
+            </div>
+        </panel>
+    </body>
+</html>

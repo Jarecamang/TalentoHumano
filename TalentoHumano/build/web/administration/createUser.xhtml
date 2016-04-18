@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Crear Usuario</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head>
+    <body style="background-image: url('../img/createUser.jpg');background-color: #cccccc; background-size:cover;">   
+        <panel>
+            <h1 style="color: #0066cc">Recursos Humanos</h1>
+            <hr/>
+            <div class="container text-center">
+                <a href="adminPanel.xhtml">
+                    <commandButton style="background-color: blue" class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                </a>
+            </div>
+            <h:form>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px;max-width: 500px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>CREAR USUARIO</h2>
+                            <hr/>
+                            <h:panelGrid columns="2">
+                                <label style="display: inline-block;">Nombre:</label>
+                                <p:inputText value="#{createUserBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                <label>Apellido:</label>
+                                <p:inputText value="#{createUserBean.lastname}" required="true" requiredMessage="¡El apellido es requerido!"/>
+                                <label>Fecha de Nacimiento:</label>
+                                <p:calendar id="dateBorn" value="#{createUserBean.dateBorn}" navigator="true"/>
+                                <label>Dirección:</label>
+                                <p:inputText value="#{createUserBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
+                                <label>Teléfono:</label>
+                                <p:inputText value="#{createUserBean.phone}" required="true" requiredMessage="¡El telefono es requerido!"/>
+                                <label>Número de Identificación:</label>
+                                <p:inputText value="#{createUserBean.identifyCard}" required="true" requiredMessage="¡El número de identificación es requerido!"/>
+                                <label>email:</label>
+                                <p:inputText value="#{createUserBean.email}" required="true" requiredMessage="¡El email es requerido!"/>
+                                <label>Nombre de Usuario</label>
+                                <p:inputText value="#{createUserBean.username}" required="true" requiredMessage="¡El nombre de usuario es requerido!"/>          
+                                <label>Contraseña:</label>
+                                <p:password id="feedback1" value="#{createUserBean.password1}" feedback="true" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                <label>Repetir Contraseña:</label>
+                                <p:password id="feedback2" value="#{createUserBean.password2}" feedback="true" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                <label>Rol:</label>
+                                <p:selectOneMenu value="#{createUserBean.role}" required="true" requiredMessage="¡El rol es requerido!" style="width: 200px;">
+                                    <f:selectItem itemValue="1" itemLabel="Usuario" />
+                                    <f:selectItem itemValue="2" itemLabel="Administrador" />	   							
+                                </p:selectOneMenu>
+                                <label>Nivel de capacitación:</label>
+                                <p:selectOneMenu value="#{createUserBean.trainingLevel}" required="true" requiredMessage="¡El nivel de capacitacion es requerido!" style="width: 200px;">
+                                    <f:selectItem itemValue="Técnico" itemLabel="Técnico" />
+                                    <f:selectItem itemValue="Tecnólogo" itemLabel="Tecnólogo" />	
+                                    <f:selectItem itemValue="Pregrado" itemLabel="Pregrado" />	
+                                    <f:selectItem itemValue="Especialista" itemLabel="Especialista" />
+                                    <f:selectItem itemValue="Magister" itemLabel="Magister" />
+                                    <f:selectItem itemValue="Doctorado" itemLabel="Doctorado" />
+                                    <f:selectItem itemValue="PhD" itemLabel="PhD" />
+                                </p:selectOneMenu>
+                                <br/>
+                                <label>Mensaje: </label>
+                                <h:outputText value="#{createUserBean.message}"/>
+                            </h:panelGrid>
+                        </section>
+                    </div>
+                    <div class="col-lg-6">
+                        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px;max-width: 550px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>AÑADIR CONTRATO AL USUARIO</h2>
+                            <hr/>
+                            <h:panelGrid columns="2">
+                                <label>Salario:</label>
+                                <p:inputText value="#{createUserBean.contractSalary}" required="true" requiredMessage="¡El salario es requerido!"/>
+                                <label>Tipo:</label>
+                                <p:selectOneMenu value="#{createUserBean.contractType}" required="true" requiredMessage="¡El tipo de contrato es requerido!" style="width: 200px;">
+                                    <f:selectItem itemValue="Definido" itemLabel="Definido" />
+                                    <f:selectItem itemValue="Indefinido" itemLabel="Indefinido" />	
+                                </p:selectOneMenu>
+                                <label>Fecha inicio de contrato:</label>
+                                <p:calendar id="startDate" value="#{createUserBean.contractStartDate}" required="true" requiredMessage="La fecha de inicio de contrato es obligatoria" navigator="true"/>
+                                <label>Fecha terminación de contrato:</label>
+                                <p:calendar id="finalDate" value="#{createUserBean.contractFinalDate}" navigator="true"/>
+                                <label>Entidad de salud:</label>
+                                <p:inputText value="#{createUserBean.healthEnterprise}" required="true" requiredMessage="¡La entidad de Salud es requerida!"/>
+                                <label>Fecha de inicio de cotización salud:</label>
+                                <p:calendar id="startHealth" value="#{createUserBean.startHealth}" required="true" requiredMessage="La fecha de inicio de salud es obligatoria" navigator="true" />
+                                <label>Entidad de pensiones:</label>
+                                <p:inputText value="#{createUserBean.pensionEnterprise}" required="true" requiredMessage="¡La entidad de Pensiones es requerida!"/>
+                                <label>Fecha de inicio de cotización pensión:</label>
+                                <p:calendar id="startPension" value="#{createUserBean.startPension}" required="true" requiredMessage="La fecha de inicio de pensión es obligatoria" navigator="true"/>
+                                <label>Cargo:</label>
+                                <p:selectOneMenu value="#{createUserBean.contractPosition}" required="true" requiredMessage="¡El cargo es requerido!" style="width: 200px;">
+                                    <f:selectItems value="#{sessionScope.positionList}" var="position" itemValue="#{position.pkID}" itemLabel="#{position.name}" />
+                                </p:selectOneMenu>
+                                <br/>
+                                <label d="testMessage">Mensaje: </label>
+                                <h:outputText value="#{createUserBean.contractMessage}"/>
+                                <br/>
+                            </h:panelGrid>
+                        </section>
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <h:commandButton action="#{createUserBean.createUser()}" class="btn btn-primary btn-xl page-scroll" value="Crear Usuario"/>
+                </div>
+                <br/>
+            </h:form>
+            <div class="container text-center">
+                <a href="adminPanel.xhtml">
+                    <commandButton style="background-color: blue" class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                </a>
+            </div>
+        </panel>
+    </body>
+</html>

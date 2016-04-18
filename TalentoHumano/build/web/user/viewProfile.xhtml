@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>   
+        <link rel="stylesheet" href="../css/bootstrap.min.css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <title>PERFIL DE USUARIO</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head> 
+    <h:body style="background-image: url('../img/profile.jpg');background-color: #cccccc; background-size:cover;">  
+        <h1>Recursos Humanos</h1>
+        <hr/>  
+        <section id="download" class="container content-section text-center">
+            <div class="col-sm-12">
+                <div class="tabbable" style="background: #D8D8D8;border-radius: 50px;">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs product-details-nav" style="border-right: 0 none;background: blue;">
+                        <li class="active"><a href="#tab1" data-toggle="tab">Informacion Personal</a></li>
+                        <li><a href="#tab2" data-toggle="tab">Informacion Laboral</a></li>
+                    </ul> 
+                    <!-- Tab Content (Full Description) -->
+                    <div class="tab-content product-detail-info"> 
+                        <div class="tab-pane active" id="tab1">
+                            <br/><br/>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Usuario : #{sessionScope.userData.username} </p>  
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Nombre : #{sessionScope.userData.name} </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Apellido : #{sessionScope.userData.lastname} </p> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Nacimiento : #{sessionScope.userData.dateBorn.toLocaleString().substring(0, 11)} </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Nivel de formacion : #{sessionScope.userData.levelTraining} </p>  
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Direccion : #{sessionScope.userData.address} </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Telefono : #{sessionScope.userData.phone} </p>     
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Correo : #{sessionScope.userData.email} </p>     	
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Areas de Interes : ${interestAreaBean.getInterestAreas(sessionScope.userData.username)} </p>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <br/><br/> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;ID del Contrato : #{sessionScope.userContract.pkID} </p>  
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Salario : #{sessionScope.userContract.salary} </p>  
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Tipo de contrato : #{sessionScope.userContract.type} </p>  
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de inicio del Contrato : #{sessionScope.userContract.startDate.toLocaleString().substring(0, 11)} </p> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate.toLocaleString().substring(0, 11)} </p> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Cargos:<br/>
+                                <c:forEach var="position" items="${sessionScope.userContract.positionSet}" >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;- ${position.name} <br/>
+                                </c:forEach>
+                            </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Salud : #{sessionScope.userContract.healthEnterprise}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Servicio de Salud : #{sessionScope.userContract.startHealthDate.toLocaleString().substring(0, 11)}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Pension : #{sessionScope.userContract.pensionEnterprise}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Pension : #{sessionScope.userContract.startPensionDate.toLocaleString().substring(0, 11)}</p>
+                        </div>
+                    </div>
+                </div> 
+            </div>    
+
+            <h:form>
+                <center>    
+                    <h:commandButton action="#{loginBean.back(sessionScope.userData.username)}" class="btn btn-primary btn-xl page-scroll" value="Inicio"/>
+                </center>    
+            </h:form>
+        </section>
+    </h:body>
+
+    <br/><br/>
+
+    <br/> 
+
+</html>
+

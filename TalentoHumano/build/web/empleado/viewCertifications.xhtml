@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Noticias sobre Certificaciones</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head>
+    <h:body style="background-image: url('../img/certification.jpg');background-color: #cccccc; background-size:cover;">   
+        <h1>Recursos Humanos</h1>
+        <hr/>
+        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px; max-width: 450px;margin-top: 50px;padding: 40px 40px;">
+            <panel>
+                <h:form> 
+                    <div class="row"> 
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h2>NOTIFICACIONES:</h2>
+                            <hr/>
+                            <c:forEach var="notification" items="${sessionScope.notificationCertificationsList}" >
+                                <center> 
+                                    <center><h:outputText  value="${notification.getFkuserID().getName()}"/></center>
+                                    <center><h:outputText  value="${notification.getDescription()}"/></center>
+                                    <center><h:outputText  value="Fecha : ${notification.getDate().toLocaleString().substring(0, 11)}"/></center>
+                                    <hr/>
+                                </center>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </h:form>   
+            </panel>
+        </section>
+        <div class="container text-center">
+            <a href="empleadoPanel.xhtml">
+                <commandButton class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+            </a>
+        </div>
+    </h:body>
+
+</html>

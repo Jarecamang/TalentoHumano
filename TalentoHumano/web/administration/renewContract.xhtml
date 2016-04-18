@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Renovar Contrato Usuario</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
+        <!-- Custom Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" type="text/css"></link>
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="../css/animate.min.css" type="text/css"></link>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="../css/creative.css" type="text/css"></link>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+    </h:head>
+    <body style="background-image: url('../img/createUser.jpg');background-color: #cccccc; background-size:cover;">
+        <h1 style="color:#0066cc">Recursos Humanos</h1>
+        <hr/>
+        <panel>
+            <h:form>
+                <div class="row">
+                    <div class="container text-center">      
+                        <section class="container content-section text-center" style="background: #D8D8D8;border-radius: 50px; max-width: 600px;margin-top: 50px;padding: 40px 40px;">
+                            <h2>RENUEVE UN CONTRATO AL USUARIO</h2>  
+                            <hr/>
+                            <h:panelGrid columns="2">
+                                <label>Número de Identificación:</label>
+                                <p:inputText value="#{renewContractBean.doccumentUser}" required="true" requiredMessage="¡El número de identificación es requerido!"/>
+                                <label>Salario:</label>
+                                <p:inputText value="#{renewContractBean.contractSalary}" required="true" requiredMessage="¡El salario es requerido!"/>
+                                <label>Tipo:</label>
+                                <p:selectOneMenu value="#{renewContractBean.contractType}" required="true" requiredMessage="¡El tipo de contrato es requerido!" style="width: 200px;">
+                                    <f:selectItem itemValue="Definido" itemLabel="Definido" />
+                                    <f:selectItem itemValue="Indefinido" itemLabel="Indefinido" />	
+                                </p:selectOneMenu>
+                                <label>Fecha inicio de contrato:</label>
+                                <p:calendar id="startDate" value="#{renewContractBean.contractStartDate}" required="true" requiredMessage="La fecha de inicio de contrato es obligatoria" navigator="true"/>
+                                <label>Fecha terminación de contrato:</label>
+                                <p:calendar id="finalDate" value="#{renewContractBean.contractFinalDate}" navigator="true"/>
+                                <label>Entidad de salud:</label>
+                                <p:inputText value="#{renewContractBean.healthEnterprise}" required="true" requiredMessage="¡La entidad de Salud es requerida!"/>
+                                <label>Fecha de inicio de cotización salud:</label>
+                                <p:calendar id="startHealth" value="#{renewContractBean.startHealth}" required="true" requiredMessage="La fecha de inicio de salud es obligatoria" navigator="true" />
+                                <label>Entidad de pensiones:</label>
+                                <p:inputText value="#{renewContractBean.pensionEnterprise}" required="true" requiredMessage="¡La entidad de Pensiones es requerida!"/>
+                                <label>Fecha de inicio de cotización pensión:</label>
+                                <p:calendar id="startPension" value="#{renewContractBean.startPension}" required="true" requiredMessage="La fecha de inicio de pensión es obligatoria" navigator="true"/>
+                                <label>Cargo:</label>
+                                <p:selectOneMenu value="#{renewContractBean.contractPosition}" required="true" requiredMessage="¡El cargo es requerido!" style="width: 200px;">
+                                    <f:selectItems value="#{sessionScope.positionList}" var="position" itemValue="#{position.pkID}" itemLabel="#{position.name}" />
+                                </p:selectOneMenu>
+                                <br/>
+                                <label d="testMessage">Mensaje: </label>
+                                <h:outputText value="#{renewContractBean.contractMessage}"/>
+                            </h:panelGrid>
+                            <h:commandButton action="#{renewContractBean.renewContract()}" class="btn btn-primary btn-xl page-scroll" value="Renovar Contrato"/>
+                        </section>
+                    </div>
+                </div>
+            </h:form>
+            <div class="container text-center">
+                <a href="adminPanel.xhtml">
+                    <commandButton style="background-color: blue" class="btn btn-primary btn-xl page-scroll" value="Inicio">Inicio</commandButton>
+                </a>
+            </div>
+        </panel>
+    </body>
+</html>
