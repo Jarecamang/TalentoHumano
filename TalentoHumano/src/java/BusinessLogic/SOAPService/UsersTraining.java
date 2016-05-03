@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 /**
  *
@@ -22,21 +23,27 @@ public class UsersTraining {
 
     /**
      * This is a sample web service operation
-     * @return 
-     */  
+     *
+     * @return
+     */
     @WebMethod(operationName = "UsuariosACapacitar")
-    public ArrayList<String> UsuariosACapacitar() {
-        ArrayList<String> training = new ArrayList<>();
-        UserDAO usDAO = new UserDAO();
-        List<User> userlist = usDAO.getAllUsers();
-        final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
-        Date today = new Date();
-        training.add("Talento Humano S.A");
-        training.add("Curso Basico de Excel");
-        for (User us : userlist){
-            if( ((today.getTime()-us.getContract().getStartDate().getTime())/MILLSECS_PER_DAY) <= 60 )
-                training.add(us.getName()+" "+us.getLastname());
+    public ROB UsuariosACapacitar(@WebParam(name = "EventName") String evento, @WebParam(name = "MonthFilter") int month) {
+        try {
+            ArrayList<String> training = new ArrayList<>();
+            UserDAO usDAO = new UserDAO();
+            List<User> userlist = usDAO.getAllUsers();
+            final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
+            Date today = new Date();
+            training.add("Talento Humano S.A");
+            training.add(evento);
+            for (User us : userlist) {
+                if (((today.getTime() - us.getContract().getStartDate().getTime()) / MILLSECS_PER_DAY) <= month * 30) {
+                    training.add(us.getIdentifyCard() + " " + us.getName() + " " + us.getLastname());
+                }
+            }
+            return new ROB(true, "Transaccion Exitosa", training);
+        } catch (Exception e) {
+            return new ROB(false, "Error En Servicio", null);
         }
-        return training;
     }
 }
