@@ -29,19 +29,17 @@ public class UsersTraining {
     @WebMethod(operationName = "UsuariosACapacitar")
     public ROB UsuariosACapacitar(@WebParam(name = "EventName") String evento, @WebParam(name = "MonthFilter") int month) {
         try {
-            ArrayList<String> training = new ArrayList<>();
+            List<BusinessLogic.SOAPService.User> training = new ArrayList<>();
             UserDAO usDAO = new UserDAO();
             List<User> userlist = usDAO.getAllUsers();
             final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
             Date today = new Date();
-            training.add("Talento Humano S.A");
-            training.add(evento);
             for (User us : userlist) {
                 if (((today.getTime() - us.getContract().getStartDate().getTime()) / MILLSECS_PER_DAY) <= month * 30) {
-                    training.add(us.getIdentifyCard() + " " + us.getName() + " " + us.getLastname());
+                    training.add(new BusinessLogic.SOAPService.User(Integer.parseInt(us.getIdentifyCard()), us.getName(), us.getLastname()));
                 }
             }
-            return new ROB(true, "Transaccion Exitosa", training);
+            return new ROB(true, "Transaccion Exitosa", new Course(training, 20162016, evento));
         } catch (Exception e) {
             return new ROB(false, "Error En Servicio", null);
         }

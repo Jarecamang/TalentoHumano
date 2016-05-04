@@ -5,17 +5,15 @@
  */
 package BusinessLogic.SOAPService;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author PCMiguel
  */
 public class ROB {
- 
+
     private boolean success;
     private String err_message;
-    private ArrayList<String> data;
+    private Course data;
 
     public boolean isSuccess() {
         return success;
@@ -33,15 +31,15 @@ public class ROB {
         this.err_message = err_message;
     }
 
-    public ArrayList<String> getData() {
+    public Course getData() {
         return data;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(Course data) {
         this.data = data;
     }
 
-    public ROB(boolean success, String err_message, ArrayList<String> data) {
+    public ROB(boolean success, String err_message, Course data) {
         this.success = success;
         this.err_message = err_message;
         this.data = data;
