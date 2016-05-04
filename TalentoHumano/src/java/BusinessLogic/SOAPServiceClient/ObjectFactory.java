@@ -1,5 +1,5 @@
 
-package BusinessLogic.ServiceClient;
+package BusinessLogic.SOAPServiceClient;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the BusinessLogic.ServiceClient package. 
+ * generated in the BusinessLogic.SOAPServiceClient package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -28,7 +28,7 @@ public class ObjectFactory {
     private final static QName _UsuariosACapacitarResponse_QNAME = new QName("http://SOAPService.BusinessLogic/", "UsuariosACapacitarResponse");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: BusinessLogic.ServiceClient
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: BusinessLogic.SOAPServiceClient
      * 
      */
     public ObjectFactory() {
@@ -51,11 +51,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Rob }
+     * Create an instance of {@link RobWS }
      * 
      */
-    public Rob createRob() {
-        return new Rob();
+    public RobWS createRobWS() {
+        return new RobWS();
+    }
+
+    /**
+     * Create an instance of {@link Course }
+     * 
+     */
+    public Course createCourse() {
+        return new Course();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
     }
 
     /**

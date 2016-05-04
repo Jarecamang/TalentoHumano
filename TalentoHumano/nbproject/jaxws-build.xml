@@ -27,6 +27,14 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
+    <target name="wsgen-StartESBService" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-BusinessLogic.SOAPService.StartESBService.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="BusinessLogic.SOAPService.StartESBService" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -43,9 +51,25 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
+    <target name="wsimport-client-StartESBService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/StartESBService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/StartESBService" destdir="${build.generated.dir}/jax-wsCache/StartESBService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/StartESBService/wsdl/localhost_8080/TalentoHumano/StartESBService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TalentoHumano/StartESBService?wsdl" xnocompile="true" xendorsed="true" package="BusinessLogic.ESBServiceClient">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/StartESBService/wsdl/localhost_8080/TalentoHumano/StartESBService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/StartESBService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/StartESBService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-StartESBService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/BusinessLogic/ESBServiceClient"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/StartESBService"/>
+    </target>
     <target name="wsimport-client-UsersTraining" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UsersTraining"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UsersTraining" destdir="${build.generated.dir}/jax-wsCache/UsersTraining" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UsersTraining/wsdl/localhost_8080/TalentoHumano/UsersTraining.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TalentoHumano/UsersTraining?wsdl" xnocompile="true" xendorsed="true" package="BusinessLogic.ServiceClient">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UsersTraining" destdir="${build.generated.dir}/jax-wsCache/UsersTraining" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UsersTraining/wsdl/localhost_8080/TalentoHumano/UsersTraining.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TalentoHumano/UsersTraining?wsdl" xnocompile="true" xendorsed="true" package="BusinessLogic.SOAPServiceClient">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/UsersTraining/wsdl/localhost_8080/TalentoHumano/UsersTraining.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UsersTraining"/>
         </wsimport>
@@ -56,8 +80,8 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-UsersTraining" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/BusinessLogic/ServiceClient"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/BusinessLogic/SOAPServiceClient"/>
         <delete dir="${build.generated.dir}/jax-wsCache/UsersTraining"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-UsersTraining"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-StartESBService, wsimport-client-UsersTraining"/>
 </project>

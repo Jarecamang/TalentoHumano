@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8080/TalentoHumano/UsersTraining?wsdl" uri="wsdl/localhost_8080/TalentoHumano/UsersTraining.wsdl"/>
     <system systemId="http://localhost:8080/TalentoHumano/UsersTraining?xsd=1" uri="wsdl/localhost_8080/TalentoHumano/UsersTraining.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/TalentoHumano/StartESBService?wsdl" uri="wsdl/localhost_8080/TalentoHumano/StartESBService.wsdl"/>
+    <system systemId="http://localhost:8080/TalentoHumano/StartESBService?xsd=1" uri="wsdl/localhost_8080/TalentoHumano/StartESBService.xsd_1.xsd"/>
 </catalog>

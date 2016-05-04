@@ -1,5 +1,5 @@
 
-package BusinessLogic.ServiceClient;
+package BusinessLogic.SOAPServiceClient;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -29,14 +29,14 @@ public interface UsersTraining {
      * @param monthFilter
      * @param eventName
      * @return
-     *     returns BusinessLogic.ServiceClient.Rob
+     *     returns BusinessLogic.SOAPServiceClient.RobWS
      */
     @WebMethod(operationName = "UsuariosACapacitar")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "UsuariosACapacitar", targetNamespace = "http://SOAPService.BusinessLogic/", className = "BusinessLogic.ServiceClient.UsuariosACapacitar")
-    @ResponseWrapper(localName = "UsuariosACapacitarResponse", targetNamespace = "http://SOAPService.BusinessLogic/", className = "BusinessLogic.ServiceClient.UsuariosACapacitarResponse")
+    @RequestWrapper(localName = "UsuariosACapacitar", targetNamespace = "http://SOAPService.BusinessLogic/", className = "BusinessLogic.SOAPServiceClient.UsuariosACapacitar")
+    @ResponseWrapper(localName = "UsuariosACapacitarResponse", targetNamespace = "http://SOAPService.BusinessLogic/", className = "BusinessLogic.SOAPServiceClient.UsuariosACapacitarResponse")
     @Action(input = "http://SOAPService.BusinessLogic/UsersTraining/UsuariosACapacitarRequest", output = "http://SOAPService.BusinessLogic/UsersTraining/UsuariosACapacitarResponse")
-    public Rob usuariosACapacitar(
+    public RobWS usuariosACapacitar(
         @WebParam(name = "EventName", targetNamespace = "")
         String eventName,
         @WebParam(name = "MonthFilter", targetNamespace = "")

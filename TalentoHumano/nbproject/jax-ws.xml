@@ -4,12 +4,51 @@
     <service name="UsersTraining">
       <implementation-class>BusinessLogic.SOAPService.UsersTraining</implementation-class>
     </service>
+    <service name="StartESBService">
+      <implementation-class>BusinessLogic.SOAPService.StartESBService</implementation-class>
+    </service>
   </services>
   <clients>
+    <client name="StartESBService">
+      <wsdl-url>http://localhost:8080/TalentoHumano/StartESBService?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/TalentoHumano/StartESBService.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">BusinessLogic.ESBServiceClient</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/TalentoHumano/StartESBService?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>BusinessLogic.ESBServiceClient</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
     <client name="UsersTraining">
       <wsdl-url>http://localhost:8080/TalentoHumano/UsersTraining?wsdl</wsdl-url>
       <local-wsdl-file>localhost_8080/TalentoHumano/UsersTraining.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">BusinessLogic.ServiceClient</package-name>
+      <package-name forceReplace="true">BusinessLogic.SOAPServiceClient</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -38,7 +77,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>BusinessLogic.ServiceClient</wsimport-option-value>
+          <wsimport-option-value>BusinessLogic.SOAPServiceClient</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>
