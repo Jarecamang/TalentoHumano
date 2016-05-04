@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sistema de Recursos Humanos: Usuario</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+
+    </h:head>
+    <h:body>
+        <h:form>
+            <section id="services" class="service-item">
+                <div class="container">
+                    <div class="center wow fadeInDown">
+                        <h2>Recursos Humanos</h2>
+                        <p class="lead">Hola #{sessionScope.user} eres un #{sessionScope.role}!!!</p>
+                        <div>
+                            <h:commandLink actionListener="#{loginBean.logout()}">
+                                <img src="../img/ico/exit.png"/>
+                            </h:commandLink>
+                            <h4><h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}"/></h4>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="../user/viewProfile.xhtml">
+                                        <img class="img-responsive" src="../img/ico/profile.jpg"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="../user/viewProfile.xhtml">Ver Perfil</a></h3>
+                                    <p>Ver datos personales e información de contrato.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="../user/addInterestArea.xhtml">
+                                        <img class="img-responsive" src="../img/ico/areaOfinterest.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="../user/addInterestArea.xhtml">Agregar Area de Interes</a></h3>
+                                    <p>Agrega tus areas de interés.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="certificatePetition.xhtml">
+                                        <img class="img-responsive" src="../img/ico/certificate.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="certificatePetition.xhtml">Solicitar Certificados</a></h3>
+                                    <p>Puede solicitar certificados laborales, de nomina, salud y pension.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="viewCertifications.xhtml">
+                                        <img class="img-responsive" src="../img/ico/certificateNotification.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="viewCertifications.xhtml">Ver notificaciones de Certificaciones.</a></h3>
+                                    <p>Si se ha creado una certificación para sus areas de interes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <h:commandLink actionListener="#{certificateNotificationBean.loadUserCertificates()}">
+                                    <img class="img-responsive" src="../img/ico/aproveCertificate.png"/>
+                                    </h:commandLink>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><h:commandLink value="Ver notificaciones" actionListener="#{certificateNotificationBean.loadUserCertificates()}" /></h3>
+                                    <p>Revise si ya aprobaron los certificados que solicitó.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
+                </div><!--/.container-->
+            </section><!--/#services-->
+        </h:form>
+    </h:body>
+</html>
+

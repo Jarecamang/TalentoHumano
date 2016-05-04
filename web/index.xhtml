@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>  
+        <title>Sistema de Recursos Humanos: Acceso</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="css/animate.min.css" rel="stylesheet"/>
+        <link href="css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="css/main.css" rel="stylesheet"/>
+        <link href="css/responsive.css" rel="stylesheet"/>
+        <style type="text/css">
+            body{font-family: Tahoma,Arial,Verdana; font-size: 12px}
+            .label{width: 70px; font-weight: bold;display: inline-block;margin-left: 10px;text-align: left}
+            .textfield{width: 120px; padding-left: 2px}
+            .errorMessage{color:darkred;font-weight: bold}
+            .loginButton{float:right;margin-right: 5px}
+            .loginBox{width: 220px; vertical-align: middle;font-weight: bold}
+        </style>
+    </h:head> 
+    <h:body style="background-image: url('img/RH.jpg');background-color: #cccccc; background-size:cover;"> 
+         
+         
+        <div class="container form-signin">
+        <div class="card card-container">
+            <f:view> 
+            <h:form id="index"> 
+                <div align="center">
+                    <fieldset class="loginBox">  
+                        <br/><br/><br/><br/><br/><br/>
+                        <span class="label" style="font-size: 10pt; color: black; alignment-adjust: central">LOGIN 1</span> 
+                        <br/>
+                        <span class="label col-lg-12" style="font-size: 10pt; color: black">Usuario:</span> 
+                        <br/>
+                        <p:inputText style="alignment-adjust: central" id="user" value="#{loginBean.user}"></p:inputText>
+                        <br/>
+                        <span class="label col-lg-12" style="font-size: 10pt; color: black">Contraseña:</span> 
+                        <br/> 
+                        <p:password style="alignment-adjust: central" id="password"  value="#{loginBean.password}"></p:password>
+                        <br/><br/>
+                        <h:commandButton style="width:70px; height:35px" actionListener="#{loginBean.login()}" value="Ingresar">
+                            <f:ajax execute="@form" render="message"></f:ajax>
+                        </h:commandButton>
+                        <br/>
+                        <h:outputText styleClass="errorMessage" value="#{loginBean.message}" id="message"></h:outputText>
+                    </fieldset> 
+                </div>
+            </h:form>
+        </f:view>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sistema de Recursos Humanos: Administration</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../css/animate.min.css" rel="stylesheet"/>
+        <link href="../css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/responsive.css" rel="stylesheet"/>
+
+    </h:head>
+    <h:body>
+        <h:form>
+            <section id="services" class="service-item">
+                <div class="container">
+                    <div class="center wow fadeInDown">
+                        <h2>Recursos Humanos</h2>
+                        <p class="lead">Hola #{sessionScope.user} eres un #{sessionScope.role}!!!</p>
+                        <div>
+                            <h:commandLink actionListener="#{loginBean.logout()}">
+                                <img src="../img/ico/exit.png"/>
+                            </h:commandLink>
+                            <h4><h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}"/></h4>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="../user/viewProfile.xhtml">
+                                        <img class="img-responsive" src="../img/ico/profile.jpg"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="../user/viewProfile.xhtml">Ver Perfil</a></h3>
+                                    <p>Ver datos personales e información de contrato.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="../user/addInterestArea.xhtml">
+                                        <img class="img-responsive" src="../img/ico/areaOfinterest.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="../user/addInterestArea.xhtml">Agregar Area de Interes</a></h3>
+                                    <p>Agrega tus areas de interés.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="createUser.xhtml">
+                                        <img class="img-responsive" src="../img/ico/addEmployee.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="createUser.xhtml">Registrar Nuevo Empleado</a></h3>
+                                    <p>Añada un empleado contratado.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--/.row-->
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="renewContract.xhtml">
+                                        <img class="img-responsive" src="../img/ico/renewContract.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="renewContract.xhtml">Renovar contrato a usuario</a></h3>
+                                    <p>Renueve contratos vencidos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="createCertifications.xhtml">
+                                        <img class="img-responsive" src="../img/ico/certificate.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="createCertifications.xhtml">Crear certificaciones</a></h3>
+                                    <p>Para notificar a quien esté interesado en ellas.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="viewStatistics.xhtml">
+                                        <img class="img-responsive" src="../img/ico/statistics.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="viewStatistics.xhtml">Ver Estadisticas</a></h3>
+                                    <p>Vea estadisticas de la empresa.</p>
+                                </div>
+                            </div>
+                        </div>    
+                    </div><!--/.row-->
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="createPosition.xhtml">
+                                        <img class="img-responsive" src="../img/ico/cargo.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="createPosition.xhtml">Registrar Nuevo Cargo</a></h3>
+                                    <p>Añada cargos a la empresa.</p>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <h:commandLink actionListener="#{aproveCertificateBean.loadCertificates()}">
+                                        <img class="img-responsive" src="../img/ico/aproveCertificate.png"/>
+                                    </h:commandLink>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><h:commandLink value="Aprobar Certificados" actionListener="#{aproveCertificateBean.loadCertificates()}" /></h3>
+                                    <p>Apruebe certificados que han pedido los usuarios.</p>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="media services-wrap wow fadeInDown">
+                                <div class="pull-left">
+                                    <a href="createEvent.xhtml">
+                                        <img class="img-responsive" src="../img/ico/capacitation.png"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="createEvent.xhtml">Crear Evento de Certificación</a></h3>
+                                    <p>Cree un evento de certificación y noifique a sus empleados.</p>
+                                </div>
+                            </div>
+                        </div> 
+                    </div><!--/.row-->
+                </div><!--/.container-->
+            </section><!--/#services-->
+        </h:form>
+    </h:body>
+</html>
+
