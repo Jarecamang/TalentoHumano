@@ -16,7 +16,7 @@ public class HandleEvent {
     public String doEvent(String name, String filter) {
         try {
             Rob rob = usuariosACapacitar(name, Integer.parseInt(filter));
-            return rob.getData().toString();
+            return rob.getErrMessage().toString();
         } catch (Exception e) {
             return "Error General: Servicio";
         }

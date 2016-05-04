@@ -31,16 +31,17 @@ public class UsersTraining {
         try {
             List<BusinessLogic.SOAPService.User> training = new ArrayList<>();
             UserDAO usDAO = new UserDAO();
-            List<User> userlist = usDAO.getAllUsers();
+            List<DataAccess.Entity.User> userlist = usDAO.getAllUsers();
             final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
             Date today = new Date();
-            for (User us : userlist) {
+            for (DataAccess.Entity.User us : userlist) {
                 if (((today.getTime() - us.getContract().getStartDate().getTime()) / MILLSECS_PER_DAY) <= month * 30) {
                     training.add(new BusinessLogic.SOAPService.User(Integer.parseInt(us.getIdentifyCard()), us.getName(), us.getLastname()));
                 }
             }
             return new ROB(true, "Transaccion Exitosa", new Course(training, 20162016, evento));
         } catch (Exception e) {
+            e.printStackTrace();
             return new ROB(false, "Error En Servicio", null);
         }
     }
