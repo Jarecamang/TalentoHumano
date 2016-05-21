@@ -6,7 +6,6 @@
 package BusinessLogic.Controller;
 
 //import BusinessLogic.ESBServiceClient.RobESB;
-
 /**
  *
  * @author Edwin
@@ -15,10 +14,20 @@ public class HandleEvent {
 
     public String doEvent(String name, String filter) {
         try {
-            //TODO: ESB Service Call
-            //Testing Part:
-            //RobESB robESB = createEvent(name, Integer.parseInt(filter));
-            return "Test";//robESB.getErrMessage();
+            try {
+                Integer.parseInt(filter);
+            } catch (Exception e) {
+                return "Error: Filtro Inválido";
+            }
+            try {
+                Integer.parseInt(name);
+                return "Error: Nombre Inválido";
+            } catch (Exception e) {
+                //TODO: ESB Service Call
+                //Testing Part:
+                //RobESB robESB = createEvent(name, Integer.parseInt(filter));
+                return "Test";//robESB.getErrMessage();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return "Error General: Servicio";
