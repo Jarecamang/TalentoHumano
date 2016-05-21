@@ -29,7 +29,6 @@ public class CreateUserBean {
     String address;
     long phone;
     String email;
-    String username;
     String password1;
     String password2;
     String message;
@@ -208,11 +207,7 @@ public class CreateUserBean {
     }
 
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return getName()+" "+getLastname();
     }
 
     public String getPassword1() {
@@ -238,7 +233,7 @@ public class CreateUserBean {
             contractMessage = "No se pudo crear el contrato porque es indefinido pero tiene fecha de finalizaciÃ³n";
         } else {
             HandleUser createUser = new HandleUser();
-            String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, username, password1, password2, role, Long.toString(identifyCard));
+            String messageTest = createUser.doCreate(name, lastname, dateBorn, address, trainingLevel, Long.toString(phone), email, password1, password2, role, Long.toString(identifyCard));
             if (messageTest.charAt(0) != 'U') {
                 message = messageTest;
                 contractMessage = "El contrato no pudo ser creado. La creaciÃ³n de usuario fallÃ³.";
@@ -253,7 +248,6 @@ public class CreateUserBean {
                 address = null; 
                 phone = 0;
                 email = null;
-                username = null;
                 password1 = null;
                 password2 = null;
                 identifyCard = 0;

@@ -13,31 +13,15 @@
 
 <xs:complexType name="UsuariosACapacitarResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:robWS" minOccurs="0"/>
+<xs:element name="return" type="tns:rob" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="robWS">
+<xs:complexType name="rob">
 <xs:sequence>
-<xs:element name="data" type="tns:course" minOccurs="0"/>
+<xs:element name="data" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="err_message" type="xs:string" minOccurs="0"/>
 <xs:element name="success" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="course">
-<xs:sequence>
-<xs:element name="description" type="xs:string" minOccurs="0"/>
-<xs:element name="id" type="xs:int" minOccurs="0"/>
-<xs:element name="users" type="tns:user" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="user">
-<xs:sequence>
-<xs:element name="document" type="xs:int" minOccurs="0"/>
-<xs:element name="firstname" type="xs:string" minOccurs="0"/>
-<xs:element name="lastname" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

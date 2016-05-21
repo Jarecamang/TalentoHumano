@@ -4,7 +4,6 @@ import DataAccess.DAO.UserDAO;
 import DataAccess.DAO.ContractDAO;
 import DataAccess.Entity.Contract;
 import DataAccess.Entity.User;
-import DataAccess.Entity.Role;
 import Presentation.Bean.UserLevelTrainingBean;
 import Presentation.Bean.UserSalaryBean;
 import java.io.IOException;
@@ -18,39 +17,45 @@ import javax.faces.context.FacesContext;
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
-        System.out.println(new Date());
-        User user = new User();
-        Role roleObject = new Role(Integer.parseInt(role));
-        user.setName(name);
-        user.setLastname(lastname);
-        user.setAddress(address);
-        user.setLevelTraining(trainingLevel);
-        user.setPhone(phone);
-        user.setDateBorn(dateBorn);
-        user.setEmail(email);
-        user.setUsername(username);
-        user.setFkroleID(roleObject);
-        user.setIdentifyCard(identifyCard);
-        if (!password1.equals(password2)) {
-            return "Las contraseñas no coinciden";
-        } else {
-            user.setPassword(password1);
-        }
-        UserDAO userDAO = new UserDAO();
+    LDAPConnector con = new LDAPConnector();
 
-        if (userDAO.searchByDoccument(Long.parseLong(user.getIdentifyCard())) != null) {
-            return "El documento de identidad ya existe";
-        }
-        if (userDAO.searchByUsername(user.getUsername()) != null) {
-            return "El username ya existe";
-        }
+    public String doCreate(String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String password1, String password2, String role, String identifyCard) {
+        try {
+            System.out.println(new Date());
+            User user = new User();
+            user.setName(name);
+            user.setLastname(lastname);
+            user.setAddress(address);
+            user.setLevelTraining(trainingLevel);
+            user.setPhone(phone);
+            user.setDateBorn(dateBorn);
+            user.setEmail(email);
+            user.setUsername(name + " " + lastname);
+            user.setIdentifyCard(identifyCard);
+            if (!password1.equals(password2)) {
+                return "Las contraseñas no coinciden";
+            }
+            UserDAO userDAO = new UserDAO();
 
-        User userObject = userDAO.persist(user);
-        if (userObject != null) {
-            return "Usuario creado con username " + userObject.getUsername() + "." + "/" + userObject.getPkID();
-        } else {
-            return "El usuario no pudo ser creado.";
+            if (userDAO.searchByDoccument(Long.parseLong(identifyCard)) != null) {
+                return "El documento de identidad ya existe";
+            }
+            if (userDAO.searchByUsername(user.getUsername()) != null) {
+                return "El username ya existe";
+            }
+            if (con.registrar(identifyCard, name, lastname, password2, role.equals("1") ? "601" : "600")) {
+                User userObject = userDAO.persist(user);
+                if (userObject != null) {
+                    return "Usuario creado con username " + userObject.getUsername() + "." + "/" + userObject.getPkID();
+                } else {
+                    return "El usuario no pudo ser creado.";
+                }
+            } else {
+                return "Error: LDAP";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al crear Usuario.";
         }
     }
 
@@ -93,20 +98,18 @@ public class HandleUser {
     }
 
     public void back(String username) {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        String url = "";
-        UserDAO userDAO = new UserDAO();
-        User userObject = userDAO.searchByUsername(username);
-        if (userObject.getFkroleID().getName().equals("Administrator")) {
-            url = ec.encodeActionURL(
-                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
-        } else {
-            url = ec.encodeActionURL(
-                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
-        }
         try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            String url = "";
+            if (con.searchRole(username).equals("Administrator")) {
+                url = ec.encodeActionURL(
+                        FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
+            } else {
+                url = ec.encodeActionURL(
+                        FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
+            }
             ec.redirect(url);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

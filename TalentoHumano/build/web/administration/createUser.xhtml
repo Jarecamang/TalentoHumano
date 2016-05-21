@@ -57,21 +57,19 @@ and open the template in the editor.
                                 <p:inputText value="#{createUserBean.identifyCard}" required="true" requiredMessage="¡El número de identificación es requerido!"/>
                                 <label>email:</label>
                                 <p:inputText value="#{createUserBean.email}" required="true" requiredMessage="¡El email es requerido!"/>
-                                <label>Nombre de Usuario</label>
-                                <p:inputText value="#{createUserBean.username}" required="true" requiredMessage="¡El nombre de usuario es requerido!"/>          
                                 <label>Contraseña:</label>
                                 <p:password id="feedback1" value="#{createUserBean.password1}" feedback="true" required="true" requiredMessage="¡La contraseña es requerida!"/>
                                 <label>Repetir Contraseña:</label>
                                 <p:password id="feedback2" value="#{createUserBean.password2}" feedback="true" required="true" requiredMessage="¡La contraseña es requerida!"/>
                                 <label>Rol:</label>
-                                <p:selectOneMenu value="#{createUserBean.role}" required="true" requiredMessage="¡El rol es requerido!" style="width: 200px;">
+                                <p:selectOneMenu value="#{createUserBean.role}" style="width: 200px;">
                                     <f:selectItem itemValue="1" itemLabel="Usuario" />
                                     <f:selectItem itemValue="2" itemLabel="Administrador" />	   							
                                 </p:selectOneMenu>
                                 <label>Nivel de capacitación:</label>
-                                <p:selectOneMenu value="#{createUserBean.trainingLevel}" required="true" requiredMessage="¡El nivel de capacitacion es requerido!" style="width: 200px;">
-                                    <f:selectItem itemValue="Técnico" itemLabel="Técnico" />
-                                    <f:selectItem itemValue="Tecnólogo" itemLabel="Tecnólogo" />	
+                                <p:selectOneMenu value="#{createUserBean.trainingLevel}" style="width: 200px;">
+                                    <f:selectItem itemValue="Tecnico" itemLabel="Técnico" />
+                                    <f:selectItem itemValue="Tecnologo" itemLabel="Tecnólogo" />	
                                     <f:selectItem itemValue="Pregrado" itemLabel="Pregrado" />	
                                     <f:selectItem itemValue="Especialista" itemLabel="Especialista" />
                                     <f:selectItem itemValue="Magister" itemLabel="Magister" />

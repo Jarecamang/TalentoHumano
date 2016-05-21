@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PCMiguel/Documents/NetBeansProjects/TalentoHumano/src/java/BusinessLogic/SOAPService/UsersTraining.java</file>
-            <file>file:/C:/Users/PCMiguel/Documents/NetBeansProjects/TalentoHumano/src/java/DataAccess/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/PCMiguel/Documents/NetBeansProjects/TalentoHumano/web/administration/createEvent.xhtml</file>
-            <file>file:/C:/Users/PCMiguel/Documents/NetBeansProjects/TalentoHumano/src/java/BusinessLogic/Controller/HandleEvent.java</file>
+            <file>file:/home/arqsoft2016i/Documents/ArqSoft2016i/TalentoHumano/web/administration/createUser.xhtml</file>
+            <file>file:/home/arqsoft2016i/Documents/ArqSoft2016i/TalentoHumano/src/java/BusinessLogic/Controller/HandleUser.java</file>
+            <file>file:/home/arqsoft2016i/Documents/ArqSoft2016i/TalentoHumano/src/java/BusinessLogic/Controller/LDAPConnector.java</file>
+            <file>file:/home/arqsoft2016i/Documents/ArqSoft2016i/TalentoHumano/src/java/Presentation/Bean/CreateUserBean.java</file>
         </group>
     </open-files>
 </project-private>

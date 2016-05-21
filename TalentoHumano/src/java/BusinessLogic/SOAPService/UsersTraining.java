@@ -27,7 +27,7 @@ public class UsersTraining {
      * @return
      */
     @WebMethod(operationName = "UsuariosACapacitar")
-    public ROB_WS UsuariosACapacitar(@WebParam(name = "EventName") String evento, @WebParam(name = "MonthFilter") int month) {
+    public ROB UsuariosACapacitar(@WebParam(name = "EventName") String evento, @WebParam(name = "MonthFilter") int month) {
         try {
             List<BusinessLogic.SOAPService.User> training = new ArrayList<>();
             UserDAO usDAO = new UserDAO();
@@ -39,10 +39,10 @@ public class UsersTraining {
                     training.add(new BusinessLogic.SOAPService.User(Integer.parseInt(us.getIdentifyCard()), us.getName(), us.getLastname()));
                 }
             }
-            return new ROB_WS(true, "Transaccion Exitosa", new Course(training, 20162016, evento));
+            return new ROB(true, "Transaccion Exitosa", new Course(training, 20162016, evento));
         } catch (Exception e) {
             e.printStackTrace();
-            return new ROB_WS(false, "Error En Servicio", null);
+            return new ROB(false, "Error En Servicio", null);
         }
     }
 }
