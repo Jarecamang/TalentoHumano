@@ -1,5 +1,5 @@
 
-package BusinessLogic.SOAPServiceClient;
+package BusinessLogic.ServiceClient;
 
 import java.net.MalformedURLException;
 import java.net.URL;

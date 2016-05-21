@@ -1,6 +1,8 @@
 
-package BusinessLogic.SOAPServiceClient;
+package BusinessLogic.ServiceClient;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -8,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para robWS complex type.
+ * <p>Clase Java para rob complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="robWS"&gt;
+ * &lt;complexType name="rob"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="data" type="{http://SOAPService.BusinessLogic/}course" minOccurs="0"/&gt;
+ *         &lt;element name="data" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="err_message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="success" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *       &lt;/sequence&gt;
@@ -29,40 +31,46 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "robWS", propOrder = {
+@XmlType(name = "rob", propOrder = {
     "data",
     "errMessage",
     "success"
 })
-public class RobWS {
+public class Rob {
 
-    protected Course data;
+    @XmlElement(nillable = true)
+    protected List<String> data;
     @XmlElement(name = "err_message")
     protected String errMessage;
     protected boolean success;
 
     /**
-     * Obtiene el valor de la propiedad data.
+     * Gets the value of the data property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Course }
-     *     
-     */
-    public Course getData() {
-        return data;
-    }
-
-    /**
-     * Define el valor de la propiedad data.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the data property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Course }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getData().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setData(Course value) {
-        this.data = value;
+    public List<String> getData() {
+        if (data == null) {
+            data = new ArrayList<String>();
+        }
+        return this.data;
     }
 
     /**

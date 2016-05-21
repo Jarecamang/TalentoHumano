@@ -49,8 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByLevelTraining", query = "SELECT u FROM User u WHERE u.levelTraining = :levelTraining"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -107,11 +106,6 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "password")
-    private String password;
     @ManyToMany(mappedBy = "userSet")
     private Set<Areaofinterest> areaofinterestSet = new HashSet<>(0);
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "fkuserID")
@@ -120,9 +114,6 @@ public class User implements Serializable {
     private Set<Certificate> certificateSet = new HashSet<>(0);
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
     private Set<Certifications> certificationsSet = new HashSet<>(0);
-    @JoinColumn(name = "fkroleID", referencedColumnName = "pkID")
-    @ManyToOne(optional = false)
-    private Role fkroleID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkuserID")
     private Set<Notifications> notificationsSet = new HashSet<>(0);
 
@@ -133,7 +124,7 @@ public class User implements Serializable {
         this.pkID = pkID;
     }
 
-    public User(Integer pkID, String identifyCard, String name, String lastname, Date dateBorn, String address, String phone, String email, String levelTraining, String username, String password) {
+    public User(Integer pkID, String identifyCard, String name, String lastname, Date dateBorn, String address, String phone, String email, String levelTraining, String username) {
         this.pkID = pkID;
         this.identifyCard = identifyCard;
         this.name = name;
@@ -144,7 +135,6 @@ public class User implements Serializable {
         this.email = email;
         this.levelTraining = levelTraining;
         this.username = username;
-        this.password = password;
     }
 
     public Integer getPkID() {
@@ -227,14 +217,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @XmlTransient
     public Set<Areaofinterest> getAreaofinterestSet() {
         return areaofinterestSet;
@@ -270,14 +252,6 @@ public class User implements Serializable {
         this.certificationsSet = certificationsSet;
     }
 
-    public Role getFkroleID() {
-        return fkroleID;
-    }
-
-    public void setFkroleID(Role fkroleID) {
-        this.fkroleID = fkroleID;
-    }
-
     @XmlTransient
     public Set<Notifications> getNotificationsSet() {
         return notificationsSet;
@@ -296,6 +270,7 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }

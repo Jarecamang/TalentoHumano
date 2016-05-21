@@ -9,7 +9,7 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+   <f:metadata><f:event type="preRenderView" listener="#{loginBean.verify()}"/><f:event type="preRenderView" listener="#{loginBean.verify_role('admin')}"/></f:metadata> <h:head>
         <title>Renovar Contrato Usuario</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
         <!-- Custom Fonts -->

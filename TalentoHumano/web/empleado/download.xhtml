@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
+   <f:metadata><f:event type="preRenderView" listener="#{loginBean.verify()}"/></f:metadata><f:metadata><f:event type="preRenderView" listener="#{loginBean.verify_role('employee')}"/></f:metadata> <h:head>
         <title>Sistema de Recursos Humanos: Administration</title>
     </h:head>
     <h:body>

@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loginBean.verify()}"/>
+        <f:event type="preRenderView" listener="#{loginBean.verify_role('employee')}"/>
+    </f:metadata> 
     <h:head>
         <title>Sistema de Recursos Humanos: Usuario</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet"/>

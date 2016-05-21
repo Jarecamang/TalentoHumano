@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>   
+   <f:metadata><f:event type="preRenderView" listener="#{loginBean.verify()}"/></f:metadata> <h:head>   
         <link rel="stylesheet" href="../css/bootstrap.min.css"></link>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>

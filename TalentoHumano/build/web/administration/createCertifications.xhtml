@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+   <f:metadata><f:event type="preRenderView" listener="#{loginBean.verify()}"/><f:event type="preRenderView" listener="#{loginBean.verify_role('admin')}"/></f:metadata> <h:head>
         <title>Crear certificaciones</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>
         <!-- Custom Fonts -->

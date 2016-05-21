@@ -1,5 +1,5 @@
 
-package BusinessLogic.SOAPServiceClient;
+package BusinessLogic.ServiceClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://SOAPService.BusinessLogic/}robWS" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://SOAPService.BusinessLogic/}rob" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class UsuariosACapacitarResponse {
 
     @XmlElement(name = "return")
-    protected RobWS _return;
+    protected Rob _return;
 
     /**
      * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link RobWS }
+     *     {@link Rob }
      *     
      */
-    public RobWS getReturn() {
+    public Rob getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class UsuariosACapacitarResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link RobWS }
+     *     {@link Rob }
      *     
      */
-    public void setReturn(RobWS value) {
+    public void setReturn(Rob value) {
         this._return = value;
     }
 

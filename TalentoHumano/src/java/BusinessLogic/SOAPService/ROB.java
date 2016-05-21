@@ -9,11 +9,11 @@ package BusinessLogic.SOAPService;
  *
  * @author PCMiguel
  */
-public class ROB_ESB {
+public class ROB {
 
     private boolean success;
     private String err_message;
-    private String data;
+    private Course data;
 
     public boolean isSuccess() {
         return success;
@@ -31,15 +31,15 @@ public class ROB_ESB {
         this.err_message = err_message;
     }
 
-    public String getData() {
+    public Course getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Course data) {
         this.data = data;
     }
 
-    public ROB_ESB(boolean success, String err_message, String data) {
+    public ROB(boolean success, String err_message, Course data) {
         this.success = success;
         this.err_message = err_message;
         this.data = data;

@@ -1,5 +1,5 @@
 
-package BusinessLogic.ESBServiceClient;
+package BusinessLogic.ServiceClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para createEvent complex type.
+ * <p>Clase Java para UsuariosACapacitar complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="createEvent"&gt;
+ * &lt;complexType name="UsuariosACapacitar"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -28,11 +28,11 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "createEvent", propOrder = {
+@XmlType(name = "UsuariosACapacitar", propOrder = {
     "eventName",
     "monthFilter"
 })
-public class CreateEvent {
+public class UsuariosACapacitar {
 
     @XmlElement(name = "EventName")
     protected String eventName;

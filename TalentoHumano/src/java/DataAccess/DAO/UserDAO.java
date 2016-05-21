@@ -44,6 +44,7 @@ public class UserDAO {
         EntityManager em = emf1.createEntityManager();
         User userObject = null;
         Query q = em.createNamedQuery("User.findByUsername");
+        System.out.printf("username %s\n", username);
         q.setParameter("username", username);
 
         try {
