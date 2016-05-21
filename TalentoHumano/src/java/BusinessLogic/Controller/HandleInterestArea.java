@@ -13,33 +13,52 @@ import java.util.List;
  */
 public class HandleInterestArea {
 
-    public String addInterestAreaBean(String name, String username) {
-        UserDAO userDAO = new UserDAO();
+    public String addInterestAreaBean(UserDAO userDAO, InterestAreaDAO areaDAO, String nameArea, String username) {
         User user = userDAO.searchByUsername(username);
-        Areaofinterest area = new Areaofinterest();
-        InterestAreaDAO areaDAO = new InterestAreaDAO();
-        area.setName(name);
-        area.getUserSet().add(user);
-        Areaofinterest areaObject = areaDAO.persist(area);
-        if (areaObject != null) {
-            return "El Area de interes ha sido creada con nombre " + areaObject.getName();
-        } else {
-            return "El Area no pudo ser creada.";
+        List<String> personalAreas = getListOfInterestAreas(userDAO,areaDAO,username);   
+        if ( personalAreas.contains(nameArea.toLowerCase()) ){
+            return "Usted ya tiene esta area";
+        }else{ 
+            List<Areaofinterest> systemAreas = getAllInterestAreas(areaDAO);
+            Areaofinterest interestArea = areaDAO.searchByName(nameArea.toLowerCase());
+            Areaofinterest areaObject = null;
+            if ( systemAreas.contains(interestArea) ){
+                interestArea.getUserSet().add(user);
+                areaObject = areaDAO.update(interestArea);
+                if (areaObject != null) {
+                    return "El Area de interes ha sido creada con nombre " + areaObject.getName();
+                } else {
+                    return "El Area no pudo ser creada.";
+                }
+            }else{
+                Areaofinterest area = new Areaofinterest();
+                area.setName(nameArea.toLowerCase());
+                area.getUserSet().add(user);
+                areaObject = areaDAO.persist(area);
+                if (areaObject != null) {
+                    return "El Area de interes ha sido creada con nombre " + areaObject.getName();
+                } else {
+                    return "El Area no pudo ser creada.";
+                }
+            }
         }
     }
 
-    public List<String> getListOfInterestAreas(String username) {
-        InterestAreaDAO areaDAO = new InterestAreaDAO();
+    public List<String> getListOfInterestAreas(UserDAO userDAO, InterestAreaDAO areaDAO, String username) {
         List<Areaofinterest> areaslist = areaDAO.getAllAreasOfInterest();
         List<String> userAreas = new ArrayList<>();
-        UserDAO userDAO = new UserDAO();
         User user = userDAO.searchByUsername(username);
         for (Areaofinterest area : areaslist) {
             if (area.getUserSet().contains(user)) {
                 userAreas.add(area.getName());
-            }
+            } 
         }
         return userAreas;
-    }
+    } 
 
+    public List<Areaofinterest> getAllInterestAreas(InterestAreaDAO areaDAO){
+        List<Areaofinterest> areaslist = areaDAO.getAllAreasOfInterest();
+        return areaslist;
+    }
+    
 }

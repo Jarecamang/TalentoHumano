@@ -6,6 +6,11 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleCertification;
+import DataAccess.DAO.CertificationDAO;
+import DataAccess.DAO.InterestAreaDAO;
+import DataAccess.DAO.NotificationDAO;
+import DataAccess.DAO.UserDAO;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -19,7 +24,15 @@ public class CreateCertificationBean {
     
     private String name;
     private String message;
-
+    @EJB
+    private UserDAO userDAO;
+    @EJB
+    private CertificationDAO ceDAO;
+    @EJB
+    private InterestAreaDAO areaDAO;
+    @EJB
+    private NotificationDAO notiDAO; 
+    
     public CreateCertificationBean() {
     }
 
@@ -41,7 +54,7 @@ public class CreateCertificationBean {
     
     public void createCertification(){
         HandleCertification hc = new HandleCertification();
-        message = hc.createCertification(name);
+        message = hc.createCertification(ceDAO,userDAO,areaDAO,notiDAO,name);
     }
     
 }

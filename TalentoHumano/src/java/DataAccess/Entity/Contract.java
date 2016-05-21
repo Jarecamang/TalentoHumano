@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -98,7 +99,7 @@ public class Contract implements Serializable {
     @JoinTable(name = "contractposition", joinColumns = {
         @JoinColumn(name = "fkcontractID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkpositionID", referencedColumnName = "pkID")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Position> positionSet = new HashSet<>(0);
     @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")
     @OneToOne(optional = false)

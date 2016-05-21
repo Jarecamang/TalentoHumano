@@ -20,6 +20,7 @@ public class HandleEvent {
             RobESB robESB = createEvent(name, Integer.parseInt(filter));
             return robESB.getErrMessage();
         } catch (Exception e) {
+            e.printStackTrace();
             return "Error General: Servicio";
         }
     }

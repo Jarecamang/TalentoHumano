@@ -2,6 +2,8 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
+import DataAccess.DAO.ContractDAO;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -19,6 +21,8 @@ public class UserSalaryBean {
     private double salaryBetweenThreeMAndFourM;
     private double salaryBetweenFourMAndFiveM;
     private double salaryBiggerThanFiveM;
+    @EJB
+    private ContractDAO contractDAO;
     
     public UserSalaryBean() {
         
@@ -59,7 +63,7 @@ public class UserSalaryBean {
     
     public UserSalaryBean getSalaries(){
         HandleUser obj = new HandleUser();
-        return obj.getSalaries();
+        return obj.getSalaries(contractDAO);
     }
     
 }

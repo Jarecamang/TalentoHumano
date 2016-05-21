@@ -7,68 +7,51 @@ package DataAccess.DAO;
 
 import DataAccess.Entity.Contract;
 import DataAccess.Entity.User;
+import java.io.Serializable;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
  * @author Alejandro
  */
-public class ContractDAO {
+@Stateless
+public class ContractDAO implements Serializable {
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+    @PersistenceContext(unitName = "TalentoHumanoPU")
+    private EntityManager em;
 
     public Contract persist(Contract contract) {
-
-        EntityManager em = emf1.createEntityManager();
-        em.getTransaction().begin();
+        //em = emf.createEntityManager();
         try {
             em.persist(contract);
-            em.getTransaction().commit();
+            return contract;
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-                em.close();
-            }
             return null;
         }
-        em.close();
-        return contract;
     }
-    
-    public Contract edit(Contract contract, int contractPosition) {
-        Contract contractNew = null;
-        EntityManager em = emf1.createEntityManager();
-        em.getTransaction().begin();
-        try {
-            contractNew = em.merge(em.find(Contract.class, contract.getPkID()));
-            contractNew.setSalary(contract.getSalary());
-            contractNew.setType(contract.getType());
-            contractNew.setEnddate(contract.getEnddate());
-            contractNew.setStartDate(contract.getStartDate());
-            contractNew.setHealthEnterprise(contract.getHealthEnterprise());
-            contractNew.setStartHealthDate(contract.getStartHealthDate());
-            contractNew.setPensionEnterprise(contract.getPensionEnterprise());
-            contractNew.setStartPensionDate(contract.getStartPensionDate());
-            contractNew.setFkuserID(contract.getFkuserID());
-            PositionDAO positionDAO = new PositionDAO();
-            contractNew.getPositionSet().add(positionDAO.searchByID(contractPosition));
-            //contractNew.setBalance(account.getBalance());
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            return null;
-        } finally {
-            em.close();
-            return contractNew;
-        }
+
+    public Contract edit(PositionDAO positionDAO, Contract contract, int contractPosition) {
+        Contract dbContract = this.getById(contract.getPkID());
+        dbContract.setSalary(contract.getSalary());
+        dbContract.setType(contract.getType());
+        dbContract.setEnddate(contract.getEnddate());
+        dbContract.setStartDate(contract.getStartDate());
+        dbContract.setHealthEnterprise(contract.getHealthEnterprise());
+        dbContract.setStartHealthDate(contract.getStartHealthDate());
+        dbContract.setPensionEnterprise(contract.getPensionEnterprise());
+        dbContract.setStartPensionDate(contract.getStartPensionDate());
+        dbContract.setFkuserID(contract.getFkuserID());
+        dbContract.getPositionSet().add(positionDAO.searchByID(contractPosition));
+        return dbContract;
     }
 
     public int getAmountOfSalariesEquals(double salary) {
 
-        EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("Contract.findBySalary");
         q.setParameter("salary", salary);
         return q.getResultList().size();
@@ -77,7 +60,6 @@ public class ContractDAO {
 
     public int getAmountOfSalariesSmallerThan(double salary) {
 
-        EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("Contract.findBySalarySmallerThan");
         q.setParameter("salary", salary);
         return q.getResultList().size();
@@ -86,7 +68,6 @@ public class ContractDAO {
 
     public int getAmountOfSalariesBiggerThan(double salary) {
 
-        EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("Contract.findBySalaryBiggerThan");
         q.setParameter("salary", salary);
         return q.getResultList().size();
@@ -102,10 +83,32 @@ public class ContractDAO {
     }
 
     public Contract getUserContract(User id) {
-        EntityManager em = emf1.createEntityManager();
+        Contract cont = null;
         Query q = em.createNamedQuery("Contract.findByfkuserID");
         q.setParameter("fkuserID", id);
-        Contract cont = (Contract) q.getSingleResult();
-        return cont;
+
+        try {
+            cont = (Contract) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("El usuario no tiene contrato");
+        } finally {
+            return cont;
+        }
+    }
+
+    public Contract getById(Integer id) {
+        Contract cont = null;
+        Query q = em.createNamedQuery("Contract.findByPkID");
+        q.setParameter("pkID", id);
+
+        try {
+            cont = (Contract) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No se encontr[o el contrato");
+        } finally {
+            return cont;
+        }
     }
 }

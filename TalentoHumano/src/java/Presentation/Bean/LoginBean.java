@@ -10,6 +10,11 @@ import BusinessLogic.Controller.HandleLogin;
 import BusinessLogic.Controller.HandleNotifications;
 import BusinessLogic.Controller.HandlePosition;
 import BusinessLogic.Controller.HandleUser;
+import DataAccess.DAO.ContractDAO;
+import DataAccess.DAO.NotificationDAO;
+import DataAccess.DAO.PositionDAO;
+import DataAccess.DAO.UserDAO;
+import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 
 /**
@@ -23,6 +28,14 @@ public class LoginBean {
     String user;
     String password;
     String message;
+    @EJB
+    private UserDAO userDAO;
+    @EJB
+    private ContractDAO contractDAO;
+    @EJB
+    private PositionDAO positionDAO;
+    @EJB
+    private NotificationDAO notiDAO;
 
     public LoginBean() {
     }
@@ -51,22 +64,21 @@ public class LoginBean {
         this.message = message;
     }
 
-    public void login() {
+    public void login() { 
         HandleLogin login = new HandleLogin();
-        message = login.doLogin(user, password);
+        message = login.doLogin(userDAO, user, password);
         if (message.charAt(0) == 'A') {//solo admin
             HandlePosition positionObject = new HandlePosition();
-            positionObject.getPositions();
+            positionObject.getPositions(positionDAO);
         }
         if (message.charAt(0) != 'E') {//ambos
             HandlePosition hanp = new HandlePosition();
-            hanp.getPositions();
-            HandleLogin hl = new HandleLogin();
+            hanp.getPositions(positionDAO);
             HandleUser hu = new HandleUser();
-            hu.uploadPersonalData(user);
+            hu.uploadPersonalData(contractDAO, userDAO, user);
         }
         HandleNotifications hn = new HandleNotifications();
-        hn.getNotifications();
+        hn.getNotifications(notiDAO); 
     }
 
     public void logout() {
@@ -77,6 +89,6 @@ public class LoginBean {
     public void back(String username) {
         HandleLogin hl = new HandleLogin();
         HandleUser hu = new HandleUser();
-        hu.back(username);
+        hu.back(userDAO, username);
     }
 }

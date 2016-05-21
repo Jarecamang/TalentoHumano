@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8080/TalentoHumano/StartESBService?wsdl" uri="src/conf/xml-resources/web-service-references/StartESBService/wsdl/localhost_8080/TalentoHumano/StartESBService.wsdl"/>
-    <system systemId="http://localhost:8080/TalentoHumano/StartESBService?xsd=1" uri="src/conf/xml-resources/web-service-references/StartESBService/wsdl/localhost_8080/TalentoHumano/StartESBService.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/TalentoHumano/UsersTraining?wsdl" uri="src/conf/xml-resources/web-service-references/UsersTraining/wsdl/localhost_8080/TalentoHumano/UsersTraining.wsdl"/>
-    <system systemId="http://localhost:8080/TalentoHumano/UsersTraining?xsd=1" uri="src/conf/xml-resources/web-service-references/UsersTraining/wsdl/localhost_8080/TalentoHumano/UsersTraining.xsd_1.xsd"/>
-</catalog>

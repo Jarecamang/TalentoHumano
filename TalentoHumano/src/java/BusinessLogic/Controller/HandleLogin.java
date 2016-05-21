@@ -19,9 +19,8 @@ import javax.faces.context.FacesContext;
  */
 public class HandleLogin {
 
-    public String doLogin(String user, String password) {
+    public String doLogin(UserDAO userDAO, String user, String password) {
 
-        UserDAO userDAO = new UserDAO();
         User userObject = userDAO.searchByUsername(user);
         if (userObject != null) {
             if (!userObject.getPassword().equals(password)) {

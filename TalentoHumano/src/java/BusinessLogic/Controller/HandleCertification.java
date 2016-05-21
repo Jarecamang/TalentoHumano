@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
  */
 public class HandleCertification { 
     
-    public String createCertification(String name){
+    public String createCertification(CertificationDAO ceDAO,UserDAO userDAO,InterestAreaDAO areaDAO,NotificationDAO notiDAO,String name){
         Certifications cert = new Certifications();
         Calendar fecha = new GregorianCalendar();
         int annio = fecha.get(Calendar.YEAR);
@@ -37,10 +37,9 @@ public class HandleCertification {
         cert.setPlace("Departamento de Administracion");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         cert.setFkuserID(new User((Integer) ec.getSessionMap().get("userId")));
-        CertificationDAO ceDAO = new CertificationDAO();
         Certifications certObject = ceDAO.persist(cert);
         if ( certObject != null ){
-             generateNotifications(certObject.getPkID(), certObject.getName());
+             generateNotifications(userDAO,areaDAO,notiDAO,certObject.getPkID(), certObject.getName());
             return "La certificacion para el area "+name+" se creo satisfactoriamente";
         }else{
             return "La certificacion para el area "+name+" no pudo ser creada";
@@ -48,10 +47,7 @@ public class HandleCertification {
         
     }
      
-    public void generateNotifications(int idCertificacion, String nameCertification){
-        InterestAreaDAO areaDAO = new InterestAreaDAO();
-        UserDAO usDAO = new UserDAO();
-        NotificationDAO notiDAO = new NotificationDAO();
+    public void generateNotifications(UserDAO usDAO,InterestAreaDAO areaDAO,NotificationDAO notiDAO,int idCertificacion, String nameCertification){
         Calendar fecha = new GregorianCalendar();
         int year = fecha.get(Calendar.YEAR);
         int month = fecha.get(Calendar.MONTH);

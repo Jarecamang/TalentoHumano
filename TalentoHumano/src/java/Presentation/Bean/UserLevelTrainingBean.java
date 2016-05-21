@@ -1,6 +1,8 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
+import DataAccess.DAO.UserDAO;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -18,6 +20,8 @@ public class UserLevelTrainingBean {
     private int magister;
     private int doctor;
     private int phd;
+    @EJB
+    private UserDAO userDAO;
 
     public UserLevelTrainingBean() {
 
@@ -64,7 +68,7 @@ public class UserLevelTrainingBean {
 
     public UserLevelTrainingBean get_training_levels() {
         HandleUser obj = new HandleUser();
-        return obj.get_training_levels();
+        return obj.get_training_levels(userDAO);
     }
 
 }

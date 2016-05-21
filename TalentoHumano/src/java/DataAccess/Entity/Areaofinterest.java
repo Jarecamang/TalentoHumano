@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,12 +53,12 @@ public class Areaofinterest implements Serializable {
     @JoinTable(name = "userareaofinterest", joinColumns = {
         @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkuserID", referencedColumnName = "pkID")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> userSet = new HashSet<>(0);
     @JoinTable(name = "certificationsareaofinterest", joinColumns = {
         @JoinColumn(name = "fkareaofinterestID", referencedColumnName = "pkID")}, inverseJoinColumns = {
         @JoinColumn(name = "fkcertificationsID", referencedColumnName = "pkID")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Certifications> certificationsSet = new HashSet<>(0);
 
     public Areaofinterest() {
@@ -127,7 +128,7 @@ public class Areaofinterest implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Areaofinterest[ pkID=" + pkID + " ]";
+        return name;
     }
     
 }

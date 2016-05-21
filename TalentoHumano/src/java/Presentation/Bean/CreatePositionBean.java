@@ -8,6 +8,8 @@ package Presentation.Bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandlePosition;
+import DataAccess.DAO.PositionDAO;
+import javax.ejb.EJB;
 /**
  *
  * @author Alejandro
@@ -18,6 +20,8 @@ public class CreatePositionBean {
     
     String positionName;
     String message;
+    @EJB
+    private PositionDAO positionDAO;
 
     public String getMessage() {
         return message;
@@ -36,9 +40,8 @@ public class CreatePositionBean {
     }
     
     public void createPosition(){
-        
         HandlePosition createPosition = new HandlePosition();
-        message = createPosition.doCreate(positionName);
+        message = createPosition.doCreate(positionDAO, positionName);
         
     }
     

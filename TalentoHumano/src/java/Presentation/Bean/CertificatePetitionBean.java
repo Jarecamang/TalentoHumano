@@ -8,7 +8,9 @@ package Presentation.Bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandleCertificate;
+import DataAccess.DAO.CertificateDAO;
 import DataAccess.Entity.Certificate;
+import javax.ejb.EJB;
 /**
  *
  * @author Alejandro
@@ -20,6 +22,8 @@ public class CertificatePetitionBean {
     String certificateType;
     String message;
     String certificateDescription;
+    @EJB
+    CertificateDAO certificateDAO;
 
     public String getCertificateType() {
         return certificateType;
@@ -48,7 +52,7 @@ public class CertificatePetitionBean {
     public void createPetition(){
         
         HandleCertificate certificatePetition = new HandleCertificate();
-        message = certificatePetition.doPetition(certificateType,certificateDescription);
+        message = certificatePetition.doPetition(certificateDAO,certificateType,certificateDescription);
         
     }
     

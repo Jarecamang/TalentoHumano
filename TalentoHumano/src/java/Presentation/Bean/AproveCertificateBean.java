@@ -6,7 +6,9 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleCertificate;
+import DataAccess.DAO.CertificateDAO;
 import DataAccess.Entity.Certificate;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -19,6 +21,8 @@ import javax.faces.bean.ViewScoped;
 public class AproveCertificateBean {
 
     String message;
+    @EJB
+    CertificateDAO certificateDAO;
 
     public String getMessage() {
         return message;
@@ -30,11 +34,11 @@ public class AproveCertificateBean {
 
     public void loadCertificates() {
         HandleCertificate certificateNotifications = new HandleCertificate();
-        certificateNotifications.getUnaprovedCertificates();
+        certificateNotifications.getUnaprovedCertificates(certificateDAO);
     }
 
     public void aproveCertificate(Certificate certificate) {
         HandleCertificate aproveCertificate = new HandleCertificate();
-        message = aproveCertificate.aproveCertificate(certificate);
+        message = aproveCertificate.aproveCertificate(certificateDAO,certificate);
     }
 }

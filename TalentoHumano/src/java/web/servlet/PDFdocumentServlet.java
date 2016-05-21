@@ -6,10 +6,14 @@
 package web.servlet;
 
 import BusinessLogic.Controller.HandleCertificate;
+import DataAccess.DAO.CertificateDAO;
+import DataAccess.DAO.ContractDAO;
+import DataAccess.DAO.UserDAO;
 import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Edwin
  */
 public class PDFdocumentServlet extends HttpServlet {
+    @EJB
+    UserDAO userDAO;
+    @EJB
+    CertificateDAO certificateDAO;
+    @EJB
+    ContractDAO contractDAO;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,12 +42,12 @@ public class PDFdocumentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("Entra a processRequest");
         String idUser = request.getParameter("idUser");
         String option = request.getParameter("option");
         HandleCertificate hc = new HandleCertificate();
         try {
-            hc.downloadCertificate(response, Integer.parseInt(idUser), Integer.parseInt(option) - 1);
+            hc.downloadCertificate(contractDAO,certificateDAO,userDAO,response, Integer.parseInt(idUser), Integer.parseInt(option) - 1);
         } catch (DocumentException ex) {
             Logger.getLogger(PDFdocumentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,60 +6,54 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
  * @author Alejandro
  */
-public class UserDAO {
-
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+@Stateless
+public class UserDAO implements Serializable {
+    
+    @PersistenceContext(unitName = "TalentoHumanoPU")
+    private EntityManager em;
 
     public User persist(User user) {
-
-        EntityManager em = emf1.createEntityManager();
-        em.getTransaction().begin();
-
+        //em = emf.createEntityManager();
         try {
             em.persist(user);
-            em.getTransaction().commit();
+            return user;
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-                em.close();
-            }
             return null;
         }
-        em.close();
-        return user;
     }
-
+    
     public User searchByUsername(String username) {
-
-        EntityManager em = emf1.createEntityManager();
-        User userObject = null;
-        Query q = em.createNamedQuery("User.findByUsername");
-        q.setParameter("username", username);
-
+        User user = null;
+        Query query = em.createNamedQuery("User.findByUsername");
+        query.setParameter("username", username);
+        
         try {
-            userObject = (User) q.getSingleResult();
+            user = (User) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
-            em.close();
-            return userObject;
+            return user;
         }
-    }
+    }  
+
+
 
     public User searchByDoccument(long doccument) {
-
-        EntityManager em = emf1.createEntityManager();
+        
         User userObject = null;
         Query q = em.createNamedQuery("User.findByIdentifyCard");
         q.setParameter("identifyCard", Long.toString(doccument));
@@ -70,14 +64,12 @@ public class UserDAO {
             e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
-            em.close();
             return userObject;
         }
     }
 
     public int getAmountOf(String training_level) {
 
-        EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("User.findByLevelTraining");
         q.setParameter("levelTraining", training_level);
         return q.getResultList().size();
@@ -86,7 +78,6 @@ public class UserDAO {
 
     public User searchByPkID(int idUser) {
 
-        EntityManager em = emf1.createEntityManager();
         User userObject = null;
         Query q = em.createNamedQuery("User.findByPkID");
         q.setParameter("pkID", idUser);
@@ -96,13 +87,12 @@ public class UserDAO {
             e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
-            em.close();
             return userObject;
         }
     }
 
     public List<User> getAllUsers() {
-        EntityManager em = emf1.createEntityManager();
+        
         List<User> userObject = null;
         Query q = em.createNamedQuery("User.findAll");
         try {
@@ -111,7 +101,6 @@ public class UserDAO {
             e.printStackTrace();
             System.out.println("El usuario no existe");
         } finally {
-            em.close();
             return userObject;
         }
 

@@ -19,8 +19,7 @@ import javax.faces.context.FacesContext;
  */
 public class HandleNotifications {
     
-    public void getNotifications(){
-        NotificationDAO nDAO = new NotificationDAO();
+    public void getNotifications(NotificationDAO nDAO){
         List<Notifications> lista = nDAO.searchAll();
         List<Notifications> nueva = new ArrayList<>();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

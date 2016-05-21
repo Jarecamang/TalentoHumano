@@ -4,9 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>   
+    <h:head>  
         <link rel="stylesheet" href="../css/bootstrap.min.css"></link>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../js/jquery-2.2.1.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <title>PERFIL DE USUARIO</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet"/>
@@ -30,11 +30,11 @@
                     <!-- Tab Content (Full Description) -->
                     <div class="tab-content product-detail-info"> 
                         <div class="tab-pane active" id="tab1">
-                            <br/><br/>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Usuario : #{sessionScope.userData.username} </p>  
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Nombre : #{sessionScope.userData.name} </p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Apellido : #{sessionScope.userData.lastname} </p> 
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Nacimiento : #{sessionScope.userData.dateBorn.toLocaleString().substring(0, 11)} </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Nacimiento : #{sessionScope.userData.dateBorn.toLocaleString().substring(0, 12)} </p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Cedula : #{sessionScope.userData.identifyCard} </p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Nivel de formacion : #{sessionScope.userData.levelTraining} </p>  
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Direccion : #{sessionScope.userData.address} </p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Telefono : #{sessionScope.userData.phone} </p>     
@@ -46,17 +46,17 @@
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;ID del Contrato : #{sessionScope.userContract.pkID} </p>  
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Salario : #{sessionScope.userContract.salary} </p>  
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Tipo de contrato : #{sessionScope.userContract.type} </p>  
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de inicio del Contrato : #{sessionScope.userContract.startDate.toLocaleString().substring(0, 11)} </p> 
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate.toLocaleString().substring(0, 11)} </p> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de inicio del Contrato : #{sessionScope.userContract.startDate.toLocaleString().substring(0, 12)} </p> 
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Finalizacion del Contrato : #{sessionScope.userContract.enddate.toLocaleString().substring(0, 12)} </p> 
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Cargos:<br/>
                                 <c:forEach var="position" items="${sessionScope.userContract.positionSet}" >
                                     &nbsp;&nbsp;&nbsp;&nbsp;- ${position.name} <br/>
                                 </c:forEach>
                             </p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Salud : #{sessionScope.userContract.healthEnterprise}</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Servicio de Salud : #{sessionScope.userContract.startHealthDate.toLocaleString().substring(0, 11)}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Servicio de Salud : #{sessionScope.userContract.startHealthDate.toLocaleString().substring(0, 12)}</p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;Empresa de Pension : #{sessionScope.userContract.pensionEnterprise}</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Pension : #{sessionScope.userContract.startPensionDate.toLocaleString().substring(0, 11)}</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;Inicio de Pension : #{sessionScope.userContract.startPensionDate.toLocaleString().substring(0, 12)}</p>
                         </div>
                     </div>
                 </div> 

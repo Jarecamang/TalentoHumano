@@ -42,8 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class HandleCertificate {
 
-    public String doPetition(String type, String description) {
-        CertificateDAO certificateDAO = new CertificateDAO();
+    public String doPetition(CertificateDAO certificateDAO,String type, String description) {
         Certificate certificate = new Certificate();
 
         certificate.setType(type);
@@ -61,8 +60,7 @@ public class HandleCertificate {
         }
     }
 
-    public void getUnaprovedCertificates() {
-        CertificateDAO certificateDAO = new CertificateDAO();
+    public void getUnaprovedCertificates(CertificateDAO certificateDAO) {
         List<Certificate> certificateObject = certificateDAO.searchUnaproved();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         if (certificateObject != null) {
@@ -81,8 +79,7 @@ public class HandleCertificate {
         }
     }
 
-    public void getUserCertificates() {
-        CertificateDAO certificateDAO = new CertificateDAO();
+    public void getUserCertificates(CertificateDAO certificateDAO) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         User user = new User((Integer) ec.getSessionMap().get("userId"));
         List<Certificate> certificateObject = certificateDAO.searchUserAproved();
@@ -109,10 +106,8 @@ public class HandleCertificate {
         }
     }
 
-    public void downloadCertificate(HttpServletResponse response, int idUser, int option) throws DocumentException, IOException {
-        UserDAO usDAO = new UserDAO();
+    public void downloadCertificate(ContractDAO contrDAO,CertificateDAO certificateDAO,UserDAO usDAO,HttpServletResponse response, int idUser, int option) throws DocumentException, IOException {
         User user = usDAO.searchByPkID(idUser);
-        CertificateDAO certificateDAO = new CertificateDAO();
         List<Certificate> certificateObject = certificateDAO.searchUserAproved();
         List<Certificate> certificateReturn = new ArrayList<Certificate>();
         if (certificateObject != null) {
@@ -123,7 +118,6 @@ public class HandleCertificate {
                 }
             }
         }
-        ContractDAO contrDAO = new ContractDAO();
         Contract contractObject = contrDAO.getUserContract(new User(user.getPkID()));
         Certificate cert = certificateReturn.get(option);
         Document document = new Document();
@@ -336,14 +330,15 @@ public class HandleCertificate {
         File f = new File("Certificado"+typeCertificate+".pdf");
         response.setHeader("Content-Disposition", "attachment;filename=" + f.getName());
         response.setContentLength(baos.size());
+        System.out.println("Hasta aca crea el pdf bien");
         OutputStream os = response.getOutputStream();
+        System.out.println("Ac'a ya deberia haber descargado");
         baos.writeTo(os);
         os.flush();
         os.close();
     }
 
-    public String aproveCertificate(Certificate certificate) {
-        CertificateDAO certificateDAO = new CertificateDAO();
+    public String aproveCertificate(CertificateDAO certificateDAO,Certificate certificate) {
         certificateDAO.editAproved(certificate);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String url = "";

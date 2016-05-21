@@ -1,41 +1,45 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Areaofinterest;
+import java.io.Serializable;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
  * @author Edwin
  */
-public class InterestAreaDAO {
+@Stateless
+public class InterestAreaDAO implements Serializable {
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("TalentoHumanoPU");
+    @PersistenceContext(unitName = "TalentoHumanoPU")
+    private EntityManager em;
 
     public Areaofinterest persist(Areaofinterest area) {
-
-        EntityManager em = emf1.createEntityManager();
-        em.getTransaction().begin();
-        try {
+        try{
             em.persist(area);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-                em.close();
-            }
+            return area;
+        }catch(Exception e){
             return null;
         }
-        em.close();
-        return area;
+    }
+    
+    public Areaofinterest update(Areaofinterest area) {
+        try {
+            em.merge(area);
+            return area;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<Areaofinterest> getAllAreasOfInterest() {
 
-        EntityManager em = emf1.createEntityManager();
         List<Areaofinterest> areaObject = null;
         Query q = em.createNamedQuery("Areaofinterest.findAll");
         try {
@@ -43,9 +47,21 @@ public class InterestAreaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            em.close();
             return areaObject;
         }
     }
+    
+    public Areaofinterest searchByName(String name) {
+        Areaofinterest area = null;
+        Query query = em.createNamedQuery("Areaofinterest.findByName");
+        query.setParameter("name",name);
+        try {
+            area = (Areaofinterest)query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return area;
+        }
+    } 
 
 }

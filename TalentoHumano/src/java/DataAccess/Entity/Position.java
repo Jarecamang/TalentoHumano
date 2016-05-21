@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,8 +48,8 @@ public class Position implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @ManyToMany(mappedBy = "positionSet")
-    private Set<Contract> contractSet= new HashSet<>(0);
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "positionSet")
+    private Set<Contract> contractSet= new HashSet<Contract>(0);
 
     public Position() {
     }

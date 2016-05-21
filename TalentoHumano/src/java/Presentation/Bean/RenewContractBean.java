@@ -8,7 +8,11 @@ package Presentation.Bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import BusinessLogic.Controller.HandleContract;
+import DataAccess.DAO.ContractDAO;
+import DataAccess.DAO.PositionDAO;
+import DataAccess.DAO.UserDAO;
 import java.util.Date;
+import javax.ejb.EJB;
 
 /**
  *
@@ -29,6 +33,12 @@ public class RenewContractBean {
     String contractMessage;
     int contractPosition;
     long doccumentUser;
+    @EJB
+    private UserDAO userDAO;
+    @EJB
+    ContractDAO contractDAO;
+    @EJB
+    PositionDAO positionDAO;
 
     public Date getContractStartDate() {
         return contractStartDate;
@@ -122,7 +132,7 @@ public class RenewContractBean {
         
         HandleContract createContract = new HandleContract();
 
-        contractMessage = createContract.renewContract(contractSalary,contractType,contractStartDate,contractFinalDate,healthEnterprise,startHealth,pensionEnterprise,startPension,doccumentUser,contractPosition);
+        contractMessage = createContract.renewContract(positionDAO, contractDAO, userDAO, contractSalary,contractType,contractStartDate,contractFinalDate,healthEnterprise,startHealth,pensionEnterprise,startPension,doccumentUser,contractPosition);
         
     }
     

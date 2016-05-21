@@ -18,8 +18,7 @@ import javax.faces.context.FacesContext;
  */
 public class HandlePosition {
 
-    public void getPositions() {
-        PositionDAO positionDAO = new PositionDAO();
+    public void getPositions(PositionDAO positionDAO) {
         List<Position> positionObject = positionDAO.searchAll();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         if (positionObject != null) {
@@ -38,9 +37,8 @@ public class HandlePosition {
         }
     }
 
-    public String doCreate(String name) {
+    public String doCreate(PositionDAO positionDAO, String name) {
         Position position = new Position();
-        PositionDAO positionDAO = new PositionDAO();
         Position existPosition = positionDAO.searchByName(name);
         if (existPosition != null) {
             return "El cargo ya existe";
@@ -48,7 +46,7 @@ public class HandlePosition {
         position.setName(name);
         Position positionObject = positionDAO.persist(position);
         if (positionObject != null) {
-            getPositions();
+            getPositions(positionDAO);
             return "El cargo ha sido creado con nombre " + positionObject.getName();
         } else {
             return "El cargo no pudo ser creado.";

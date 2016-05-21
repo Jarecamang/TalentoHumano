@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
  */
 public class HandleUser {
 
-    public String doCreate(String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
+    public String doCreate(UserDAO userDAO, String name, String lastname, Date dateBorn, String address, String trainingLevel, String phone, String email, String username, String password1, String password2, String role, String identifyCard) {
         System.out.println(new Date());
         User user = new User();
         Role roleObject = new Role(Integer.parseInt(role));
@@ -37,7 +37,6 @@ public class HandleUser {
         } else {
             user.setPassword(password1);
         }
-        UserDAO userDAO = new UserDAO();
 
         if (userDAO.searchByDoccument(Long.parseLong(user.getIdentifyCard())) != null) {
             return "El documento de identidad ya existe";
@@ -54,9 +53,8 @@ public class HandleUser {
         }
     }
 
-    public UserLevelTrainingBean get_training_levels() {
+    public UserLevelTrainingBean get_training_levels(UserDAO userDAO) {
 
-        UserDAO userDAO = new UserDAO();
         UserLevelTrainingBean ult = new UserLevelTrainingBean(
                 userDAO.getAmountOf("Tecnico"),
                 userDAO.getAmountOf("Tecnologo"),
@@ -69,8 +67,7 @@ public class HandleUser {
         return ult;
     }
 
-    public UserSalaryBean getSalaries() {
-        ContractDAO cDAO = new ContractDAO();
+    public UserSalaryBean getSalaries(ContractDAO cDAO) {
         UserSalaryBean us = new UserSalaryBean(
                 cDAO.getAmountOfSalariesSmallerThan(1000000),
                 cDAO.getAmountOfSalariesBetween(1000000, 2000000),
@@ -82,20 +79,17 @@ public class HandleUser {
         return us;
     }
 
-    public void uploadPersonalData(String username) {
-        UserDAO userDAO = new UserDAO();
+    public void uploadPersonalData(ContractDAO contrDAO, UserDAO userDAO, String username) {
         User userObject = userDAO.searchByUsername(username);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getSessionMap().put("userData", userObject);
-        ContractDAO contrDAO = new ContractDAO();
         Contract contractObject = contrDAO.getUserContract(new User(userObject.getPkID()));
         ec.getSessionMap().put("userContract", contractObject);
     }
 
-    public void back(String username) {
+    public void back(UserDAO userDAO, String username) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        String url = "";
-        UserDAO userDAO = new UserDAO();
+        String url;
         User userObject = userDAO.searchByUsername(username);
         if (userObject.getFkroleID().getName().equals("Administrator")) {
             url = ec.encodeActionURL(
