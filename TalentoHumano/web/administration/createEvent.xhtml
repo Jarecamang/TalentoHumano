@@ -9,6 +9,10 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loginBean.verify()}"/>
+        <f:event type="preRenderView" listener="#{loginBean.verify_role('admin')}"/>
+    </f:metadata>
     <h:head>
         <title>Crear Evento de Certificación</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"></link>

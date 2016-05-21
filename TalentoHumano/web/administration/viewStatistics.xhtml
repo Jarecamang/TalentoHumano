@@ -4,6 +4,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loginBean.verify()}"/>
+        <f:event type="preRenderView" listener="#{loginBean.verify_role('admin')}"/>
+    </f:metadata>
     <head> 
         <title>ESTADISTICAS</title>
         <script src="../js/Chart.js"></script>

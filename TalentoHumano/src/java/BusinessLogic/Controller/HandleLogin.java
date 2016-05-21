@@ -33,11 +33,13 @@ public class HandleLogin {
                     ec.getSessionMap().put("userId", userObject.getPkID());
                     String url = "";
                     if (ec.getSessionMap().get("role").equals("Administrator")) {
+                        ec.getSessionMap().put("role_check", "admin");
                         url = ec.encodeActionURL(
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/administration/adminPanel.xhtml"));
                         ec.redirect(url);
                         return "A";
                     } else {
+                        ec.getSessionMap().put("role_check", "employee");
                         url = ec.encodeActionURL(
                                 FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/empleado/empleadoPanel.xhtml"));
                         ec.redirect(url);

@@ -4,6 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loginBean.verify()}"/>
+    </f:metadata>
     <h:head>  
         <link rel="stylesheet" href="../css/bootstrap.min.css"></link>
         <script src="../js/jquery-2.2.1.js"></script>

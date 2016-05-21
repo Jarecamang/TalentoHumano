@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loginBean.verify()}"/>
+        <f:event type="preRenderView" listener="#{loginBean.verify_role('employee')}"/>
+    </f:metadata>
     <h:head>
         <title>Sistema de Recursos Humanos: Usuario</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet"/>
@@ -26,7 +30,7 @@
                             </h:commandLink>
                             <h4><h:commandLink value="Cerrar Sesión" actionListener="#{loginBean.logout()}"/></h4>
                         </div>
-                        
+
                     </div>
 
                     <div class="row">
@@ -72,7 +76,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-6 col-md-4">
                             <div class="media services-wrap wow fadeInDown">
                                 <div class="pull-left">
@@ -86,12 +90,12 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-6 col-md-4">
                             <div class="media services-wrap wow fadeInDown">
                                 <div class="pull-left">
                                     <h:commandLink actionListener="#{certificateNotificationBean.loadUserCertificates()}">
-                                    <img class="img-responsive" src="../img/ico/aproveCertificate.png"/>
+                                        <img class="img-responsive" src="../img/ico/aproveCertificate.png"/>
                                     </h:commandLink>
                                 </div>
                                 <div class="media-body">

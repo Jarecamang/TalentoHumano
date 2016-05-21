@@ -5,7 +5,7 @@
  */
 package BusinessLogic.Controller;
 
-import BusinessLogic.ESBServiceClient.RobESB;
+//import BusinessLogic.ESBServiceClient.RobESB;
 
 /**
  *
@@ -17,17 +17,11 @@ public class HandleEvent {
         try {
             //TODO: ESB Service Call
             //Testing Part:
-            RobESB robESB = createEvent(name, Integer.parseInt(filter));
-            return robESB.getErrMessage();
+            //RobESB robESB = createEvent(name, Integer.parseInt(filter));
+            return "Test";//robESB.getErrMessage();
         } catch (Exception e) {
             e.printStackTrace();
             return "Error General: Servicio";
         }
-    }
-
-    private static RobESB createEvent(java.lang.String eventName, int monthFilter) {
-        BusinessLogic.ESBServiceClient.StartESBService_Service service = new BusinessLogic.ESBServiceClient.StartESBService_Service();
-        BusinessLogic.ESBServiceClient.StartESBService port = service.getStartESBServicePort();
-        return port.createEvent(eventName, monthFilter);
     }
 }
