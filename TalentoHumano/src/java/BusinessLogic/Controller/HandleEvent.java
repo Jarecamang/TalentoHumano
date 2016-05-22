@@ -20,8 +20,13 @@ public class HandleEvent {
                 return "Error: Filtro Inválido";
             }
             try {
-                Integer.parseInt(name);
-                return "Error: Nombre Inválido";
+                if ( name.equals("") ){
+                    return "El nombre del evento no puede quedar vacio";
+                }
+                else{
+                    Integer.parseInt(name);
+                    return "Error: Nombre Inválido";
+                }
             } catch (Exception e) {
                 //TODO: ESB Service Call
                 //Testing Part:

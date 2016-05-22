@@ -40,7 +40,7 @@ and open the template in the editor.
                             <h2>Crear Evento de Certificación</h2>
                             <h:panelGrid columns="2">
                                 <label>Nombre del Evento:</label>
-                                <p:inputText value="#{createEventBean.eventName}"></p:inputText>
+                                <p:inputText value="#{createEventBean.eventName}" maxlength="20"></p:inputText>
                                 <label>Aplicado a contratos menores a (Meses):</label>
                                 <p:inputText value="#{createEventBean.contractFilter}"></p:inputText>
                             </h:panelGrid>
