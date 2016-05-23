@@ -31,22 +31,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `humanresources`.`role`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `humanresources`.`role` ;
-
-CREATE TABLE IF NOT EXISTS `humanresources`.`role` (
-  `pkID` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`pkID`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8;
-
-
 -- -----------------------------------------------------
 -- Table `humanresources`.`user`
 -- -----------------------------------------------------
@@ -63,19 +47,11 @@ CREATE TABLE IF NOT EXISTS `humanresources`.`user` (
   `email` VARCHAR(255) NOT NULL,
   `level_training` VARCHAR(255) NOT NULL,
   `username` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(16) NOT NULL,
-  `fkroleID` INT(11) NOT NULL,
   PRIMARY KEY (`pkID`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
-  UNIQUE INDEX `identifyCard_UNIQUE` (`identifyCard` ASC),
-  INDEX `fk_user_role1_idx` (`fkroleID` ASC),
-  CONSTRAINT `fk_user_role1`
-    FOREIGN KEY (`fkroleID`)
-    REFERENCES `humanresources`.`role` (`pkID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `identifyCard_UNIQUE` (`identifyCard` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -271,13 +247,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO `role` VALUES
-(1,'User'),
-(2,'Administrator');
-
 INSERT INTO `user` VALUES
-(1,'1012345456','Admin','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','PhD','admin','Admin2016',2),
-(2,'1012345457','User','Tester',now(),'Juaz123',3212345656,'admin@admin.admin','Pregrado','user','user',1);
+(1,'1012345456','Admin','User',now(),'Juaz123',3212345656,'admin@admin.admin','PhD','Admin User'),
+(2,'1012345457','Test','User',now(),'Juaz123',3212345656,'admin@admin.admin','Pregrado','Test User');
 
 INSERT INTO `contract` VALUES
 (1,1000000,'Definido',now(),'1992-05-25','Famisanar',now(),'SURA',now(),1),
